@@ -41,6 +41,20 @@ CREATE TABLE IF NOT EXISTS users (
 
 conn.commit()
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS collaboration_data (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    duration TEXT,
+    location TEXT,
+    partner TEXT,
+    country TEXT,
+    category TEXT
+)
+""")
+
+conn.commit()
+
 # ======================================================
 # MODERN UI CSS
 # ======================================================
@@ -224,8 +238,8 @@ if st.session_state.logged_in == False:
 
             sql = """
             SELECT * FROM users
-            WHERE username=%s
-            AND password=%s
+            WHERE username=?
+            AND password=?
             """
 
             val = (username, password)
@@ -275,7 +289,7 @@ if st.session_state.logged_in == False:
             sql = """
             INSERT INTO users
             (username, email, password)
-            VALUES (%s,%s,%s)
+            VALUES (?,?,?)
             """
 
             val = (
@@ -313,8 +327,8 @@ if st.session_state.logged_in == False:
 
             sql = """
             UPDATE users
-            SET password=%s
-            WHERE email=%s
+            SET password=?
+            WHERE email=?
             """
 
             val = (
@@ -493,9 +507,9 @@ else:
 
             sql = """
             SELECT * FROM collaboration_data
-            WHERE title LIKE %s
-            OR partner LIKE %s
-            OR country LIKE %s
+            WHERE title LIKE ?
+            OR partner LIKE ?
+            OR country LIKE ?
             """
 
             val = (
@@ -582,7 +596,7 @@ else:
             sql = """
             INSERT INTO collaboration_data
             (id, title, duration, location, partner, country, category)
-            VALUES (%s,%s,%s,%s,%s,%s,%s)
+            VALUES (?,?,?,?,?,?,?)
             """
 
             val = (
@@ -617,7 +631,7 @@ else:
         )
 
         cursor.execute(
-            "SELECT * FROM collaboration_data WHERE id=%s",
+            "SELECT * FROM collaboration_data WHERE id=?",
             (uid,)
         )
 
@@ -669,13 +683,13 @@ else:
                 sql = """
                 UPDATE collaboration_data
                 SET
-                    title=%s,
-                    duration=%s,
-                    location=%s,
-                    partner=%s,
-                    country=%s,
-                    category=%s
-                WHERE id=%s
+                   title=?,
+                   duration=?,
+                   location=?,
+                   partner=?,
+                   country=?,
+                   category=?
+                   WHERE id=?
                 """
 
                 val = (
@@ -722,7 +736,7 @@ else:
         if st.button("Delete Record"):
 
             cursor.execute(
-                "DELETE FROM collaboration_data WHERE id=%s",
+                "DELETE FROM collaboration_data WHERE id=?",
                 (del_id,)
             )
 
