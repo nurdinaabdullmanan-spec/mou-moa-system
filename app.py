@@ -1,6 +1,6 @@
 import plotly.express as px
 import streamlit as st
-import mysql.connector
+import sqlite3
 import pandas as pd
 
 # ======================================================
@@ -18,11 +18,9 @@ st.set_page_config(
 # DATABASE CONNECTION
 # ======================================================
 
-conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="mou_moa_db"
+conn = sqlite3.connect(
+    "mou_moa_db.db",
+    check_same_thread=False
 )
 
 cursor = conn.cursor()
@@ -32,11 +30,12 @@ cursor = conn.cursor()
 # ======================================================
 
 cursor.execute("""
+               
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(100),
-    email VARCHAR(100),
-    password VARCHAR(100)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    email TEXT,
+    password TEXT
 )
 """)
 
