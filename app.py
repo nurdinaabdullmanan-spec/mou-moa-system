@@ -112,9 +112,30 @@ section[data-testid="stSidebar"] label {
 }
 
 /* TITLES */
-h1, h2, h3 {
-    color: #312e81;
-    font-weight: 700;
+h1 {
+    color: #1e1b4b !important;
+    font-weight: 800 !important;
+}
+
+h2 {
+    color: #312e81 !important;
+    font-weight: 700 !important;
+}
+
+h3 {
+    color: #4338ca !important;
+    font-weight: 700 !important;
+}
+
+/* PARAGRAPH */
+p {
+    color: #374151 !important;
+}
+
+/* LABEL */
+label {
+    color: #312e81 !important;
+    font-weight: 500 !important;
 }
 
 /* METRIC CARDS */
