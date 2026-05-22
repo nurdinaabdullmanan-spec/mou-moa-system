@@ -183,10 +183,35 @@ div[data-testid="metric-container"] {
 
 /* INPUT */
 .stTextInput input,
-.stNumberInput input {
+.stNumberInput input,
+textarea {
 
     border-radius: 14px !important;
     background-color: rgba(255,255,255,0.85) !important;
+
+    color: #111827 !important;
+    font-weight: 500 !important;
+}
+
+/* PLACEHOLDER */
+.stTextInput input::placeholder,
+textarea::placeholder {
+
+    color: #6b7280 !important;
+    opacity: 1 !important;
+}
+
+/* SELECTBOX TEXT */
+.stSelectbox div[data-baseweb="select"] * {
+
+    color: #111827 !important;
+    font-weight: 500 !important;
+}
+
+/* DROPDOWN MENU */
+div[role="listbox"] * {
+
+    color: #111827 !important;
 }
 
 /* SELECTBOX */
