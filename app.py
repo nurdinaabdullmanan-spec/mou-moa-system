@@ -12,7 +12,17 @@ st.set_page_config(
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
+    
 )
+
+hide_st_style = """
+            <style>
+            #GithubIcon {visibility: hidden;}
+            header {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # ======================================================
 # DATABASE CONNECTION
@@ -26,11 +36,10 @@ conn = sqlite3.connect(
 cursor = conn.cursor()
 
 # ======================================================
-# CREATE USERS TABLE
+# CREATE TABLES
 # ======================================================
 
 cursor.execute("""
-               
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT,
@@ -39,11 +48,10 @@ CREATE TABLE IF NOT EXISTS users (
 )
 """)
 
-conn.commit()
-
+# FIXED: Added AUTOINCREMENT to prevent IntegrityError
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS collaboration_data (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     duration TEXT,
     location TEXT,
@@ -61,9 +69,9 @@ conn.commit()
 
 st.markdown("""
 <style>
-
+        
 /* FONT */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://googleapis.com');
 
 html, body, [class*="css"] {
     font-family: 'Poppins', sans-serif;
@@ -149,35 +157,28 @@ div[data-testid="metric-container"] {
 
 /* BUTTON */
 .stButton > button {
-
     width: 100%;
     border-radius: 16px;
     border: none;
     padding: 14px;
-
     font-weight: 600;
     color: white;
-
     background: linear-gradient(
         135deg,
         #6366f1,
         #8b5cf6
     );
-
     transition: 0.3s ease;
 }
 
 /* BUTTON HOVER */
 .stButton > button:hover {
-
     transform: translateY(-2px);
-
     background: linear-gradient(
         135deg,
         #4f46e5,
         #7c3aed
     );
-
     color: white;
 }
 
@@ -185,10 +186,8 @@ div[data-testid="metric-container"] {
 .stTextInput input,
 .stNumberInput input,
 textarea {
-
     border-radius: 14px !important;
     background-color: rgba(255,255,255,0.85) !important;
-
     color: #111827 !important;
     font-weight: 500 !important;
 }
@@ -196,21 +195,18 @@ textarea {
 /* PLACEHOLDER */
 .stTextInput input::placeholder,
 textarea::placeholder {
-
     color: #6b7280 !important;
     opacity: 1 !important;
 }
 
 /* SELECTBOX TEXT */
 .stSelectbox div[data-baseweb="select"] * {
-
     color: #111827 !important;
     font-weight: 500 !important;
 }
 
 /* DROPDOWN MENU */
 div[role="listbox"] * {
-
     color: #111827 !important;
 }
 
@@ -221,7 +217,6 @@ div[role="listbox"] * {
 
 /* DATAFRAME */
 [data-testid="stDataFrame"] {
-
     border-radius: 18px;
     overflow: hidden;
 }
@@ -417,6 +412,13 @@ else:
     st.sidebar.success(
         f"Welcome, {st.session_state.username}"
     )
+    
+    if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.rerun()
+
+    # Continue main system logic here...
+
 
     menu = st.sidebar.radio(
         "Navigation",
@@ -447,12 +449,8 @@ else:
             "MoU/MoA Collaboration Record Management System"
         )
 
-        st.write(
-            "Professional dashboard for collaboration agreement management."
-        )
-
         cursor.execute(
-            "SELECT * FROM collaboration_data"
+             "SELECT * FROM collaboration_data ORDER BY id ASC"
         )
 
         rows = cursor.fetchall()
@@ -473,35 +471,16 @@ else:
 
         total_category = df["Category"].nunique()
 
-        # ======================================================
-        # METRICS
-        # ======================================================
-
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.metric(
-                "Total Agreements",
-                total_records
-            )
+            st.metric("Total Agreements", total_records)
 
         with col2:
-            st.metric(
-                "Countries",
-                total_country
-            )
+            st.metric("Countries", total_country)
 
         with col3:
-            st.metric(
-                "Agreement Categories",
-                total_category
-            )
-
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        # ======================================================
-        # CHART
-        # ======================================================
+            st.metric("Agreement Categories", total_category)
 
         st.subheader("Country Distribution")
 
@@ -518,18 +497,6 @@ else:
             y="Total",
             color="Country",
             text_auto=True
-        )
-
-        fig.update_layout(
-            plot_bgcolor="rgba(0,0,0,0)",
-            paper_bgcolor="rgba(0,0,0,0)",
-            font=dict(
-                family="Poppins",
-                size=14
-            ),
-            xaxis_title="Country",
-            yaxis_title="Total Agreements",
-            height=500
         )
 
         st.plotly_chart(
@@ -569,7 +536,7 @@ else:
         else:
 
             cursor.execute(
-                "SELECT * FROM collaboration_data"
+                 "SELECT * FROM collaboration_data ORDER BY id ASC"
             )
 
         data = cursor.fetchall()
@@ -604,7 +571,9 @@ else:
 
             id = st.number_input(
                 "Record ID",
-                step=1
+                min_value=1,
+                step=1,
+                format="%d"
             )
 
             title = st.text_input(
@@ -646,7 +615,7 @@ else:
             """
 
             val = (
-                id,
+                int(id),
                 title,
                 duration,
                 location,
@@ -673,12 +642,14 @@ else:
 
         uid = st.number_input(
             "Enter Record ID",
-            step=1
+            min_value=1,
+            step=1,
+            format="%d"
         )
 
         cursor.execute(
             "SELECT * FROM collaboration_data WHERE id=?",
-            (uid,)
+            (int(uid),)
         )
 
         result = cursor.fetchone()
@@ -729,13 +700,13 @@ else:
                 sql = """
                 UPDATE collaboration_data
                 SET
-                   title=?,
-                   duration=?,
-                   location=?,
-                   partner=?,
-                   country=?,
-                   category=?
-                   WHERE id=?
+                    title=?,
+                    duration=?,
+                    location=?,
+                    partner=?,
+                    country=?,
+                    category=?
+                WHERE id=?
                 """
 
                 val = (
@@ -745,7 +716,7 @@ else:
                     partner,
                     country,
                     category,
-                    uid
+                    int(uid)
                 )
 
                 cursor.execute(sql, val)
@@ -772,7 +743,9 @@ else:
 
         del_id = st.number_input(
             "Enter Record ID to Delete",
-            step=1
+            min_value=1,
+            step=1,
+            format="%d"
         )
 
         st.warning(
@@ -783,7 +756,7 @@ else:
 
             cursor.execute(
                 "DELETE FROM collaboration_data WHERE id=?",
-                (del_id,)
+                (int(del_id),)
             )
 
             conn.commit()
