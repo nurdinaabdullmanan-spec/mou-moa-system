@@ -200,6 +200,11 @@ textarea::placeholder {
     color: #111827 !important;
     font-weight: 500 !important;
 }
+            
+/* FIX SELECTBOX TEXT COLOR (LOGIN / REGISTER / RESET) */
+.stSelectbox [data-baseweb="select"] * {
+    color: #ffffff !important;
+}            
 
 /* DATAFRAME */
 [data-testid="stDataFrame"] {
