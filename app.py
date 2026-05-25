@@ -12,17 +12,34 @@ st.set_page_config(
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
-    
 )
 
-hide_st_style = """
-            <style>
-            #GithubIcon {visibility: hidden;}
-            header {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# ======================================================
+# FORCE SIDEBAR SHOW
+# ======================================================
+
+st.markdown("""
+<style>        
+
+/* HIDE STREAMLIT */
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+/* FORCE SIDEBAR */
+section[data-testid="stSidebar"] {
+    background: rgba(255,255,255,0.95) !important;
+    backdrop-filter: blur(18px);
+    border-right: 1px solid rgba(255,255,255,0.3);
+    display: block !important;
+}
+                 
+</style>
+""", unsafe_allow_html=True)
 
 # ======================================================
 # DATABASE CONNECTION
@@ -48,7 +65,6 @@ CREATE TABLE IF NOT EXISTS users (
 )
 """)
 
-# FIXED: Added AUTOINCREMENT to prevent IntegrityError
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS collaboration_data (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -69,10 +85,8 @@ conn.commit()
 
 st.markdown("""
 <style>
-        
-/* FONT */
-@import url('https://googleapis.com');
 
+/* FONT */
 html, body, [class*="css"] {
     font-family: 'Poppins', sans-serif;
 }
@@ -87,28 +101,12 @@ html, body, [class*="css"] {
     );
 }
 
-/* HIDE STREAMLIT DEFAULT */
-#MainMenu {
-    visibility: hidden;
-}
-
-footer {
-    visibility: hidden;
-}
-
 /* MAIN CONTAINER */
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
     padding-left: 2rem;
     padding-right: 2rem;
-}
-
-/* SIDEBAR */
-section[data-testid="stSidebar"] {
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(18px);
-    border-right: 1px solid rgba(255,255,255,0.3);
 }
 
 /* SIDEBAR TEXT */
@@ -135,7 +133,7 @@ h3 {
     font-weight: 700 !important;
 }
 
-/* PARAGRAPH */
+/* TEXT */
 p {
     color: #374151 !important;
 }
@@ -146,7 +144,7 @@ label {
     font-weight: 500 !important;
 }
 
-/* METRIC CARDS */
+/* METRIC */
 div[data-testid="metric-container"] {
     background: rgba(255,255,255,0.6);
     border-radius: 24px;
@@ -168,12 +166,10 @@ div[data-testid="metric-container"] {
         #6366f1,
         #8b5cf6
     );
-    transition: 0.3s ease;
 }
 
 /* BUTTON HOVER */
 .stButton > button:hover {
-    transform: translateY(-2px);
     background: linear-gradient(
         135deg,
         #4f46e5,
@@ -199,34 +195,16 @@ textarea::placeholder {
     opacity: 1 !important;
 }
 
-/* SELECTBOX TEXT */
+/* SELECTBOX */
 .stSelectbox div[data-baseweb="select"] * {
     color: #111827 !important;
     font-weight: 500 !important;
-}
-
-/* DROPDOWN MENU */
-div[role="listbox"] * {
-    color: #111827 !important;
-}
-
-/* SELECTBOX */
-.stSelectbox div[data-baseweb="select"] {
-    border-radius: 14px !important;
 }
 
 /* DATAFRAME */
 [data-testid="stDataFrame"] {
     border-radius: 18px;
     overflow: hidden;
-}
-
-/* ALERT BOX */
-.stSuccess,
-.stWarning,
-.stInfo,
-.stError {
-    border-radius: 14px;
 }
 
 </style>
@@ -260,9 +238,7 @@ if st.session_state.logged_in == False:
         ]
     )
 
-    # ======================================================
     # LOGIN
-    # ======================================================
 
     if auth == "Login":
 
@@ -304,21 +280,15 @@ if st.session_state.logged_in == False:
                     "Invalid username or password."
                 )
 
-    # ======================================================
     # REGISTER
-    # ======================================================
 
     elif auth == "Register":
 
         st.subheader("Create Account")
 
-        new_username = st.text_input(
-            "Username"
-        )
+        new_username = st.text_input("Username")
 
-        new_email = st.text_input(
-            "Email"
-        )
+        new_email = st.text_input("Email")
 
         new_password = st.text_input(
             "Password",
@@ -347,17 +317,13 @@ if st.session_state.logged_in == False:
                 "Account created successfully."
             )
 
-    # ======================================================
     # RESET PASSWORD
-    # ======================================================
 
     elif auth == "Reset Password":
 
         st.subheader("Reset Password")
 
-        email = st.text_input(
-            "Enter Email"
-        )
+        email = st.text_input("Enter Email")
 
         new_password = st.text_input(
             "New Password",
@@ -391,10 +357,6 @@ if st.session_state.logged_in == False:
 
 else:
 
-    # ======================================================
-    # SIDEBAR
-    # ======================================================
-
     st.sidebar.markdown(
         """
         <div style="text-align:center;">
@@ -412,13 +374,6 @@ else:
     st.sidebar.success(
         f"Welcome, {st.session_state.username}"
     )
-    
-    if st.sidebar.button("Logout"):
-        st.session_state.logged_in = False
-        st.rerun()
-
-    # Continue main system logic here...
-
 
     menu = st.sidebar.radio(
         "Navigation",
@@ -436,12 +391,9 @@ else:
     if st.sidebar.button("Logout"):
 
         st.session_state.logged_in = False
-
         st.rerun()
 
-    # ======================================================
     # DASHBOARD
-    # ======================================================
 
     if menu == "Dashboard":
 
@@ -450,7 +402,7 @@ else:
         )
 
         cursor.execute(
-             "SELECT * FROM collaboration_data ORDER BY id ASC"
+            "SELECT * FROM collaboration_data ORDER BY id ASC"
         )
 
         rows = cursor.fetchall()
@@ -503,7 +455,6 @@ else:
             fig,
             use_container_width=True
         )
-
     # ======================================================
     # VIEW DATA
     # ======================================================

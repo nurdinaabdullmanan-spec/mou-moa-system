@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="mou_moa_db.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure pragmas query browser" current="2"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1090"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="0"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="collaboration_data" custom_title="0" dock_id="1" table="4,18:maincollaboration_data"/><dock_state state="000000ff00000000fd00000001000000020000011e00000246fc0100000001fb000000160064006f0063006b00420072006f007700730065003101000000000000011e0000011e00ffffff0000011e0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="User" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="65"/><column index="3" value="39"/><column index="4" value="62"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="collaboration_data" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="300"/><column index="3" value="191"/><column index="4" value="215"/><column index="5" value="151"/><column index="6" value="79"/><column index="7" value="71"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+
+VALUES (
+'MEMORANDUM OF UNDERSTANDING BETWEEN UiTM AND UNIVERSITAS MALAYA',
+'24/07/2023 - 23/07/2026',
+'UiTM Kampus Permatang Pauh',
+'Universitas Malaya',
+'Indonesia',
+'Academic'
+);
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND AKADEMI FARMASI BHUMI HUSADA JAKARTA',
+'14/07/2022 - 14/07/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'AKADEMI FARMASI BHUMI HUSADA JAKARTA',
+'Indonesia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND HEALTH POLYTECHNIC OF HEALTH MINISTRY KUPANG',
+'14/07/2022 - 13/07/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'HEALTH POLYTECHNIC OF HEALTH MINISTRY KUPANG',
+'Indonesia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND HEALTH POLYTECHNIC OF SURAKARTA',
+'14/07/2022 - 13/07/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'HEALTH POLYTECHNIC OF SURAKARTA',
+'Indonesia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA MALAYSIA AND UNIVERSITAS AIRLANGGA INDONESIA',
+'24/07/2023 - 23/07/2026',
+'UITM KAMPUS PERMATANG PAUH',
+'UNIVERSITAS AIRLANGGA',
+'Indonesia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA(UiTM) AND POLITEKNIK KESEHATAN KEMENKES MANADO',
+'14/07/2022 - 13/07/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'POLITEKNIK KESEHATAN KEMENKES MANADO',
+'Indonesia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND UNIVERSITAS ANWAR MEDIKA',
+'14/07/2022 - 13/07/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'UNIVERSITAS ANWAR MEDIKA',
+'Indonesia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND REVA UNIVERSITY',
+'15/06/2023 - 14/06/2026',
+'UITM KAMPUS PERMATANG PAUH',
+'REVA UNIVERSITY',
+'India',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND JAMBATAN KEDUA SDN BHD',
+'30/04/2023 - 30/04/2026',
+'UITM KAMPUS PERMATANG PAUH',
+'Jambatan Kedua Sdn. Bhd.',
+'Malaysia',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF UNDERSTANDING BETWEEN UNIVERSITI TEKNOLOGI MARA AND ÇANAKKALE ONSEKİZ MART ÜNİVERSİTESİ',
+'03/01/2024 - 02/01/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'ÇANAKKALE ONSEKİZ MART ÜNİVERSİTESİ',
+'Turkey',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('COOPERATION AGREEMENT between Universiti Teknologi MARA and International Engineering and Technological University (Almaty, Kazakhstan)',
+'01/08/2025 - 31/07/2028',
+'UITM KAMPUS PERMATANG PAUH',
+'International Engineering and Technological University (Almaty, Kazakhstan)',
+'Kazakhstan',
+'Memorandum of Understanding (MoU)');
+
+INSERT INTO collaboration_data
+(title, duration, location, partner, country, category)
+VALUES
+('MEMORANDUM OF AGREEMENT FOR COLLABORATION BETWEEN UiTM AND STIKes MUHAMMADIYAH CIAMIS',
+'07/08/2024 - 06/08/2027',
+'UITM KAMPUS PERMATANG PAUH',
+'STIKes MUHAMMADIYAH CIAMIS',
+'Indonesia',
+'Agreement for MyRA Purpose');</sql><current_tab id="0"/></tab_sql></sqlb_project>
