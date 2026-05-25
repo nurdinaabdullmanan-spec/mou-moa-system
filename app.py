@@ -197,7 +197,7 @@ textarea::placeholder {
 
 /* SELECTBOX */
 .stSelectbox div[data-baseweb="select"] * {
-    color: #111827 !important;
+    color: #ffffff !important;
     font-weight: 500 !important;
 }
             
