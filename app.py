@@ -408,37 +408,18 @@ if st.session_state.logged_in == False:
 else:
 
     st.sidebar.markdown(
-    """
-    <div style="
-        text-align:center;
-        padding:20px;
-        margin-bottom:25px;
-        border-bottom:1px solid #e5e7eb;
-    ">
-
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/UiTM_Logo.png"
-        width="80">
-
-        <h2 style="
-            color:#111827;
-            margin-top:15px;
-            margin-bottom:5px;
-            font-weight:700;
-        ">
-            MoU / MoA System
-        </h2>
-
-        <p style="
-            color:#6b7280;
-            font-size:13px;
-        ">
-            Collaboration Management
-        </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+        """
+        <div style="text-align:center;">
+            <h2 style="color:#4338ca;">
+                MoU/MoA System
+            </h2>
+            <p style="color:gray;">
+                Collaboration Management Platform
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     st.sidebar.markdown(
     f"""
@@ -469,19 +450,19 @@ else:
 )
 
     menu = st.sidebar.radio(
-    "",
-    [
-        "📊 Dashboard",
-        "📁 View Data",
-        "➕ Add Data",
-        "✏️ Update Data",
-        "🗑️ Delete Data"
-    ]
-)
+        "Navigation",
+        [
+            "Dashboard",
+            "View Data",
+            "Add Data",
+            "Update Data",
+            "Delete Data"
+        ]
+    )
 
     st.sidebar.markdown("---")
 
-    if st.sidebar.button("🚪 Logout"):
+    if st.sidebar.button("Logout"):
 
         st.session_state.logged_in = False
         st.rerun()
