@@ -421,24 +421,6 @@ else:
         unsafe_allow_html=True
     )
 
-    st.sidebar.markdown(
-    f"""
-    <div style="
-        background:#f3f4f6;
-        padding:15px;
-        border-radius:14px;
-        text-align:center;
-        margin-bottom:20px;
-    ">
-
-        <div style="font-size:18px; font-weight:600; color:#111827;">
-            {st.session_state.username}
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
     menu = st.sidebar.radio(
         "Navigation",
         [
