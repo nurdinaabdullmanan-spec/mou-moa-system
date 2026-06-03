@@ -1,0 +1,431 @@
+# 1. Import Libraries
+
+### Sample Coding
+
+```python
+import plotly.express as px
+import streamlit as st
+import sqlite3
+import pandas as pd
+```
+
+### Description
+
+This section imports all required Python libraries used in the development of the MoU/MoA Collaboration Record Management System.
+
+* `Streamlit` is used to develop the web-based user interface.
+* `SQLite3` is used for database management and local data storage.
+* `Pandas` is used for data processing and displaying tables.
+* `Plotly Express` is used to generate interactive charts and graphical visualizations.
+
+These libraries help the system perform database operations, interface design, and data analysis efficiently.
+
+---
+
+# 2. Page Configuration
+
+### Sample Coding
+
+```python
+st.set_page_config(
+    page_title="MoU/MoA Collaboration Record Management System",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+```
+
+### Description
+
+This section configures the main settings of the Streamlit web application.
+
+The system title, application icon, layout size, and sidebar display settings are configured using the `st.set_page_config()` function. The `wide` layout provides a larger workspace for displaying records and charts, while the sidebar is automatically expanded for easier navigation.
+
+This configuration improves the professionalism and usability of the system.
+
+---
+
+# 3. Sidebar Visibility & Streamlit Styling
+
+### Sample Coding
+
+```python
+st.markdown("""
+<style>        
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+section[data-testid="stSidebar"] {
+    background: rgba(255,255,255,0.95) !important;
+    backdrop-filter: blur(18px);
+}
+
+</style>
+""", unsafe_allow_html=True)
+```
+
+### Description
+
+This section customizes the default appearance of Streamlit using CSS styling.
+
+The default Streamlit menu and footer are hidden to create a cleaner interface. The sidebar is also customized with a transparent glassmorphism effect using `background` and `backdrop-filter`.
+
+This styling creates a modern and aesthetic dashboard appearance suitable for professional system development.
+
+---
+
+# 4. Database Connection
+
+### Sample Coding
+
+```python
+conn = sqlite3.connect(
+    "mou_moa_db.db",
+    check_same_thread=False
+)
+
+cursor = conn.cursor()
+```
+
+### Description
+
+This section establishes the connection between the application and the SQLite database named `mou_moa_db.db`.
+
+The `cursor()` function is used to execute SQL commands such as:
+
+* Creating tables
+* Inserting records
+* Updating records
+* Deleting records
+* Retrieving data
+
+This database connection allows the system to store and manage collaboration records permanently.
+
+---
+
+# 5. Creating Database Tables
+
+### Sample Coding
+
+```python
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    email TEXT,
+    password TEXT
+)
+""")
+```
+
+### Description
+
+This section creates the database tables required by the system.
+
+The `users` table stores user account information such as username, email, and password for authentication purposes.
+
+The `collaboration_data` table stores all MoU/MoA agreement information including:
+
+* Agreement title
+* Duration
+* Department
+* Partner institution
+* Country
+* Agreement category
+
+The `AUTOINCREMENT` function automatically generates unique IDs for each record.
+
+---
+
+# 6. User Interface (UI) Customization
+
+### Sample Coding
+
+```python
+.stButton > button {
+    width: 100%;
+    border-radius: 16px;
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
+}
+```
+
+### Description
+
+This section customizes the user interface design using CSS.
+
+Several interface components were modified such as:
+
+* Buttons
+* Text input fields
+* Sidebar text
+* Dataframe styling
+* Background gradient
+* Typography and colors
+
+The UI design was created to improve user experience and produce a more attractive, responsive, and professional-looking system.
+
+---
+
+# 7. Session State Management
+
+### Sample Coding
+
+```python
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+```
+
+### Description
+
+This section manages the login session of users.
+
+The `session_state` feature stores user login status temporarily while the application is running. If the user successfully logs in, the system saves the session data and allows access to the dashboard without requiring repeated login actions.
+
+This improves system security and user convenience.
+
+---
+
+# 8. User Authentication Module
+
+### Sample Coding
+
+```python
+if auth == "Login":
+
+    username = st.text_input("Username")
+
+    password = st.text_input(
+        "Password",
+        type="password"
+    )
+```
+
+### Description
+
+This section handles the user authentication process including:
+
+* Login
+* Register
+* Reset Password
+
+The login module verifies user credentials with data stored inside the SQLite database. The register module allows users to create new accounts, while the reset password module allows users to update their password.
+
+This module ensures only authorized users can access the system.
+
+---
+
+# 9. Login Validation Process
+
+### Sample Coding
+
+```python
+sql = """
+SELECT * FROM users
+WHERE username=?
+AND password=?
+"""
+
+cursor.execute(sql, val)
+
+user = cursor.fetchone()
+```
+
+### Description
+
+This section validates the username and password entered by the user.
+
+The SQL query checks whether the entered credentials match any records in the `users` table. If the user exists, the system grants access to the main dashboard.
+
+This validation process is important to maintain system security and prevent unauthorized access.
+
+---
+
+# 10. Sidebar Navigation Menu
+
+### Sample Coding
+
+```python
+menu = st.sidebar.radio(
+    "Navigation",
+    [
+        "Dashboard",
+        "View Data",
+        "Add Data",
+        "Update Data",
+        "Delete Data"
+    ]
+)
+```
+
+### Description
+
+This section creates the main navigation menu located on the sidebar.
+
+Users can navigate through different system modules such as:
+
+* Dashboard
+* View Data
+* Add Data
+* Update Data
+* Delete Data
+
+This menu improves user accessibility and makes the system easier to use.
+
+---
+
+# 11. Dashboard Module
+
+### Sample Coding
+
+```python
+st.metric("Total Agreements", total_records)
+st.metric("Countries", total_country)
+st.metric("Agreement Categories", total_category)
+```
+
+### Description
+
+This section displays the main dashboard summary of the system.
+
+The dashboard provides important statistical information including:
+
+* Total number of agreements
+* Total countries involved
+* Total agreement categories
+
+These metrics help users monitor collaboration records more effectively.
+
+---
+
+# 12. Data Visualization
+
+### Sample Coding
+
+```python
+fig = px.bar(
+    country_chart,
+    x="Country",
+    y="Total",
+    color="Country",
+    text_auto=True
+)
+```
+
+### Description
+
+This section generates interactive charts using Plotly Express.
+
+A bar chart is used to visualize the distribution of collaboration agreements by country. This graphical presentation helps users analyze data trends more efficiently and improves the readability of information.
+
+---
+
+# 13. View Data Module
+
+### Sample Coding
+
+```python
+st.dataframe(
+    df,
+    use_container_width=True,
+    height=500
+)
+```
+
+### Description
+
+This section displays all collaboration records in a structured table format using Pandas DataFrame.
+
+Users can search for records based on:
+
+* Agreement title
+* Partner institution
+* Country
+
+This module helps users manage and review collaboration data efficiently.
+
+---
+
+# 14. Add Data Module
+
+### Sample Coding
+
+```python
+sql = """
+INSERT INTO collaboration_data
+(id, title, duration, location, partner, country, category)
+VALUES (?,?,?,?,?,?,?)
+"""
+```
+
+### Description
+
+This section allows users to insert new collaboration records into the database.
+
+Users are required to enter information such as:
+
+* Record ID
+* Agreement title
+* Duration
+* Department
+* Partner institution
+* Country
+* Agreement category
+
+The system stores the entered data into the SQLite database after the Save button is clicked.
+
+---
+
+# 15. Update Data Module
+
+### Sample Coding
+
+```python
+UPDATE collaboration_data
+SET
+    title=?,
+    duration=?,
+    location=?,
+    partner=?,
+    country=?,
+    category=?
+WHERE id=?
+```
+
+### Description
+
+This section enables users to modify existing collaboration records.
+
+The system retrieves existing data based on the selected record ID and allows users to update the information. After modification, the updated data is saved into the database.
+
+This feature ensures that collaboration records remain accurate and up to date.
+
+---
+
+# 16. Delete Data Module
+
+### Sample Coding
+
+```python
+cursor.execute(
+    "DELETE FROM collaboration_data WHERE id=?",
+    (int(del_id),)
+)
+```
+
+### Description
+
+This section allows users to delete collaboration records from the database.
+
+The system removes selected records permanently based on the entered record ID. A warning message is displayed before deletion to prevent accidental data loss.
+
+This feature helps maintain organized and accurate records within the system.

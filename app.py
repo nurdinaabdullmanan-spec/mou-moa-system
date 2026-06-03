@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# FORCE SIDEBAR SHOW
+# FORCE SIDEBAR SHOWA
 # ======================================================
 
 st.markdown("""
@@ -30,12 +30,57 @@ footer {
     visibility: hidden;
 }
 
-/* FORCE SIDEBAR */
+/* SIDEBAR */
 section[data-testid="stSidebar"] {
-    background: rgba(255,255,255,0.95) !important;
-    backdrop-filter: blur(18px);
-    border-right: 1px solid rgba(255,255,255,0.3);
-    display: block !important;
+    background: #ffffff !important;
+    min-width: 280px !important;
+    max-width: 280px !important;
+    border-right: 1px solid #e5e7eb !important;
+    box-shadow: 4px 0px 25px rgba(0,0,0,0.05);
+}
+
+/* SIDEBAR CONTENT */
+section[data-testid="stSidebar"] > div {
+    padding-top: 20px;
+}
+
+/* SIDEBAR MENU */
+div[role="radiogroup"] label {
+    background: transparent;
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+div[role="radiogroup"] label:hover {
+    background: #eef2ff;
+}
+
+/* RADIO TEXT */
+div[role="radiogroup"] label p {
+    color: #374151 !important;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* ACTIVE MENU */
+div[role="radiogroup"] label[data-selected="true"] {
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
+    border-radius: 12px;
+}
+
+div[role="radiogroup"] label[data-selected="true"] p {
+    color: white !important;
+}
+
+/* SIDEBAR BUTTON */
+section[data-testid="stSidebar"] .stButton button {
+    border-radius: 12px;
 }
                  
 </style>
@@ -235,13 +280,13 @@ if st.session_state.logged_in == False:
     )
 
     auth = st.sidebar.selectbox(
-        "Account",
-        [
-            "Login",
-            "Register",
-            "Reset Password"
-        ]
-    )
+    "Account",
+    [
+        "Login",
+        "Register",
+        "Reset Password"
+    ]
+)
 
     # LOGIN
 
@@ -363,37 +408,80 @@ if st.session_state.logged_in == False:
 else:
 
     st.sidebar.markdown(
-        """
-        <div style="text-align:center;">
-            <h2 style="color:#4338ca;">
-                MoU/MoA System
-            </h2>
-            <p style="color:gray;">
-                Collaboration Management Platform
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    """
+    <div style="
+        text-align:center;
+        padding:20px;
+        margin-bottom:25px;
+        border-bottom:1px solid #e5e7eb;
+    ">
 
-    st.sidebar.success(
-        f"Welcome, {st.session_state.username}"
-    )
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/UiTM_Logo.png"
+        width="80">
+
+        <h2 style="
+            color:#111827;
+            margin-top:15px;
+            margin-bottom:5px;
+            font-weight:700;
+        ">
+            MoU / MoA System
+        </h2>
+
+        <p style="
+            color:#6b7280;
+            font-size:13px;
+        ">
+            Collaboration Management
+        </p>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+    st.sidebar.markdown(
+    f"""
+    <div style="
+        background:#f3f4f6;
+        padding:15px;
+        border-radius:14px;
+        text-align:center;
+        margin-bottom:20px;
+    ">
+        <div style="
+            font-size:14px;
+            color:#6b7280;
+        ">
+            Logged in as
+        </div>
+
+        <div style="
+            font-size:18px;
+            font-weight:600;
+            color:#111827;
+        ">
+            {st.session_state.username}
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
     menu = st.sidebar.radio(
-        "Navigation",
-        [
-            "Dashboard",
-            "View Data",
-            "Add Data",
-            "Update Data",
-            "Delete Data"
-        ]
-    )
+    "",
+    [
+        "📊 Dashboard",
+        "📁 View Data",
+        "➕ Add Data",
+        "✏️ Update Data",
+        "🗑️ Delete Data"
+    ]
+)
 
     st.sidebar.markdown("---")
 
-    if st.sidebar.button("Logout"):
+    if st.sidebar.button("🚪 Logout"):
 
         st.session_state.logged_in = False
         st.rerun()
