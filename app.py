@@ -430,9 +430,6 @@ else:
         text-align:center;
         margin-bottom:20px;
     ">
-        <div style="font-size:14px; color:#6b7280;">
-            Logged in as
-        </div>
 
         <div style="font-size:18px; font-weight:600; color:#111827;">
             {st.session_state.username}
