@@ -97,21 +97,7 @@ conn = sqlite3.connect(
     check_same_thread=False
 )
 
-import os
-
-st.write(
-    os.path.abspath(
-        r"C:\Users\nurdi\OneDrive\Desktop\my_streamlit_app\mou_moa_db.db"
-    )
-)
-
 cursor = conn.cursor()
-
-cursor.execute("SELECT * FROM collaboration_data")
-rows = cursor.fetchall()
-
-st.write("Jumlah row:", len(rows))
-st.write(rows[:5])
 
 # ======================================================
 # CREATE TABLES
