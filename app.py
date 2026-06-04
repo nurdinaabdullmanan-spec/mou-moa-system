@@ -107,6 +107,11 @@ st.write(
 
 cursor = conn.cursor()
 
+cursor.execute("SELECT COUNT(*) FROM collaboration_data")
+count = cursor.fetchone()[0]
+
+st.write("Jumlah record dalam database:", count)
+
 # ======================================================
 # CREATE TABLES
 # ======================================================
