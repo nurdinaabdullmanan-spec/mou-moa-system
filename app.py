@@ -93,8 +93,16 @@ section[data-testid="stSidebar"] .stButton button {
 # ======================================================
 
 conn = sqlite3.connect(
-    "mou_moa_db.db",
+    r"C:\Users\nurdi\OneDrive\Desktop\my_streamlit_app\mou_moa_db.db",
     check_same_thread=False
+)
+
+import os
+
+st.write(
+    os.path.abspath(
+        r"C:\Users\nurdi\OneDrive\Desktop\my_streamlit_app\mou_moa_db.db"
+    )
 )
 
 cursor = conn.cursor()
