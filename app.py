@@ -140,12 +140,7 @@ html, body, [class*="css"] {
 
 /* BACKGROUND */
 .stApp {
-    background: linear-gradient(
-        135deg,
-        #f5f3ff,
-        #eef2ff,
-        #f8fafc
-    );
+    background: #f8fafc;
 }
 
 /* MAIN CONTAINER */
@@ -193,11 +188,11 @@ label {
 
 /* METRIC */
 div[data-testid="metric-container"] {
-    background: rgba(255,255,255,0.6);
-    border-radius: 24px;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.3);
-    box-shadow: 0 8px 32px rgba(31,38,135,0.08);
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 /* BUTTON */
@@ -257,6 +252,26 @@ textarea::placeholder {
 [data-testid="stDataFrame"] {
     border-radius: 18px;
     overflow: hidden;
+}
+            
+.dashboard-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 20px;
+}
+
+.dashboard-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 5px;
+}
+
+.dashboard-subtitle {
+    color: #6b7280;
+    font-size: 16px;
 }
 
 </style>
@@ -503,6 +518,7 @@ else:
             fig,
             use_container_width=True
         )
+        
     # ======================================================
     # VIEW DATA
     # ======================================================
