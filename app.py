@@ -97,6 +97,10 @@ conn = sqlite3.connect(
     check_same_thread=False
 )
 
+import os
+
+st.write(os.path.abspath("mou_moa_db.db"))
+
 cursor = conn.cursor()
 
 # ======================================================
