@@ -599,7 +599,7 @@ else:
                 "Duration"
             )
 
-            location = st.text_input(
+            department = st.text_input(
                 "Department"
             )
 
@@ -625,7 +625,7 @@ else:
 
             sql = """
             INSERT INTO collaboration_data
-            (id, title, duration, location, partner, country, category)
+            (id, title, duration, department, partner, country, category)
             VALUES (?,?,?,?,?,?,?)
             """
 
@@ -633,7 +633,7 @@ else:
                 int(id),
                 title,
                 duration,
-                location,
+                department,
                 partner,
                 country,
                 category
@@ -685,7 +685,7 @@ else:
                     result[2]
                 )
 
-                location = st.text_input(
+                department = st.text_input(
                     "Department",
                     result[3]
                 )
@@ -717,7 +717,7 @@ else:
                 SET
                     title=?,
                     duration=?,
-                    location=?,
+                    department=?,
                     partner=?,
                     country=?,
                     category=?
@@ -727,7 +727,7 @@ else:
                 val = (
                     title,
                     duration,
-                    location,
+                    department,
                     partner,
                     country,
                     category,
