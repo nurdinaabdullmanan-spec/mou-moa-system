@@ -2,10 +2,6 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-import os
-
-st.write("DATABASE PATH:")
-st.write(os.path.abspath("mou_moa_db.db"))
 
 conn = sqlite3.connect(r'C:\Users\nurdi\OneDrive\Desktop\my_streamlit_app\mou_moa_db.db')
 
