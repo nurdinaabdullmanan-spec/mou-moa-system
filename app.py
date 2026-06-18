@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     duration TEXT,
-    location TEXT,
+    department TEXT,
     partner TEXT,
     country TEXT,
     category TEXT
