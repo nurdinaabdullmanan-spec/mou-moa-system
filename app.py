@@ -353,7 +353,7 @@ else:
         f"""
         <div style="text-align:center; padding: 15px 0 30px 0;">
             <div style="font-size:26px; font-weight:800; color:#fabf2c; letter-spacing:-0.5px;">UiTM Records</div>
-            <div style="color:#9da4b0; font-size:12px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">Enterprise Engine</div>
+            <div style="color:#9da4b0; font-size:12px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">UiTM PERMATANG PAUH</div>
             <div style="margin-top:15px; background:rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; display:inline-block;">
                 <span style="color:#6be084; font-size:10px;">●</span> 
                 <span style="color:#cbd5e1; font-size:13px; font-weight:600;">{st.session_state.username}</span>
