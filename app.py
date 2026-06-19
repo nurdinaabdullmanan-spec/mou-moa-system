@@ -43,34 +43,32 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 conn.commit()
 
 # ======================================================
-# ULTRA MODERN PRO UI CSS (UiTM THEME - NO MORE STARK WHITE)
+# ULTIMATE ENTERPRISE UI CSS (UiTM THEME MASTERCLASS)
 # ======================================================
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* 1. TUKAR BACKGROUND UTAMA KAWASAN KANAN (Soft UiTM Tone) */
+    /* BACKGROUND UTAMA SYSTEM KANAN */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background-color: #f3f2f9 !important; /* Soft Lavender Grey */
+        background-color: #f4f3f8 !important; 
     }
     
     .block-container {
-        padding: 2.5rem 3.5rem !important;
-        background-color: #f3f2f9 !important;
+        padding: 2rem 4rem !important;
     }
 
-    /* HIDE STREAMLIT BRANDING */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
-    /* 2. SIDEBAR SYSTEM PANELS (Deep Corporate UiTM Purple) */
+    /* SIDEBAR PREMIUM ENTERPRISE */
     section[data-testid="stSidebar"] {
-        background-color: #1a1640 !important; 
-        border-right: 1px solid rgba(255,255,255,0.05) !important;
+        background-color: #161233 !important; 
+        border-right: 2px solid #fabf2c !important; /* Gold divider border line */
     }
     
     section[data-testid="stSidebar"] .stMarkdown, 
@@ -79,266 +77,356 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* NAVIGATION BUTTON RESHAPE */
+    /* NAVIGATION BUTTON STYLE (MODERN RAILS) */
     div[role="radiogroup"] {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
+        padding-top: 10px;
     }
 
     div[role="radiogroup"] label {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-radius: 12px !important;
-        padding: 12px 16px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 14px !important;
+        padding: 14px 20px !important;
         margin-bottom: 0px !important;
-        transition: all 0.25s ease !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
     }
 
-    /* Hide radio dot */
     div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {
         display: none !important;
     }
 
     div[role="radiogroup"] label:hover {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.2) !important;
+        background: rgba(255, 255, 255, 0.07) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+        transform: translateX(4px);
     }
 
     div[role="radiogroup"] label p {
-        color: #e2e8f0 !important;
+        color: #cbd5e1 !important;
         font-size: 14px !important;
-        font-weight: 500 !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.3px;
     }
 
-    /* ACTIVE MENU STATE (UiTM Gold) */
+    /* ACTIVE MENU STATE (UiTM Premium Gold) */
     div[role="radiogroup"] label[data-selected="true"] {
-        background: #fabf2c !important; 
+        background: linear-gradient(135deg, #fabf2c, #e0a71b) !important; 
         border: 1px solid #fabf2c !important;
-        box-shadow: 0 4px 12px rgba(250, 191, 44, 0.2) !important;
+        box-shadow: 0 8px 20px rgba(250, 191, 44, 0.25) !important;
     }
 
     div[role="radiogroup"] label[data-selected="true"] p {
-        color: #1a1640 !important;
+        color: #110e26 !important;
         font-weight: 700 !important;
     }
 
-    /* HEADINGS & TEXTS */
+    /* TYPOGRAPHY CONFIGS */
     h1 {
-        color: #3b2063 !important; /* UiTM Purple Title */
-        font-weight: 700 !important;
-        font-size: 32px !important;
+        color: #2b164c !important; 
+        font-weight: 800 !important;
+        font-size: 34px !important;
+        letter-spacing: -0.8px;
     }
     h2, h3 {
-        color: #1e40af !important; /* Blue Accent */
-        font-weight: 600 !important;
+        color: #1e3a8a !important; 
+        font-weight: 700 !important;
     }
     
     .subtitle-fix {
-        color: #52525b !important;
+        color: #6b7280 !important;
         font-size: 15px;
-        margin-top: -15px;
-        margin-bottom: 25px;
+        margin-top: -12px;
+        margin-bottom: 30px;
+        font-weight: 400;
     }
     
     label {
-        color: #27272a !important;
-        font-weight: 600 !important;
+        color: #374151 !important;
+        font-weight: 700 !important;
         font-size: 14px !important;
+        margin-bottom: 6px !important;
     }
 
-    /* 3. TUKAR BACKGROUND KAD KANDUNGAN (View, Add, dsb) SUPAYA SELARI */
+    /* PREMIUM CONTENT CARD */
     .content-card {
-        background: #eae7f2 !important; /* Terang tapi berasaskan tema ungu cair */
-        border-radius: 16px;
-        padding: 30px;
-        border: 1px solid #dcd7e9;
-        box-shadow: 0 4px 20px -2px rgba(59, 32, 99, 0.05);
-        margin-bottom: 20px;
+        background: #f0eef7 !important; /* Soft Tone Lavender-Grey Base */
+        border-radius: 20px;
+        padding: 35px;
+        border: 1px solid #dfdaeb;
+        box-shadow: 0 10px 25px -5px rgba(43, 22, 76, 0.04);
+        margin-bottom: 25px;
     }
 
-    /* METRIC CARDS OVERRIDE */
-    div[data-testid="metric-container"] {
-        background: #eae7f2 !important;
-        border-radius: 16px !important;
-        padding: 24px !important;
-        border-left: 6px solid #3b2063 !important;
-        border-top: 1px solid #dcd7e9 !important;
-        border-right: 1px solid #dcd7e9 !important;
-        border-bottom: 1px solid #dcd7e9 !important;
+    /* CUSTOM ENTERPRISE GRADIENT METRIC CARDS */
+    .metric-grid {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 25px;
     }
     
-    div[data-testid="stMetricValue"] {
-        color: #3b2063 !important; 
-        font-weight: 700 !important;
-        font-size: 36px !important;
+    .pro-metric {
+        flex: 1;
+        background: white;
+        padding: 24px;
+        border-radius: 18px;
+        border: 1px solid #e4e2ed;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .pro-metric::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 6px; height: 100%;
+    }
+    
+    .metric-1::before { background: #4b2e83; } /* UiTM Purple Line */
+    .metric-2::before { background: #1e40af; } /* Pro Blue Line */
+    .metric-3::before { background: #fabf2c; } /* UiTM Gold Line */
+
+    .metric-title {
+        font-size: 13px;
+        color: #6b7280;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .metric-value {
+        font-size: 38px;
+        font-weight: 800;
+        color: #111827;
+        margin-top: 5px;
     }
 
-    /* BUTTONS */
+    /* PRO SUBMIT BUTTONS */
     .stButton > button {
         width: 100%;
-        border-radius: 12px;
+        border-radius: 14px;
         border: none;
-        padding: 14px;
-        font-weight: 600;
+        padding: 15px;
+        font-weight: 700;
+        font-size: 15px;
         color: white !important;
-        background: linear-gradient(135deg, #3b2063, #251342) !important;
-        box-shadow: 0 4px 12px rgba(59, 32, 99, 0.2);
+        background: linear-gradient(135deg, #4b2e83, #321e58) !important;
+        box-shadow: 0 6px 20px rgba(75, 46, 131, 0.25);
+        transition: all 0.25s ease;
     }
 
     .stButton > button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(59, 32, 99, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(75, 46, 131, 0.35);
     }
 
-    /* LOGOUT BUTTON */
+    /* DYNAMIC BACK BUTTON STYLE */
+    .back-btn-container .stButton > button {
+        width: auto !important;
+        background: #ffffff !important;
+        color: #4b2e83 !important;
+        border: 1px solid #dfdaeb !important;
+        padding: 8px 18px !important;
+        font-size: 13px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03) !important;
+    }
+    
+    .back-btn-container .stButton > button:hover {
+        background: #4b2e83 !important;
+        color: white !important;
+        transform: translateY(-1px);
+    }
+
+    /* SIDEBAR LOGOUT BUTTON */
     section[data-testid="stSidebar"] .stButton > button {
         background: transparent !important;
         border: 1px solid #f87171 !important;
         color: #f87171 !important;
+        box-shadow: none !important;
+        padding: 10px !important;
     }
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: #ef4444 !important;
         color: white !important;
     }
 
-    /* INPUT ELEMENT BOXES & DROPDOWNS */
+    /* INPUT FIELDS & SELECTBOXES */
     .stTextInput input, .stNumberInput input, textarea {
-        border-radius: 10px !important;
-        border: 1px solid #bdaec6 !important;
+        border-radius: 12px !important;
+        border: 1px solid #cbd1db !important;
         background-color: #ffffff !important;
         color: #0f172a !important;
+        padding: 12px 16px !important;
     }
     
     .stSelectbox div[data-baseweb="select"] {
-        border-radius: 10px !important;
+        border-radius: 12px !important;
         background-color: #ffffff !important;
-        border: 1px solid #bdaec6 !important;
+        border: 1px solid #cbd1db !important;
     }
     .stSelectbox div[data-baseweb="select"] * {
         color: #0f172a !important;
     }
 
-    /* DATAFRAME BLOCK */
+    /* DATA TABLES */
     [data-testid="stDataFrame"] {
-        border: 1px solid #cbd5e1;
-        border-radius: 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
         background: #ffffff !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.01);
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ======================================================
-# SESSION STATE
+# SESSION STATE NAVIGATION CONTROLLER
 # ======================================================
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "Dashboard"
+
+# Fungsi bantuan untuk menukar halaman menggunakan button
+def switch_page(page_name):
+    st.session_state.current_page = page_name
+    st.rerun()
 
 # ======================================================
-# LOGIN / REGISTER / RESET
+# GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
-    st.title("🎓 MoU/MoA Collaboration Record Management System")
-    st.markdown('<p class="subtitle-fix">Secure collaboration agreement management platform.</p>', unsafe_allow_html=True)
+    st.title("🎓 MoU/MoA Record Management System")
+    st.markdown('<p class="subtitle-fix">UiTM Institutional Excellence Agreement Cluster Gateway.</p>', unsafe_allow_html=True)
 
-    auth = st.sidebar.selectbox("Account Gateway", ["Login", "Register", "Reset Password"])
+    auth = st.sidebar.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
 
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
     if auth == "Login":
-        st.subheader("Login")
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
+        st.subheader("Sign In")
+        username = st.text_input("Corporate Username")
+        password = st.text_input("Account Password", type="password")
 
-        if st.button("Sign In"):
+        if st.button("Authenticate Session"):
             cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
             user = cursor.fetchone()
             if user:
                 st.session_state.logged_in = True
                 st.session_state.username = username
-                st.success("Login successful.")
+                st.success("Session secured.")
                 st.rerun()
             else:
-                st.error("Invalid username or password.")
+                st.error("Invalid database authentication keys.")
 
     elif auth == "Register":
-        st.subheader("Create Account")
-        new_username = st.text_input("Username")
-        new_email = st.text_input("Email")
-        new_password = st.text_input("Password", type="password")
+        st.subheader("System Account Registration")
+        new_username = st.text_input("Desired Username")
+        new_email = st.text_input("Staff Email Address")
+        new_password = st.text_input("Secure Password", type="password")
 
-        if st.button("Register"):
+        if st.button("Deploy Account Meta"):
             cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
             conn.commit()
-            st.success("Account created successfully.")
+            st.success("Account committed successfully to cluster database.")
 
     elif auth == "Reset Password":
-        st.subheader("Reset Password")
-        email = st.text_input("Enter Email")
-        new_password = st.text_input("New Password", type="password")
+        st.subheader("Credential Key Recovery")
+        email = st.text_input("Registered Email Profile")
+        new_password = st.text_input("Target New Password", type="password")
 
-        if st.button("Reset Password"):
+        if st.button("Override Encryption Key"):
             cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
             conn.commit()
-            st.success("Password updated successfully.")
+            st.success("Password override processed successfully.")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ======================================================
-# MAIN SYSTEM
+# ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
 else:
-    # Sidebar Profile Header
+    # Sidebar Header Profile Panel
     st.sidebar.markdown(
         f"""
-        <div style="text-align:center; padding: 10px 0 25px 0;">
-            <h2 style="color:#fabf2c; margin:0; font-size:22px; font-weight:700;">UiTM Record System</h2>
-            <p style="color:#cbd5e1; margin:6px 0 0 0; font-size:13px; opacity:0.8;">Logged in as: <span style="color:#fabf2c; font-weight:600;">{st.session_state.username}</span></p>
+        <div style="text-align:center; padding: 15px 0 30px 0;">
+            <div style="font-size:26px; font-weight:800; color:#fabf2c; letter-spacing:-0.5px;">UiTM Records</div>
+            <div style="color:#9da4b0; font-size:12px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">Enterprise Engine</div>
+            <div style="margin-top:15px; background:rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; display:inline-block;">
+                <span style="color:#6be084; font-size:10px;">●</span> 
+                <span style="color:#cbd5e1; font-size:13px; font-weight:600;">{st.session_state.username}</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    menu = st.sidebar.radio(
-        "NAVIGATION MENU",
-        ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
+    # Sidebar Navigation System (Sync with session state)
+    menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
+    
+    # Mencari index semasa berdasarkan session_state untuk mengelakkan kekeliruan radio button
+    current_index = menu_options.index(st.session_state.current_page)
+    
+    selected_menu = st.sidebar.radio(
+        "SYSTEM MODULE CONNECTOR",
+        menu_options,
+        index=current_index,
+        key="sidebar_radio"
     )
+    
+    # Jika pengguna klik manual di sidebar, tukar session_state page
+    if selected_menu != st.session_state.current_page:
+        st.session_state.current_page = selected_menu
+        st.rerun()
 
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-    if st.sidebar.button("Logout Session"):
+    if st.sidebar.button("Terminated Access"):
         st.session_state.logged_in = False
         st.rerun()
 
-    # Load DB data
+    # Read Core Table Stream
     cursor.execute("SELECT * FROM collaboration_data ORDER BY id ASC")
     rows = cursor.fetchall()
     df = pd.DataFrame(rows, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-    # DASHBOARD
-    if menu == "Dashboard":
-        st.title("📊 System Dashboard")
+    # ------------------------------------------------------
+    # MODULE: DASHBOARD
+    # ------------------------------------------------------
+    if st.session_state.current_page == "Dashboard":
+        st.title("📊 Enterprise Analytics Dashboard")
         st.markdown('<p class="subtitle-fix">Real-time Overview of Institutional Agreements & External Collaborations.</p>', unsafe_allow_html=True)
 
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Total Agreements", total_records)
-        with col2:
-            st.metric("Countries", total_country)
-        with col3:
-            st.metric("Agreement Categories", total_category)
+        # Custom HTML Enterprise Metrics Layout
+        st.markdown(f"""
+        <div class="metric-grid">
+            <div class="pro-metric metric-1">
+                <div class="metric-title">Total Active Agreements</div>
+                <div class="metric-value">{total_records}</div>
+            </div>
+            <div class="pro-metric metric-2">
+                <div class="metric-title">Partner Countries</div>
+                <div class="metric-value">{total_country}</div>
+            </div>
+            <div class="pro-metric metric-3">
+                <div class="metric-title">Unique Categories</div>
+                <div class="metric-value">{total_category}</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
         
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        st.subheader("🌐 Country Distribution")
+        st.subheader("🌐 Global Distribution Portfolio")
         
         if total_records > 0:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # BAR MACAM-MACAM WARNA (Prism Colorful Theme)
             fig = px.bar(
                 country_chart,
                 x="Country",
@@ -352,21 +440,31 @@ else:
                 paper_bgcolor="rgba(0,0,0,0)",
                 xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
                 yaxis=dict(showgrid=True, gridcolor="#e2e8f0", title_font=dict(size=13, color="#4b2e83")),
-                margin=dict(t=20, b=20, l=10, r=10),
+                margin=dict(t=15, b=15, l=10, r=10),
                 showlegend=False
             )
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.info("No records available to display data graphs. Go to 'Add Data' to populate database.")
+            st.info("No records available to generate charts. Insert records via 'Add Data' module panel.")
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # VIEW DATA
-    elif menu == "View Data":
-        st.title("🗂️ Collaboration Records")
+    # ------------------------------------------------------
+    # MODULE: VIEW DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "View Data":
+        # TOP ACTIONS BAR WITH BACK BUTTON
+        vcol1, vcol2 = st.columns([1, 6])
+        with vcol1:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("← Back"):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+            
+        st.title("🗂️ Collaboration Repository View")
         st.markdown('<p class="subtitle-fix">Search and browse full records from the system database.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        search = st.text_input("🔍 Search by Agreement Title, Partner or Country")
+        search = st.text_input("🔍 Filter Stream Matrix (Enter Title, Partner or Country)")
 
         if search:
             sql = "SELECT * FROM collaboration_data WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?"
@@ -377,75 +475,109 @@ else:
         st.dataframe(df, use_container_width=True, height=450)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ADD DATA
-    elif menu == "Add Data":
-        st.title("➕ Add New Collaboration Record")
+    # ------------------------------------------------------
+    # MODULE: ADD DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Add Data":
+        vcol1, vcol2 = st.columns([1, 6])
+        with vcol1:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("← Back"):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        st.title("➕ Deploy New Record Entry")
         st.markdown('<p class="subtitle-fix">Insert certified institutional MoU/MoA metadata into database.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
-            title = st.text_input("Agreement Title")
-            duration = st.text_input("Duration")
-            department = st.text_input("Department")
+            id_in = st.number_input("Record ID Vector", min_value=1, step=1, format="%d")
+            title = st.text_input("Agreement Title Statement")
+            duration = st.text_input("Active Lifespan Duration (e.g. 5 Years)")
+            department = st.text_input("Executing Department / Faculty")
         with col2:
-            partner = st.text_input("Partner Institution")
-            country = st.text_input("Country")
-            category = st.selectbox("Agreement Category", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+            partner = st.text_input("External Partner Institution")
+            country = st.text_input("Country Location")
+            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Save Record"):
+        if st.button("Commit Data Stream to Database"):
             cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
                            (int(id_in), title, duration, department, partner, country, category))
             conn.commit()
-            st.success("Record inserted successfully.")
-            st.rerun()
+            st.success("New legal record successfully mapped into SQL table cluster.")
+            switch_page("View Data")
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # UPDATE DATA
-    elif menu == "Update Data":
-        st.title("📝 Update Collaboration Record")
+    # ------------------------------------------------------
+    # MODULE: UPDATE DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Update Data":
+        vcol1, vcol2 = st.columns([1, 6])
+        with vcol1:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("← Back"):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        st.title("📝 Edit Existing Records Mapping")
         st.markdown('<p class="subtitle-fix">Modify properties of existing collaboration data securely.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        uid = st.number_input("Enter Record ID", min_value=1, step=1, format="%d")
+        uid = st.number_input("Target Record ID Vector Lookup", min_value=1, step=1, format="%d")
         cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
         result = cursor.fetchone()
 
         if result:
+            st.markdown("<hr style='border: 1px dashed #cbd1db; margin:20px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
-                title = st.text_input("Agreement Title", result[1])
-                duration = st.text_input("Duration", result[2])
-                department = st.text_input("Department", result[3])
+                title = st.text_input("Agreement Title Statement", result[1])
+                duration = st.text_input("Active Lifespan Duration", result[2])
+                department = st.text_input("Executing Department", result[3])
             with col2:
-                partner = st.text_input("Partner Institution", result[4])
-                country = st.text_input("Country", result[5])
-                category = st.selectbox("Agreement Category", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+                partner = st.text_input("External Partner Institution", result[4])
+                country = st.text_input("Country Location", result[5])
+                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
-            if st.button("Update Record"):
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Push Configuration Changes"):
                 cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
                                (title, duration, department, partner, country, category, int(uid)))
                 conn.commit()
-                st.success("Record updated successfully.")
-                st.rerun()
+                st.success("Mutation vector completely updated inside system core table.")
+                switch_page("View Data")
         else:
-            st.warning("Record not found.")
+            st.warning("Target configuration ID vector does not exist in cluster indexing.")
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # DELETE DATA
-    elif menu == "Delete Data":
-        st.title("🗑️ Delete Collaboration Record")
+    # ------------------------------------------------------
+    # MODULE: DELETE DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Delete Data":
+        vcol1, vcol2 = st.columns([1, 6])
+        with vcol1:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("← Back"):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        st.title("🗑️ Purge Legal Log Entry")
         st.markdown('<p class="subtitle-fix">Purge records permanently from the system configuration.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        del_id = st.number_input("Enter Record ID to Delete", min_value=1, step=1, format="%d")
-        st.error("Deleted records cannot be recovered.")
+        del_id = st.number_input("Target Discard Record ID", min_value=1, step=1, format="%d")
+        
+        st.error("💣 Critical: Purging actions cannot be rolled back or undone from the database nodes.")
 
-        if st.button("Delete Record"):
-            cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(del_id),))
-            conn.commit()
-            st.success("Record deleted successfully.")
-            st.rerun()
+        if st.button("Execute Core Table Hard Delete"):
+            cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(del_id),))
+            if cursor.fetchone():
+                cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(del_id),))
+                conn.commit()
+                st.success("Target database record metadata cleared safely.")
+                switch_page("View Data")
+            else:
+                st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
         st.markdown('</div>', unsafe_allow_html=True)
