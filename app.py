@@ -222,16 +222,18 @@ st.markdown("""
         box-shadow: 0 10px 25px rgba(75, 46, 131, 0.35);
     }
 
-    /* DYNAMIC BACK BUTTON STYLE */
+    /* BACK BUTTON AT THE BOTTOM */
     .back-btn-container .stButton > button {
         width: auto !important;
-        background: #ffffff !important;
+        background: transparent !important;
         color: #4b2e83 !important;
-        border: 1px solid #dfdaeb !important;
-        padding: 8px 18px !important;
-        font-size: 13px !important;
-        border-radius: 10px !important;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.03) !important;
+        border: 2px solid #4b2e83 !important;
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        border-radius: 12px !important;
+        box-shadow: none !important;
+        transition: all 0.2s ease;
     }
     
     .back-btn-container .stButton > button:hover {
@@ -289,7 +291,7 @@ if "logged_in" not in st.session_state:
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Dashboard"
 
-# Fungsi bantuan untuk menukar halaman menggunakan button
+# Fungsi untuk kemaskini halaman dengan selamat (SINKRONISASI RADIO)
 def switch_page(page_name):
     st.session_state.current_page = page_name
     st.rerun()
@@ -361,20 +363,19 @@ else:
         unsafe_allow_html=True
     )
 
-    # Sidebar Navigation System (Sync with session state)
+    # Sidebar Navigation System 
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
-    # Mencari index semasa berdasarkan session_state untuk mengelakkan kekeliruan radio button
+    # Dapatkan index semasa berdasarkan data halaman terkini
     current_index = menu_options.index(st.session_state.current_page)
     
     selected_menu = st.sidebar.radio(
         "SYSTEM MODULE CONNECTOR",
         menu_options,
-        index=current_index,
-        key="sidebar_radio"
+        index=current_index
     )
     
-    # Jika pengguna klik manual di sidebar, tukar session_state page
+    # Jika pengguna ubah radio button secara manual di sidebar
     if selected_menu != st.session_state.current_page:
         st.session_state.current_page = selected_menu
         st.rerun()
@@ -452,14 +453,6 @@ else:
     # MODULE: VIEW DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "View Data":
-        # TOP ACTIONS BAR WITH BACK BUTTON
-        vcol1, vcol2 = st.columns([1, 6])
-        with vcol1:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("← Back"):
-                switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
-            
         st.title("🗂️ Collaboration Repository View")
         st.markdown('<p class="subtitle-fix">Search and browse full records from the system database.</p>', unsafe_allow_html=True)
 
@@ -472,20 +465,20 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        st.dataframe(df, use_container_width=True, height=450)
+        st.dataframe(df, use_container_width=True, height=400)
+        
+        # BUTTON BACK DI BAWAH KANDUNGAN
+        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Back to Dashboard", key="back_view"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add Data":
-        vcol1, vcol2 = st.columns([1, 6])
-        with vcol1:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("← Back"):
-                switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
-
         st.title("➕ Deploy New Record Entry")
         st.markdown('<p class="subtitle-fix">Insert certified institutional MoU/MoA metadata into database.</p>', unsafe_allow_html=True)
 
@@ -508,19 +501,19 @@ else:
             conn.commit()
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
+            
+        # BUTTON BACK DI BAWAH KANDUNGAN
+        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_add"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: UPDATE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Data":
-        vcol1, vcol2 = st.columns([1, 6])
-        with vcol1:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("← Back"):
-                switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
-
         st.title("📝 Edit Existing Records Mapping")
         st.markdown('<p class="subtitle-fix">Modify properties of existing collaboration data securely.</p>', unsafe_allow_html=True)
 
@@ -550,19 +543,19 @@ else:
                 switch_page("View Data")
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
+            
+        # BUTTON BACK DI BAWAH KANDUNGAN
+        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_update"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: DELETE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Data":
-        vcol1, vcol2 = st.columns([1, 6])
-        with vcol1:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("← Back"):
-                switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
-
         st.title("🗑️ Purge Legal Log Entry")
         st.markdown('<p class="subtitle-fix">Purge records permanently from the system configuration.</p>', unsafe_allow_html=True)
 
@@ -580,4 +573,11 @@ else:
                 switch_page("View Data")
             else:
                 st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
+                
+        # BUTTON BACK DI BAWAH KANDUNGAN
+        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_delete"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
