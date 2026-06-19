@@ -485,13 +485,13 @@ else:
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            id_in = st.number_input("Record ID Vector", min_value=1, step=1, format="%d")
-            title = st.text_input("Agreement Title Statement")
-            duration = st.text_input("Active Lifespan Duration (e.g. 5 Years)")
+            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            title = st.text_input("Agreement Title")
+            duration = st.text_input("Duration")
             department = st.text_input("Executing Department / Faculty")
         with col2:
             partner = st.text_input("External Partner Institution")
-            country = st.text_input("Country Location")
+            country = st.text_input("Country")
             category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
         st.markdown("<br>", unsafe_allow_html=True)
