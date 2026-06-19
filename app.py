@@ -6,101 +6,20 @@ import pandas as pd
 # ======================================================
 # PAGE CONFIG
 # ======================================================
-
 st.set_page_config(
     page_title="MoU/MoA Collaboration Record Management System",
-    page_icon="📊",
+    page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ======================================================
-# FORCE SIDEBAR SHOWA
-# ======================================================
-
-st.markdown("""
-<style>        
-
-/* HIDE STREAMLIT */
-#MainMenu {
-    visibility: hidden;
-}
-
-footer {
-    visibility: hidden;
-}
-
-/* SIDEBAR */
-section[data-testid="stSidebar"] {
-    background: #ffffff !important;
-    min-width: 280px !important;
-    max-width: 280px !important;
-    border-right: 1px solid #e5e7eb !important;
-    box-shadow: 4px 0px 25px rgba(0,0,0,0.05);
-}
-
-/* SIDEBAR CONTENT */
-section[data-testid="stSidebar"] > div {
-    padding-top: 20px;
-}
-
-/* SIDEBAR MENU */
-div[role="radiogroup"] label {
-    background: transparent;
-    border-radius: 12px;
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    transition: 0.3s;
-}
-
-div[role="radiogroup"] label:hover {
-    background: #eef2ff;
-}
-
-/* RADIO TEXT */
-div[role="radiogroup"] label p {
-    color: #374151 !important;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-/* ACTIVE MENU */
-div[role="radiogroup"] label[data-selected="true"] {
-    background: linear-gradient(
-        135deg,
-        #6366f1,
-        #8b5cf6
-    );
-    border-radius: 12px;
-}
-
-div[role="radiogroup"] label[data-selected="true"] p {
-    color: white !important;
-}
-
-/* SIDEBAR BUTTON */
-section[data-testid="stSidebar"] .stButton button {
-    border-radius: 12px;
-}
-                 
-</style>
-""", unsafe_allow_html=True)
-
-# ======================================================
 # DATABASE CONNECTION
 # ======================================================
-
-conn = sqlite3.connect(
-    "mou_moa_db.db",
-    check_same_thread=False
-)
-
+conn = sqlite3.connect("mou_moa_db.db", check_same_thread=False)
 cursor = conn.cursor()
 
-# ======================================================
 # CREATE TABLES
-# ======================================================
-
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -121,659 +40,412 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
     category TEXT
 )
 """)
-
 conn.commit()
 
 # ======================================================
-# MODERN UI CSS
+# PROFESSIONAL UI CSS (UiTM INSPIRED: PURPLE, GOLD, BLUE)
 # ======================================================
-
 st.markdown("""
 <style>
+    /* IMPORT FONT */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
 
-/* FONT */
-html, body, [class*="css"] {
-    font-family: 'Poppins', sans-serif;
-}
+    /* BACKGROUND & MAIN CONTAINER */
+    .stApp {
+        background-color: #fcfcfd;
+    }
+    .block-container {
+        padding: 2.5rem 3rem !important;
+    }
 
-/* BACKGROUND */
-.stApp {
-    background: #f8fafc;
-}
+    /* HIDE STREAMLIT FOOTER & MENU */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
 
-/* MAIN CONTAINER */
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
+    /* SIDEBAR STYLING */
+    section[data-testid="stSidebar"] {
+        background-color: #1e1b4b !important; /* Deep Royal Purple/Navy */
+        border-right: 1px solid #e5e7eb !important;
+    }
+    
+    /* SIDEBAR TEXT & LABELS */
+    section[data-testid="stSidebar"] .stMarkdown, 
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] label {
+        color: #ffffff !important;
+    }
 
-/* SIDEBAR TEXT */
-section[data-testid="stSidebar"] p,
-section[data-testid="stSidebar"] span,
-section[data-testid="stSidebar"] label {
-    color: #4338ca !important;
-    font-weight: 500;
-}
+    /* SIDEBAR NAVIGATION (RADIO NAV) */
+    div[role="radiogroup"] label {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        padding: 12px 18px;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-/* TITLES */
-h1 {
-    color: #1e1b4b !important;
-    font-weight: 800 !important;
-}
+    div[role="radiogroup"] label:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
 
-h2 {
-    color: #312e81 !important;
-    font-weight: 700 !important;
-}
+    div[role="radiogroup"] label p {
+        color: #f3f4f6 !important;
+        font-weight: 500 !important;
+    }
 
-h3 {
-    color: #4338ca !important;
-    font-weight: 700 !important;
-}
+    /* ACTIVE NAVIGATION */
+    div[role="radiogroup"] label[data-selected="true"] {
+        background: #fabf2c !important; /* UiTM Gold */
+        border: 1px solid #fabf2c !important;
+    }
 
-/* TEXT */
-p {
-    color: #374151 !important;
-}
+    div[role="radiogroup"] label[data-selected="true"] p {
+        color: #1e1b4b !important; /* Dark text on Gold */
+        font-weight: 600 !important;
+    }
 
-/* LABEL */
-label {
-    color: #312e81 !important;
-    font-weight: 500 !important;
-}
+    /* TYPOGRAPHY / HEADINGS */
+    h1 {
+        color: #4b2e83 !important; /* UiTM Corporate Purple */
+        font-weight: 700 !important;
+        letter-spacing: -0.5px;
+    }
+    h2, h3 {
+        color: #1e3a8a !important; /* Professional Blue */
+        font-weight: 600 !important;
+    }
+    label {
+        color: #374151 !important;
+        font-weight: 500 !important;
+    }
 
-/* METRIC */
-div[data-testid="metric-container"] {
-    background: white;
-    border-radius: 18px;
-    padding: 18px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
+    /* METRIC CARDS */
+    div[data-testid="metric-container"] {
+        background: white;
+        border-radius: 14px;
+        padding: 20px;
+        border-left: 5px solid #4b2e83; /* Purple accent */
+        border-top: 1px solid #e5e7eb;
+        border-right: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    
+    div[data-testid="stMetricValue"] {
+        color: #1e3a8a !important; /* Blue for data values */
+        font-weight: 700 !important;
+    }
 
-/* BUTTON */
-.stButton > button {
-    width: 100%;
-    border-radius: 16px;
-    border: none;
-    padding: 14px;
-    font-weight: 600;
-    color: white;
-    background: linear-gradient(
-        135deg,
-        #6366f1,
-        #8b5cf6
-    );
-}
+    /* GENERAL BUTTONS */
+    .stButton > button {
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        padding: 12px;
+        font-weight: 600;
+        color: white !important;
+        background: #4b2e83 !important; /* Purple Main */
+        box-shadow: 0 2px 4px rgba(75, 46, 131, 0.2);
+        transition: all 0.2s ease;
+    }
 
-/* BUTTON HOVER */
-.stButton > button:hover {
-    background: linear-gradient(
-        135deg,
-        #4f46e5,
-        #7c3aed
-    );
-    color: white;
-}
+    .stButton > button:hover {
+        background: #362161 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(75, 46, 131, 0.3);
+    }
 
-/* INPUT */
-.stTextInput input,
-.stNumberInput input,
-textarea {
-    border-radius: 14px !important;
-    background-color: rgba(255,255,255,0.85) !important;
-    color: #111827 !important;
-    font-weight: 500 !important;
-}
+    /* LOGOUT BUTTON (SIDEBAR SPECIFIC) */
+    section[data-testid="stSidebar"] .stButton > button {
+        background: transparent !important;
+        border: 1px solid #ef4444 !important;
+        color: #ef4444 !important;
+    }
+    section[data-testid="stSidebar"] .stButton > button:hover {
+        background: #ef4444 !important;
+        color: white !important;
+    }
 
-/* PLACEHOLDER */
-.stTextInput input::placeholder,
-textarea::placeholder {
-    color: #6b7280 !important;
-    opacity: 1 !important;
-}
+    /* INPUT FIELDS & SELECTBOX FIX */
+    .stTextInput input, .stNumberInput input, textarea {
+        border-radius: 10px !important;
+        border: 1px solid #d1d5db !important;
+        background-color: #ffffff !important;
+        color: #1f2937 !important;
+    }
+    
+    /* FIX FOR SELECTBOX TEXT VISIBILITY */
+    .stSelectbox div[data-baseweb="select"] {
+        border-radius: 10px !important;
+        background-color: #ffffff !important;
+    }
+    .stSelectbox div[data-baseweb="select"] * {
+        color: #1f2937 !important; /* Ensure text is dark and visible */
+    }
 
-/* SELECTBOX */
-.stSelectbox div[data-baseweb="select"] * {
-    color: #ffffff !important;
-    font-weight: 500 !important;
-}
-            
-/* FIX SELECTBOX TEXT COLOR (LOGIN / REGISTER / RESET) */
-.stSelectbox [data-baseweb="select"] * {
-    color: #ffffff !important;
-}            
-
-/* DATAFRAME */
-[data-testid="stDataFrame"] {
-    border-radius: 18px;
-    overflow: hidden;
-}
-            
-.dashboard-card {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    border: 1px solid #e5e7eb;
-    margin-bottom: 20px;
-}
-
-.dashboard-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 5px;
-}
-
-.dashboard-subtitle {
-    color: #6b7280;
-    font-size: 16px;
-}
-
+    /* DATAFRAME */
+    [data-testid="stDataFrame"] {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # ======================================================
 # SESSION STATE
 # ======================================================
-
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 # ======================================================
 # LOGIN / REGISTER / RESET
 # ======================================================
+if not st.session_state.logged_in:
 
-if st.session_state.logged_in == False:
-
-    st.title("MoU/MoA Collaboration Record Management System")
-
-    st.write(
-        "Secure collaboration agreement management platform."
-    )
+    st.title("🎓 MoU/MoA Collaboration Record Management System")
+    st.write("Welcome back. Please secure your access session below.")
+    st.markdown("---")
 
     auth = st.sidebar.selectbox(
-    "Account",
-    [
-        "Login",
-        "Register",
-        "Reset Password"
-    ]
-)
+        "System Access",
+        ["Login", "Register", "Reset Password"]
+    )
 
     # LOGIN
-
     if auth == "Login":
-
-        st.subheader("Login")
-
+        st.subheader("Sign In")
         username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
 
-        password = st.text_input(
-            "Password",
-            type="password"
-        )
-
-        if st.button("Login"):
-
-            sql = """
-            SELECT * FROM users
-            WHERE username=?
-            AND password=?
-            """
-
-            val = (username, password)
-
-            cursor.execute(sql, val)
-
+        if st.button("Sign In to System"):
+            cursor.execute(
+                "SELECT * FROM users WHERE username=? AND password=?", 
+                (username, password)
+            )
             user = cursor.fetchone()
 
             if user:
-
                 st.session_state.logged_in = True
                 st.session_state.username = username
-
-                st.success("Login successful.")
-
+                st.success("Access granted.")
                 st.rerun()
-
             else:
-
-                st.error(
-                    "Invalid username or password."
-                )
+                st.error("Invalid corporate credentials.")
 
     # REGISTER
-
     elif auth == "Register":
-
         st.subheader("Create Account")
-
         new_username = st.text_input("Username")
+        new_email = st.text_input("Email Address")
+        new_password = st.text_input("Password", type="password")
 
-        new_email = st.text_input("Email")
-
-        new_password = st.text_input(
-            "Password",
-            type="password"
-        )
-
-        if st.button("Register"):
-
-            sql = """
-            INSERT INTO users
-            (username, email, password)
-            VALUES (?,?,?)
-            """
-
-            val = (
-                new_username,
-                new_email,
-                new_password
+        if st.button("Register Account"):
+            cursor.execute(
+                "INSERT INTO users (username, email, password) VALUES (?,?,?)",
+                (new_username, new_email, new_password)
             )
-
-            cursor.execute(sql, val)
-
             conn.commit()
-
-            st.success(
-                "Account created successfully."
-            )
+            st.success("Account registered successfully.")
 
     # RESET PASSWORD
-
     elif auth == "Reset Password":
-
         st.subheader("Reset Password")
+        email = st.text_input("Enter Registered Email")
+        new_password = st.text_input("New Password", type="password")
 
-        email = st.text_input("Enter Email")
-
-        new_password = st.text_input(
-            "New Password",
-            type="password"
-        )
-
-        if st.button("Reset Password"):
-
-            sql = """
-            UPDATE users
-            SET password=?
-            WHERE email=?
-            """
-
-            val = (
-                new_password,
-                email
+        if st.button("Update Password"):
+            cursor.execute(
+                "UPDATE users SET password=? WHERE email=?",
+                (new_password, email)
             )
-
-            cursor.execute(sql, val)
-
             conn.commit()
-
-            st.success(
-                "Password updated successfully."
-            )
+            st.success("Password updated successfully.")
 
 # ======================================================
 # MAIN SYSTEM
 # ======================================================
-
 else:
-
+    # Sidebar Profile Header
     st.sidebar.markdown(
-        """
-        <div style="text-align:center;">
-            <h2 style="color:#4338ca;">
-                MoU/MoA System
-            </h2>
-            <p style="color:gray;">
-                Collaboration Management Platform
-            </p>
+        f"""
+        <div style="text-align:center; padding: 10px 0 20px 0;">
+            <h2 style="color:#fabf2c; margin:0; font-size:22px;">UiTM Record System</h2>
+            <p style="color:#9ca3af; margin:5px 0 0 0; font-size:13px;">Logged in as: <b>{st.session_state.username}</b></p>
         </div>
         """,
         unsafe_allow_html=True
     )
 
     menu = st.sidebar.radio(
-        "Navigation",
-        [
-            "Dashboard",
-            "View Data",
-            "Add Data",
-            "Update Data",
-            "Delete Data"
-        ]
+        "NAVIGATION MENU",
+        ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     )
 
-    st.sidebar.markdown("---")
-
-    if st.sidebar.button("Logout"):
-
+    st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
+    if st.sidebar.button("Logout Session"):
         st.session_state.logged_in = False
         st.rerun()
 
+    # Fetch fresh dataframe for views
+    cursor.execute("SELECT * FROM collaboration_data ORDER BY id ASC")
+    rows = cursor.fetchall()
+    df = pd.DataFrame(rows, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
+
     # DASHBOARD
-
     if menu == "Dashboard":
-
-        st.title(
-            "MoU/MoA Collaboration Record Management System"
-        )
-
-        cursor.execute(
-            "SELECT * FROM collaboration_data ORDER BY id ASC"
-        )
-
-        rows = cursor.fetchall()
-
-        df = pd.DataFrame(rows, columns=[
-            "ID",
-            "Agreement Title",
-            "Duration",
-            "Department",
-            "Partner",
-            "Country",
-            "Category"
-        ])
+        st.title("📊 System Dashboard")
+        st.write("Real-time Overview of Institutional Agreements & External Collaborations.")
+        st.markdown("---")
 
         total_records = len(df)
-
-        total_country = df["Country"].nunique()
-
-        total_category = df["Category"].nunique()
+        total_country = df["Country"].nunique() if total_records > 0 else 0
+        total_category = df["Category"].nunique() if total_records > 0 else 0
 
         col1, col2, col3 = st.columns(3)
-
         with col1:
             st.metric("Total Agreements", total_records)
-
         with col2:
-            st.metric("Countries", total_country)
-
+            st.metric("Partner Countries", total_country)
         with col3:
             st.metric("Agreement Categories", total_category)
 
-        st.subheader("Country Distribution")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.subheader("🌐 Global Distribution (By Country)")
 
-        country_chart = df["Country"].value_counts().reset_index()
+        if total_records > 0:
+            country_chart = df["Country"].value_counts().reset_index()
+            country_chart.columns = ["Country", "Total"]
 
-        country_chart.columns = [
-            "Country",
-            "Total"
-        ]
+            # Customized Chart to blend with UiTM Colors (Purple to Blue gradient look)
+            fig = px.bar(
+                country_chart,
+                x="Country",
+                y="Total",
+                color="Total",
+                color_continuous_scale=["#1e3a8a", "#4b2e83"],
+                text_auto=True
+            )
+            fig.update_layout(
+                plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="rgba(0,0,0,0)",
+                margin=dict(t=10, b=10, l=10, r=10)
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("No records available to display data charts. Go to 'Add Data' to populate database.")
 
-        fig = px.bar(
-            country_chart,
-            x="Country",
-            y="Total",
-            color="Country",
-            text_auto=True
-        )
-
-        st.plotly_chart(
-            fig,
-            use_container_width=True
-        )
-        
-    # ======================================================
     # VIEW DATA
-    # ======================================================
-
     elif menu == "View Data":
+        st.title("🗂️ Collaboration Records")
+        st.write("Search and browse full records from the system database.")
+        st.markdown("---")
 
-        st.title("Collaboration Records")
-
-        search = st.text_input(
-            "Search by Agreement Title, Partner or Country"
-        )
+        search = st.text_input("🔍 Quick Search (Enter Agreement Title, Partner or Country)")
 
         if search:
-
             sql = """
             SELECT * FROM collaboration_data
-            WHERE title LIKE ?
-            OR partner LIKE ?
-            OR country LIKE ?
+            WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?
             """
-
-            val = (
-                f"%{search}%",
-                f"%{search}%",
-                f"%{search}%"
-            )
-
-            cursor.execute(sql, val)
-
+            cursor.execute(sql, (f"%{search}%", f"%{search}%", f"%{search}%"))
+            search_data = cursor.fetchall()
+            display_df = pd.DataFrame(search_data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
         else:
+            display_df = df
 
-            cursor.execute(
-                 "SELECT * FROM collaboration_data ORDER BY id ASC"
-            )
+        st.dataframe(display_df, use_container_width=True, height=500)
 
-        data = cursor.fetchall()
-
-        df = pd.DataFrame(data, columns=[
-            "ID",
-            "Agreement Title",
-            "Duration",
-            "Department",
-            "Partner",
-            "Country",
-            "Category"
-        ])
-
-        st.dataframe(
-            df,
-            use_container_width=True,
-            height=500
-        )
-
-    # ======================================================
     # ADD DATA
-    # ======================================================
-
     elif menu == "Add Data":
-
-        st.title("Add New Collaboration Record")
+        st.title("➕ Add New Collaboration Record")
+        st.write("Insert certified institutional MoU/MoA metadata into database.")
+        st.markdown("---")
 
         col1, col2 = st.columns(2)
-
         with col1:
-
-            id = st.number_input(
-                "Record ID",
-                min_value=1,
-                step=1,
-                format="%d"
-            )
-
-            title = st.text_input(
-                "Agreement Title"
-            )
-
-            duration = st.text_input(
-                "Duration"
-            )
-
-            department = st.text_input(
-                "Department"
-            )
+            id_val = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            title = st.text_input("Agreement Title")
+            duration = st.text_input("Duration (e.g., 3 Years)")
+            department = st.text_input("Owner Department / Faculty")
 
         with col2:
-
-            partner = st.text_input(
-                "Partner Institution"
-            )
-
-            country = st.text_input(
-                "Country"
-            )
-
+            partner = st.text_input("Partner Institution")
+            country = st.text_input("Country")
             category = st.selectbox(
                 "Agreement Category",
-                [
-                    "Memorandum of Understanding (MoU)",
-                    "Agreement for MyRA Purpose"
-                ]
+                ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"]
             )
 
-        if st.button("Save Record"):
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Save Record into Database"):
+            if title and partner:
+                try:
+                    cursor.execute(
+                        "INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
+                        (int(id_val), title, duration, department, partner, country, category)
+                    )
+                    conn.commit()
+                    st.success("Record secured successfully.")
+                except sqlite3.IntegrityError:
+                    st.error("Record ID already exists. Please use a unique ID.")
+            else:
+                st.error("Please fill in key text fields (Title & Partner).")
 
-            sql = """
-            INSERT INTO collaboration_data
-            (id, title, duration, department, partner, country, category)
-            VALUES (?,?,?,?,?,?,?)
-            """
-
-            val = (
-                int(id),
-                title,
-                duration,
-                department,
-                partner,
-                country,
-                category
-            )
-
-            cursor.execute(sql, val)
-
-            conn.commit()
-
-            st.success(
-                "Record inserted successfully."
-            )
-
-    # ======================================================
     # UPDATE DATA
-    # ======================================================
-
     elif menu == "Update Data":
+        st.title("📝 Update Collaboration Record")
+        st.write("Modify properties of existing collaboration data securely.")
+        st.markdown("---")
 
-        st.title("Update Collaboration Record")
-
-        uid = st.number_input(
-            "Enter Record ID",
-            min_value=1,
-            step=1,
-            format="%d"
-        )
-
-        cursor.execute(
-            "SELECT * FROM collaboration_data WHERE id=?",
-            (int(uid),)
-        )
-
+        uid = st.number_input("Enter Record ID to Modify", min_value=1, step=1, format="%d")
+        cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
         result = cursor.fetchone()
 
         if result:
-
             col1, col2 = st.columns(2)
-
             with col1:
-
-                title = st.text_input(
-                    "Agreement Title",
-                    result[1]
-                )
-
-                duration = st.text_input(
-                    "Duration",
-                    result[2]
-                )
-
-                department = st.text_input(
-                    "Department",
-                    result[3]
-                )
-
+                title = st.text_input("Agreement Title", result[1])
+                duration = st.text_input("Duration", result[2])
+                department = st.text_input("Department", result[3])
             with col2:
-
-                partner = st.text_input(
-                    "Partner Institution",
-                    result[4]
-                )
-
-                country = st.text_input(
-                    "Country",
-                    result[5]
-                )
-
+                partner = st.text_input("Partner Institution", result[4])
+                country = st.text_input("Country", result[5])
                 category = st.selectbox(
                     "Agreement Category",
-                    [
-                        "Memorandum of Understanding (MoU)",
-                        "Agreement for MyRA Purpose"
-                    ]
+                    ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"],
+                    index=0 if result[6] == "Memorandum of Understanding (MoU)" else 1
                 )
 
-            if st.button("Update Record"):
-
-                sql = """
-                UPDATE collaboration_data
-                SET
-                    title=?,
-                    duration=?,
-                    department=?,
-                    partner=?,
-                    country=?,
-                    category=?
-                WHERE id=?
-                """
-
-                val = (
-                    title,
-                    duration,
-                    department,
-                    partner,
-                    country,
-                    category,
-                    int(uid)
+            if st.button("Push Updates"):
+                cursor.execute(
+                    "UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
+                    (title, duration, department, partner, country, category, int(uid))
                 )
-
-                cursor.execute(sql, val)
-
                 conn.commit()
-
-                st.success(
-                    "Record updated successfully."
-                )
-
+                st.success("Data logs updated successfully.")
         else:
+            st.warning("No entry found matching this Record ID.")
 
-            st.warning(
-                "Record not found."
-            )
-
-    # ======================================================
     # DELETE DATA
-    # ======================================================
-
     elif menu == "Delete Data":
+        st.title("🗑️ Revoke / Delete Record")
+        st.write("Purge records permanently from the configuration cluster.")
+        st.markdown("---")
 
-        st.title("Delete Collaboration Record")
-
-        del_id = st.number_input(
-            "Enter Record ID to Delete",
-            min_value=1,
-            step=1,
-            format="%d"
-        )
-
-        st.warning(
-            "Deleted records cannot be recovered."
-        )
-
-        if st.button("Delete Record"):
-
-            cursor.execute(
-                "DELETE FROM collaboration_data WHERE id=?",
-                (int(del_id),)
-            )
-
-            conn.commit()
-
-            st.success(
-                "Record deleted successfully."
-            )
+        del_id = st.number_input("Enter Target Record ID to Delete", min_value=1, step=1, format="%d")
+        
+        st.warning("⚠️ Warning: Data cannot be restored once dropped from the database tables.")
+        if st.button("Execute Hard Delete"):
+            cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(del_id),))
+            if cursor.fetchone():
+                cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(del_id),))
+                conn.commit()
+                st.success("Record cleared safely.")
+            else:
+                st.error("Action aborted: Record ID not found.")
