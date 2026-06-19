@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 conn.commit()
 
 # ======================================================
-# ULTRA MODERN PRO UI CSS (UiTM INSPIRED)
+# ULTRA MODERN PRO UI CSS (UiTM THEME - NO MORE STARK WHITE)
 # ======================================================
 st.markdown("""
 <style>
@@ -53,21 +53,23 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* GLOBAL BACKGROUND OVERRIDE (Tukar putih kepada Soft Grey-Blue Pro) */
-    .stApp {
-        background-color: #f5f7fa !important;
+    /* 1. TUKAR BACKGROUND UTAMA KAWASAN KANAN (Soft UiTM Tone) */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        background-color: #f3f2f9 !important; /* Soft Lavender Grey */
     }
+    
     .block-container {
         padding: 2.5rem 3.5rem !important;
+        background-color: #f3f2f9 !important;
     }
 
     /* HIDE STREAMLIT BRANDING */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
-    /* SIDEBAR SYSTEM PANELS */
+    /* 2. SIDEBAR SYSTEM PANELS (Deep Corporate UiTM Purple) */
     section[data-testid="stSidebar"] {
-        background-color: #1a1640 !important; /* Deep Royal UiTM Purple */
+        background-color: #1a1640 !important; 
         border-right: 1px solid rgba(255,255,255,0.05) !important;
     }
     
@@ -77,7 +79,7 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* STREAMLIT RADIO NAV BUTTON RESHAPE */
+    /* NAVIGATION BUTTON RESHAPE */
     div[role="radiogroup"] {
         display: flex;
         flex-direction: column;
@@ -91,10 +93,9 @@ st.markdown("""
         margin-bottom: 0px !important;
         transition: all 0.25s ease !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        box-shadow: none !important;
     }
 
-    /* Hide standard radio dot circle */
+    /* Hide radio dot */
     div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {
         display: none !important;
     }
@@ -110,9 +111,9 @@ st.markdown("""
         font-weight: 500 !important;
     }
 
-    /* SELECTED MENU ACTIVE STATE (UiTM Gold & Sharp text) */
+    /* ACTIVE MENU STATE (UiTM Gold) */
     div[role="radiogroup"] label[data-selected="true"] {
-        background: #fabf2c !important; /* Gold */
+        background: #fabf2c !important; 
         border: 1px solid #fabf2c !important;
         box-shadow: 0 4px 12px rgba(250, 191, 44, 0.2) !important;
     }
@@ -122,65 +123,58 @@ st.markdown("""
         font-weight: 700 !important;
     }
 
-    /* TYPOGRAPHY CONTROL & FIX TEXT BLENDING IN BACKGROUND */
+    /* HEADINGS & TEXTS */
     h1 {
-        color: #3b2063 !important; /* UiTM Corporate Purple Title */
+        color: #3b2063 !important; /* UiTM Purple Title */
         font-weight: 700 !important;
         font-size: 32px !important;
     }
     h2, h3 {
-        color: #1e40af !important; /* Corporate Pro Blue */
+        color: #1e40af !important; /* Blue Accent */
         font-weight: 600 !important;
     }
     
-    /* Fix subtitle visibility */
     .subtitle-fix {
-        color: #64748b !important;
+        color: #52525b !important;
         font-size: 15px;
         margin-top: -15px;
         margin-bottom: 25px;
     }
     
     label {
-        color: #1e293b !important;
+        color: #27272a !important;
         font-weight: 600 !important;
         font-size: 14px !important;
     }
 
-    /* CONTAINER CONTENT CARDS (Untuk View, Add, Delete, Update) */
+    /* 3. TUKAR BACKGROUND KAD KANDUNGAN (View, Add, dsb) SUPAYA SELARI */
     .content-card {
-        background: #ffffff;
+        background: #eae7f2 !important; /* Terang tapi berasaskan tema ungu cair */
         border-radius: 16px;
         padding: 30px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 20px -2px rgba(50, 50, 93, 0.03);
+        border: 1px solid #dcd7e9;
+        box-shadow: 0 4px 20px -2px rgba(59, 32, 99, 0.05);
         margin-bottom: 20px;
     }
 
-    /* METRIC CARDS DISPLAY */
+    /* METRIC CARDS OVERRIDE */
     div[data-testid="metric-container"] {
-        background: #ffffff !important;
+        background: #eae7f2 !important;
         border-radius: 16px !important;
         padding: 24px !important;
-        border-left: 6px solid #3b2063 !important; /* Purple Border Accent */
-        border-top: 1px solid #e2e8f0 !important;
-        border-right: 1px solid #e2e8f0 !important;
-        border-bottom: 1px solid #e2e8f0 !important;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02) !important;
+        border-left: 6px solid #3b2063 !important;
+        border-top: 1px solid #dcd7e9 !important;
+        border-right: 1px solid #dcd7e9 !important;
+        border-bottom: 1px solid #dcd7e9 !important;
     }
     
     div[data-testid="stMetricValue"] {
-        color: #1e40af !important; /* Pro Blue numbers */
+        color: #3b2063 !important; 
         font-weight: 700 !important;
         font-size: 36px !important;
     }
-    
-    div[data-testid="stMetricLabel"] p {
-        color: #64748b !important;
-        font-weight: 500 !important;
-    }
 
-    /* SUBMIT/SAVE BUTTON RESKID */
+    /* BUTTONS */
     .stButton > button {
         width: 100%;
         border-radius: 12px;
@@ -190,7 +184,6 @@ st.markdown("""
         color: white !important;
         background: linear-gradient(135deg, #3b2063, #251342) !important;
         box-shadow: 0 4px 12px rgba(59, 32, 99, 0.2);
-        transition: all 0.2s ease;
     }
 
     .stButton > button:hover {
@@ -198,45 +191,39 @@ st.markdown("""
         box-shadow: 0 6px 16px rgba(59, 32, 99, 0.3);
     }
 
-    /* LOGOUT BUTTON OUTLINE STYLE */
+    /* LOGOUT BUTTON */
     section[data-testid="stSidebar"] .stButton > button {
         background: transparent !important;
         border: 1px solid #f87171 !important;
         color: #f87171 !important;
-        box-shadow: none !important;
     }
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: #ef4444 !important;
         color: white !important;
     }
 
-    /* INPUT ELEMENT BOXES */
+    /* INPUT ELEMENT BOXES & DROPDOWNS */
     .stTextInput input, .stNumberInput input, textarea {
         border-radius: 10px !important;
-        border: 1px solid #cbd5e1 !important;
+        border: 1px solid #bdaec6 !important;
         background-color: #ffffff !important;
         color: #0f172a !important;
-        padding: 10px 14px !important;
-    }
-    .stTextInput input:focus, .stNumberInput input:focus {
-        border-color: #1e40af !important;
     }
     
-    /* FIX FOR SELECTBOX TEXT VISIBILITY BUG */
     .stSelectbox div[data-baseweb="select"] {
         border-radius: 10px !important;
         background-color: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
+        border: 1px solid #bdaec6 !important;
     }
     .stSelectbox div[data-baseweb="select"] * {
         color: #0f172a !important;
     }
 
-    /* TABLES AND FRAMES */
+    /* DATAFRAME BLOCK */
     [data-testid="stDataFrame"] {
-        border: 1px solid #e2e8f0;
+        border: 1px solid #cbd5e1;
         border-radius: 14px;
-        background: white;
+        background: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -320,7 +307,7 @@ else:
         st.session_state.logged_in = False
         st.rerun()
 
-    # Load fresh DB data
+    # Load DB data
     cursor.execute("SELECT * FROM collaboration_data ORDER BY id ASC")
     rows = cursor.fetchall()
     df = pd.DataFrame(rows, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
@@ -344,7 +331,6 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Wrapped Chart inside a White Pro Card Element
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.subheader("🌐 Country Distribution")
         
@@ -352,20 +338,20 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # FIX: BAR MACAM-MACAM WARNA (Using dynamic continuous qualitative color scale)
+            # BAR MACAM-MACAM WARNA (Prism Colorful Theme)
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
-                color="Country",  # Assign color by country name to get multi-color effect
-                color_discrete_sequence=px.colors.qualitative.Prism, # Colorful professional modern color palette
+                color="Country",  
+                color_discrete_sequence=px.colors.qualitative.Prism, 
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#64748b")),
-                yaxis=dict(showgrid=True, gridcolor="#f1f5f9", title_font=dict(size=13, color="#64748b")),
+                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
+                yaxis=dict(showgrid=True, gridcolor="#e2e8f0", title_font=dict(size=13, color="#4b2e83")),
                 margin=dict(t=20, b=20, l=10, r=10),
                 showlegend=False
             )
