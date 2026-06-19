@@ -394,7 +394,7 @@ else:
     # MODULE: DASHBOARD
     # ------------------------------------------------------
     if st.session_state.current_page == "Dashboard":
-        st.title("📊 Enterprise Analytics Dashboard")
+        st.title("📊 Record Analytics Dashboard")
         st.markdown('<p class="subtitle-fix">Real-time Overview of Institutional Agreements & External Collaborations.</p>', unsafe_allow_html=True)
 
         total_records = len(df)
