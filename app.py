@@ -43,156 +43,200 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 conn.commit()
 
 # ======================================================
-# PROFESSIONAL UI CSS (UiTM INSPIRED: PURPLE, GOLD, BLUE)
+# ULTRA MODERN PRO UI CSS (UiTM INSPIRED)
 # ======================================================
 st.markdown("""
 <style>
-    /* IMPORT FONT */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
     
     html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* BACKGROUND & MAIN CONTAINER */
+    /* GLOBAL BACKGROUND OVERRIDE (Tukar putih kepada Soft Grey-Blue Pro) */
     .stApp {
-        background-color: #fcfcfd;
+        background-color: #f5f7fa !important;
     }
     .block-container {
-        padding: 2.5rem 3rem !important;
+        padding: 2.5rem 3.5rem !important;
     }
 
-    /* HIDE STREAMLIT FOOTER & MENU */
+    /* HIDE STREAMLIT BRANDING */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
-    /* SIDEBAR STYLING */
+    /* SIDEBAR SYSTEM PANELS */
     section[data-testid="stSidebar"] {
-        background-color: #1e1b4b !important; /* Deep Royal Purple/Navy */
-        border-right: 1px solid #e5e7eb !important;
+        background-color: #1a1640 !important; /* Deep Royal UiTM Purple */
+        border-right: 1px solid rgba(255,255,255,0.05) !important;
     }
     
-    /* SIDEBAR TEXT & LABELS */
     section[data-testid="stSidebar"] .stMarkdown, 
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {
         color: #ffffff !important;
     }
 
-    /* SIDEBAR NAVIGATION (RADIO NAV) */
+    /* STREAMLIT RADIO NAV BUTTON RESHAPE */
+    div[role="radiogroup"] {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
     div[role="radiogroup"] label {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-        padding: 12px 18px;
-        margin-bottom: 10px;
-        transition: all 0.2s ease;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+        margin-bottom: 0px !important;
+        transition: all 0.25s ease !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        box-shadow: none !important;
+    }
+
+    /* Hide standard radio dot circle */
+    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {
+        display: none !important;
     }
 
     div[role="radiogroup"] label:hover {
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
     }
 
     div[role="radiogroup"] label p {
-        color: #f3f4f6 !important;
+        color: #e2e8f0 !important;
+        font-size: 14px !important;
         font-weight: 500 !important;
     }
 
-    /* ACTIVE NAVIGATION */
+    /* SELECTED MENU ACTIVE STATE (UiTM Gold & Sharp text) */
     div[role="radiogroup"] label[data-selected="true"] {
-        background: #fabf2c !important; /* UiTM Gold */
+        background: #fabf2c !important; /* Gold */
         border: 1px solid #fabf2c !important;
+        box-shadow: 0 4px 12px rgba(250, 191, 44, 0.2) !important;
     }
 
     div[role="radiogroup"] label[data-selected="true"] p {
-        color: #1e1b4b !important; /* Dark text on Gold */
-        font-weight: 600 !important;
+        color: #1a1640 !important;
+        font-weight: 700 !important;
     }
 
-    /* TYPOGRAPHY / HEADINGS */
+    /* TYPOGRAPHY CONTROL & FIX TEXT BLENDING IN BACKGROUND */
     h1 {
-        color: #4b2e83 !important; /* UiTM Corporate Purple */
+        color: #3b2063 !important; /* UiTM Corporate Purple Title */
         font-weight: 700 !important;
-        letter-spacing: -0.5px;
+        font-size: 32px !important;
     }
     h2, h3 {
-        color: #1e3a8a !important; /* Professional Blue */
+        color: #1e40af !important; /* Corporate Pro Blue */
         font-weight: 600 !important;
     }
+    
+    /* Fix subtitle visibility */
+    .subtitle-fix {
+        color: #64748b !important;
+        font-size: 15px;
+        margin-top: -15px;
+        margin-bottom: 25px;
+    }
+    
     label {
-        color: #374151 !important;
-        font-weight: 500 !important;
+        color: #1e293b !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
     }
 
-    /* METRIC CARDS */
+    /* CONTAINER CONTENT CARDS (Untuk View, Add, Delete, Update) */
+    .content-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 30px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 20px -2px rgba(50, 50, 93, 0.03);
+        margin-bottom: 20px;
+    }
+
+    /* METRIC CARDS DISPLAY */
     div[data-testid="metric-container"] {
-        background: white;
-        border-radius: 14px;
-        padding: 20px;
-        border-left: 5px solid #4b2e83; /* Purple accent */
-        border-top: 1px solid #e5e7eb;
-        border-right: 1px solid #e5e7eb;
-        border-bottom: 1px solid #e5e7eb;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        padding: 24px !important;
+        border-left: 6px solid #3b2063 !important; /* Purple Border Accent */
+        border-top: 1px solid #e2e8f0 !important;
+        border-right: 1px solid #e2e8f0 !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02) !important;
     }
     
     div[data-testid="stMetricValue"] {
-        color: #1e3a8a !important; /* Blue for data values */
+        color: #1e40af !important; /* Pro Blue numbers */
         font-weight: 700 !important;
+        font-size: 36px !important;
+    }
+    
+    div[data-testid="stMetricLabel"] p {
+        color: #64748b !important;
+        font-weight: 500 !important;
     }
 
-    /* GENERAL BUTTONS */
+    /* SUBMIT/SAVE BUTTON RESKID */
     .stButton > button {
         width: 100%;
-        border-radius: 10px;
+        border-radius: 12px;
         border: none;
-        padding: 12px;
+        padding: 14px;
         font-weight: 600;
         color: white !important;
-        background: #4b2e83 !important; /* Purple Main */
-        box-shadow: 0 2px 4px rgba(75, 46, 131, 0.2);
+        background: linear-gradient(135deg, #3b2063, #251342) !important;
+        box-shadow: 0 4px 12px rgba(59, 32, 99, 0.2);
         transition: all 0.2s ease;
     }
 
     .stButton > button:hover {
-        background: #362161 !important;
         transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(75, 46, 131, 0.3);
+        box-shadow: 0 6px 16px rgba(59, 32, 99, 0.3);
     }
 
-    /* LOGOUT BUTTON (SIDEBAR SPECIFIC) */
+    /* LOGOUT BUTTON OUTLINE STYLE */
     section[data-testid="stSidebar"] .stButton > button {
         background: transparent !important;
-        border: 1px solid #ef4444 !important;
-        color: #ef4444 !important;
+        border: 1px solid #f87171 !important;
+        color: #f87171 !important;
+        box-shadow: none !important;
     }
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: #ef4444 !important;
         color: white !important;
     }
 
-    /* INPUT FIELDS & SELECTBOX FIX */
+    /* INPUT ELEMENT BOXES */
     .stTextInput input, .stNumberInput input, textarea {
         border-radius: 10px !important;
-        border: 1px solid #d1d5db !important;
+        border: 1px solid #cbd5e1 !important;
         background-color: #ffffff !important;
-        color: #1f2937 !important;
+        color: #0f172a !important;
+        padding: 10px 14px !important;
+    }
+    .stTextInput input:focus, .stNumberInput input:focus {
+        border-color: #1e40af !important;
     }
     
-    /* FIX FOR SELECTBOX TEXT VISIBILITY */
+    /* FIX FOR SELECTBOX TEXT VISIBILITY BUG */
     .stSelectbox div[data-baseweb="select"] {
         border-radius: 10px !important;
         background-color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
     }
     .stSelectbox div[data-baseweb="select"] * {
-        color: #1f2937 !important; /* Ensure text is dark and visible */
+        color: #0f172a !important;
     }
 
-    /* DATAFRAME */
+    /* TABLES AND FRAMES */
     [data-testid="stDataFrame"] {
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        background: white;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -207,65 +251,49 @@ if "logged_in" not in st.session_state:
 # LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
-
     st.title("🎓 MoU/MoA Collaboration Record Management System")
-    st.write("Welcome back. Please secure your access session below.")
-    st.markdown("---")
+    st.markdown('<p class="subtitle-fix">Secure collaboration agreement management platform.</p>', unsafe_allow_html=True)
 
-    auth = st.sidebar.selectbox(
-        "System Access",
-        ["Login", "Register", "Reset Password"]
-    )
+    auth = st.sidebar.selectbox("Account Gateway", ["Login", "Register", "Reset Password"])
 
-    # LOGIN
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
     if auth == "Login":
-        st.subheader("Sign In")
+        st.subheader("Login")
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
 
-        if st.button("Sign In to System"):
-            cursor.execute(
-                "SELECT * FROM users WHERE username=? AND password=?", 
-                (username, password)
-            )
+        if st.button("Sign In"):
+            cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
             user = cursor.fetchone()
-
             if user:
                 st.session_state.logged_in = True
                 st.session_state.username = username
-                st.success("Access granted.")
+                st.success("Login successful.")
                 st.rerun()
             else:
-                st.error("Invalid corporate credentials.")
+                st.error("Invalid username or password.")
 
-    # REGISTER
     elif auth == "Register":
         st.subheader("Create Account")
         new_username = st.text_input("Username")
-        new_email = st.text_input("Email Address")
+        new_email = st.text_input("Email")
         new_password = st.text_input("Password", type="password")
 
-        if st.button("Register Account"):
-            cursor.execute(
-                "INSERT INTO users (username, email, password) VALUES (?,?,?)",
-                (new_username, new_email, new_password)
-            )
+        if st.button("Register"):
+            cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
             conn.commit()
-            st.success("Account registered successfully.")
+            st.success("Account created successfully.")
 
-    # RESET PASSWORD
     elif auth == "Reset Password":
         st.subheader("Reset Password")
-        email = st.text_input("Enter Registered Email")
+        email = st.text_input("Enter Email")
         new_password = st.text_input("New Password", type="password")
 
-        if st.button("Update Password"):
-            cursor.execute(
-                "UPDATE users SET password=? WHERE email=?",
-                (new_password, email)
-            )
+        if st.button("Reset Password"):
+            cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
             conn.commit()
             st.success("Password updated successfully.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ======================================================
 # MAIN SYSTEM
@@ -274,9 +302,9 @@ else:
     # Sidebar Profile Header
     st.sidebar.markdown(
         f"""
-        <div style="text-align:center; padding: 10px 0 20px 0;">
-            <h2 style="color:#fabf2c; margin:0; font-size:22px;">UiTM Record System</h2>
-            <p style="color:#9ca3af; margin:5px 0 0 0; font-size:13px;">Logged in as: <b>{st.session_state.username}</b></p>
+        <div style="text-align:center; padding: 10px 0 25px 0;">
+            <h2 style="color:#fabf2c; margin:0; font-size:22px; font-weight:700;">UiTM Record System</h2>
+            <p style="color:#cbd5e1; margin:6px 0 0 0; font-size:13px; opacity:0.8;">Logged in as: <span style="color:#fabf2c; font-weight:600;">{st.session_state.username}</span></p>
         </div>
         """,
         unsafe_allow_html=True
@@ -292,7 +320,7 @@ else:
         st.session_state.logged_in = False
         st.rerun()
 
-    # Fetch fresh dataframe for views
+    # Load fresh DB data
     cursor.execute("SELECT * FROM collaboration_data ORDER BY id ASC")
     rows = cursor.fetchall()
     df = pd.DataFrame(rows, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
@@ -300,8 +328,7 @@ else:
     # DASHBOARD
     if menu == "Dashboard":
         st.title("📊 System Dashboard")
-        st.write("Real-time Overview of Institutional Agreements & External Collaborations.")
-        st.markdown("---")
+        st.markdown('<p class="subtitle-fix">Real-time Overview of Institutional Agreements & External Collaborations.</p>', unsafe_allow_html=True)
 
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
@@ -311,99 +338,92 @@ else:
         with col1:
             st.metric("Total Agreements", total_records)
         with col2:
-            st.metric("Partner Countries", total_country)
+            st.metric("Countries", total_country)
         with col3:
             st.metric("Agreement Categories", total_category)
 
         st.markdown("<br>", unsafe_allow_html=True)
-        st.subheader("🌐 Global Distribution (By Country)")
-
+        
+        # Wrapped Chart inside a White Pro Card Element
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        st.subheader("🌐 Country Distribution")
+        
         if total_records > 0:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # Customized Chart to blend with UiTM Colors (Purple to Blue gradient look)
+            # FIX: BAR MACAM-MACAM WARNA (Using dynamic continuous qualitative color scale)
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
-                color="Total",
-                color_continuous_scale=["#1e3a8a", "#4b2e83"],
+                color="Country",  # Assign color by country name to get multi-color effect
+                color_discrete_sequence=px.colors.qualitative.Prism, # Colorful professional modern color palette
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                margin=dict(t=10, b=10, l=10, r=10)
+                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#64748b")),
+                yaxis=dict(showgrid=True, gridcolor="#f1f5f9", title_font=dict(size=13, color="#64748b")),
+                margin=dict(t=20, b=20, l=10, r=10),
+                showlegend=False
             )
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.info("No records available to display data charts. Go to 'Add Data' to populate database.")
+            st.info("No records available to display data graphs. Go to 'Add Data' to populate database.")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # VIEW DATA
     elif menu == "View Data":
         st.title("🗂️ Collaboration Records")
-        st.write("Search and browse full records from the system database.")
-        st.markdown("---")
+        st.markdown('<p class="subtitle-fix">Search and browse full records from the system database.</p>', unsafe_allow_html=True)
 
-        search = st.text_input("🔍 Quick Search (Enter Agreement Title, Partner or Country)")
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        search = st.text_input("🔍 Search by Agreement Title, Partner or Country")
 
         if search:
-            sql = """
-            SELECT * FROM collaboration_data
-            WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?
-            """
+            sql = "SELECT * FROM collaboration_data WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?"
             cursor.execute(sql, (f"%{search}%", f"%{search}%", f"%{search}%"))
-            search_data = cursor.fetchall()
-            display_df = pd.DataFrame(search_data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
-        else:
-            display_df = df
+            data = cursor.fetchall()
+            df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        st.dataframe(display_df, use_container_width=True, height=500)
+        st.dataframe(df, use_container_width=True, height=450)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # ADD DATA
     elif menu == "Add Data":
         st.title("➕ Add New Collaboration Record")
-        st.write("Insert certified institutional MoU/MoA metadata into database.")
-        st.markdown("---")
+        st.markdown('<p class="subtitle-fix">Insert certified institutional MoU/MoA metadata into database.</p>', unsafe_allow_html=True)
 
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            id_val = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
             title = st.text_input("Agreement Title")
-            duration = st.text_input("Duration (e.g., 3 Years)")
-            department = st.text_input("Owner Department / Faculty")
-
+            duration = st.text_input("Duration")
+            department = st.text_input("Department")
         with col2:
             partner = st.text_input("Partner Institution")
             country = st.text_input("Country")
-            category = st.selectbox(
-                "Agreement Category",
-                ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"]
-            )
+            category = st.selectbox("Agreement Category", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Save Record into Database"):
-            if title and partner:
-                try:
-                    cursor.execute(
-                        "INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
-                        (int(id_val), title, duration, department, partner, country, category)
-                    )
-                    conn.commit()
-                    st.success("Record secured successfully.")
-                except sqlite3.IntegrityError:
-                    st.error("Record ID already exists. Please use a unique ID.")
-            else:
-                st.error("Please fill in key text fields (Title & Partner).")
+        if st.button("Save Record"):
+            cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
+                           (int(id_in), title, duration, department, partner, country, category))
+            conn.commit()
+            st.success("Record inserted successfully.")
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # UPDATE DATA
     elif menu == "Update Data":
         st.title("📝 Update Collaboration Record")
-        st.write("Modify properties of existing collaboration data securely.")
-        st.markdown("---")
+        st.markdown('<p class="subtitle-fix">Modify properties of existing collaboration data securely.</p>', unsafe_allow_html=True)
 
-        uid = st.number_input("Enter Record ID to Modify", min_value=1, step=1, format="%d")
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        uid = st.number_input("Enter Record ID", min_value=1, step=1, format="%d")
         cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
         result = cursor.fetchone()
 
@@ -416,36 +436,30 @@ else:
             with col2:
                 partner = st.text_input("Partner Institution", result[4])
                 country = st.text_input("Country", result[5])
-                category = st.selectbox(
-                    "Agreement Category",
-                    ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"],
-                    index=0 if result[6] == "Memorandum of Understanding (MoU)" else 1
-                )
+                category = st.selectbox("Agreement Category", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
-            if st.button("Push Updates"):
-                cursor.execute(
-                    "UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
-                    (title, duration, department, partner, country, category, int(uid))
-                )
+            if st.button("Update Record"):
+                cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
+                               (title, duration, department, partner, country, category, int(uid)))
                 conn.commit()
-                st.success("Data logs updated successfully.")
+                st.success("Record updated successfully.")
+                st.rerun()
         else:
-            st.warning("No entry found matching this Record ID.")
+            st.warning("Record not found.")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # DELETE DATA
     elif menu == "Delete Data":
-        st.title("🗑️ Revoke / Delete Record")
-        st.write("Purge records permanently from the configuration cluster.")
-        st.markdown("---")
+        st.title("🗑️ Delete Collaboration Record")
+        st.markdown('<p class="subtitle-fix">Purge records permanently from the system configuration.</p>', unsafe_allow_html=True)
 
-        del_id = st.number_input("Enter Target Record ID to Delete", min_value=1, step=1, format="%d")
-        
-        st.warning("⚠️ Warning: Data cannot be restored once dropped from the database tables.")
-        if st.button("Execute Hard Delete"):
-            cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(del_id),))
-            if cursor.fetchone():
-                cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(del_id),))
-                conn.commit()
-                st.success("Record cleared safely.")
-            else:
-                st.error("Action aborted: Record ID not found.")
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        del_id = st.number_input("Enter Record ID to Delete", min_value=1, step=1, format="%d")
+        st.error("Deleted records cannot be recovered.")
+
+        if st.button("Delete Record"):
+            cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(del_id),))
+            conn.commit()
+            st.success("Record deleted successfully.")
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
