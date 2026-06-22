@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 
 # ======================================================
-# PAGE CONFIG
+# PAGE CONFIG (Mesti berada di baris pertama sekali)
 # ======================================================
 st.set_page_config(
     page_title="MoU/MoA Collaboration Record Management System",
@@ -12,6 +12,28 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# ======================================================
+# GLOBAL PERSISTENT SESSION CACHE (Alternatif Kuki)
+# ======================================================
+@st.cache_resource
+def get_global_session():
+    # Fungsi ini akan mengekalkan data login dalam memori komputer selagi app berjalan
+    return {"logged_in": False, "username": None}
+
+global_session = get_global_session()
+
+# Sincronisasikan cache global dengan session_state Streamlit
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = global_session["logged_in"]
+    st.session_state.username = global_session["username"]
+
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "Dashboard"
+
+def switch_page(page_name):
+    st.session_state.current_page = page_name
+    st.rerun()
 
 # ======================================================
 # DATABASE CONNECTION
@@ -68,7 +90,7 @@ st.markdown("""
     /* SIDEBAR PREMIUM ENTERPRISE */
     section[data-testid="stSidebar"] {
         background-color: #161233 !important; 
-        border-right: 2px solid #fabf2c !important; /* Gold divider border line */
+        border-right: 2px solid #fabf2c !important; 
     }
     
     section[data-testid="stSidebar"] .stMarkdown, 
@@ -152,7 +174,7 @@ st.markdown("""
 
     /* PREMIUM CONTENT CARD */
     .content-card {
-        background: #f0eef7 !important; /* Soft Tone Lavender-Grey Base */
+        background: #f0eef7 !important; 
         border-radius: 20px;
         padding: 35px;
         border: 1px solid #dfdaeb;
@@ -184,9 +206,9 @@ st.markdown("""
         top: 0; left: 0; width: 6px; height: 100%;
     }
     
-    .metric-1::before { background: #4b2e83; } /* UiTM Purple Line */
-    .metric-2::before { background: #1e40af; } /* Pro Blue Line */
-    .metric-3::before { background: #fabf2c; } /* UiTM Gold Line */
+    .metric-1::before { background: #4b2e83; } 
+    .metric-2::before { background: #1e40af; } 
+    .metric-3::before { background: #fabf2c; } 
 
     .metric-title {
         font-size: 13px;
@@ -284,19 +306,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ======================================================
-# SESSION STATE NAVIGATION CONTROLLER
-# ======================================================
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-if "current_page" not in st.session_state:
-    st.session_state.current_page = "Dashboard"
-
-# Fungsi untuk kemaskini halaman dengan selamat (SINKRONISASI RADIO)
-def switch_page(page_name):
-    st.session_state.current_page = page_name
-    st.rerun()
-
-# ======================================================
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
@@ -315,6 +324,11 @@ if not st.session_state.logged_in:
             cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
             user = cursor.fetchone()
             if user:
+                # Simpan status login ke dalam cache cache_resource global
+                global_session["logged_in"] = True
+                global_session["username"] = username
+                
+                # Kemaskini halaman semasa
                 st.session_state.logged_in = True
                 st.session_state.username = username
                 st.success("Session secured.")
@@ -366,7 +380,6 @@ else:
     # Sidebar Navigation System 
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
-    # Dapatkan index semasa berdasarkan data halaman terkini
     current_index = menu_options.index(st.session_state.current_page)
     
     selected_menu = st.sidebar.radio(
@@ -375,13 +388,16 @@ else:
         index=current_index
     )
     
-    # Jika pengguna ubah radio button secara manual di sidebar
     if selected_menu != st.session_state.current_page:
         st.session_state.current_page = selected_menu
         st.rerun()
 
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
     if st.sidebar.button("Terminated Access"):
+        # Reset cache global bila logout manual
+        global_session["logged_in"] = False
+        global_session["username"] = None
+        
         st.session_state.logged_in = False
         st.rerun()
 
@@ -401,7 +417,6 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Custom HTML Enterprise Metrics Layout
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -420,7 +435,6 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
-        
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.subheader("🌐 Global Distribution Portfolio")
         
@@ -467,7 +481,6 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        # BUTTON BACK
         st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
@@ -502,7 +515,6 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        # BUTTON BACK DI BAWAH KANDUNGAN
         st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
@@ -544,7 +556,6 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        # BUTTON BACK DI BAWAH KANDUNGAN
         st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
@@ -564,37 +575,30 @@ else:
         
         st.error("💣 Critical: Purging actions cannot be rolled back or undone from the database nodes.")
 
-        # --- FUNGSI POP-UP DIALOG (CONFIRMATION) ---
         @st.dialog("⚠️ Confirm Permanent Deletion")
         def confirm_delete_dialog(record_id):
             st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the metadata cluster from the core database nodes.")
             
-            # Susun butang secara bersebelahan (Yes / Cancel)
             col_yes, col_cancel = st.columns([1, 1])
             with col_yes:
                 if st.button("Yes, Purge Record", use_container_width=True):
-                    # Proses padam data dipindahkan ke dalam dialog sah
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
                         conn.commit()
                         st.success(f"Record ID {record_id} cleared safely.")
-                        # Rerun untuk kemaskini dataframe & tutup dialog
                         switch_page("View Data")
                     else:
                         st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
             
             with col_cancel:
                 if st.button("Cancel", use_container_width=True):
-                    st.rerun() # Menutup pop-up dialog secara automatik
+                    st.rerun()
 
-        # --- BUTANG UTAMA PADA HALAMAN ---
         if st.button("Execute Core Table Hard Delete"):
-            # Bila butang ditekan, fungsi pop-up dialog di atas akan dipanggil
             confirm_delete_dialog(del_id)
                 
-        # BUTTON BACK DI BAWAH KANDUNGAN
         st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
