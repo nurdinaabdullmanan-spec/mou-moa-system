@@ -352,7 +352,7 @@ else:
     st.sidebar.markdown(
         f"""
         <div style="text-align:center; padding: 15px 0 30px 0;">
-            <div style="font-size:26px; font-weight:800; color:#fabf2c; letter-spacing:-0.5px;">UiTM Records</div>
+            <div style="font-size:26px; font-weight:800; color:#fabf2c; letter-spacing:-0.5px;">UiTM MoU/MoA Collaboration Records</div>
             <div style="color:#9da4b0; font-size:12px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">UiTM PERMATANG PAUH</div>
             <div style="margin-top:15px; background:rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; display:inline-block;">
                 <span style="color:#6be084; font-size:10px;">●</span> 
@@ -467,7 +467,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        # BUTTON BACK DI BAWAH KANDUNGAN
+        # BUTTON BACK
         st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
