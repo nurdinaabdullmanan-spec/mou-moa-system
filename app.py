@@ -2,10 +2,9 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-from streamlit_cookies_controller import CookieController
 
 # ======================================================
-# PAGE CONFIG (Must be the very first Streamlit command)
+# PAGE CONFIG
 # ======================================================
 st.set_page_config(
     page_title="MoU/MoA Collaboration Record Management System",
@@ -13,9 +12,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# Initialize cookie controller with a persistent master key
-cookies = CookieController(key="uitm_session_cookie_master")
 
 # ======================================================
 # DATABASE CONNECTION
@@ -288,20 +284,14 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ======================================================
-# SESSION STATE & COOKIE NAVIGATION CONTROLLER
+# SESSION STATE NAVIGATION CONTROLLER
 # ======================================================
-saved_user = cookies.get('remembered_user')
-
 if "logged_in" not in st.session_state:
-    if saved_user:
-        st.session_state.logged_in = True
-        st.session_state.username = saved_user
-    else:
-        st.session_state.logged_in = False
-
+    st.session_state.logged_in = False
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Dashboard"
 
+# Fungsi untuk kemaskini halaman dengan selamat (SINKRONISASI RADIO)
 def switch_page(page_name):
     st.session_state.current_page = page_name
     st.rerun()
@@ -325,9 +315,6 @@ if not st.session_state.logged_in:
             cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
             user = cursor.fetchone()
             if user:
-                # Simpan ke kuki browser (Kekal 7 Hari = 604800 saat)
-                cookies.set('remembered_user', username, max_age=604800)
-                
                 st.session_state.logged_in = True
                 st.session_state.username = username
                 st.success("Session secured.")
@@ -395,9 +382,6 @@ else:
 
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
     if st.sidebar.button("Terminated Access"):
-        # Padamkan kuki untuk menamatkan auto-login sepenuhnya
-        cookies.remove('remembered_user')
-        
         st.session_state.logged_in = False
         st.rerun()
 
@@ -586,24 +570,28 @@ else:
             st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the metadata cluster from the core database nodes.")
             
+            # Susun butang secara bersebelahan (Yes / Cancel)
             col_yes, col_cancel = st.columns([1, 1])
             with col_yes:
                 if st.button("Yes, Purge Record", use_container_width=True):
+                    # Proses padam data dipindahkan ke dalam dialog sah
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
                         conn.commit()
                         st.success(f"Record ID {record_id} cleared safely.")
+                        # Rerun untuk kemaskini dataframe & tutup dialog
                         switch_page("View Data")
                     else:
                         st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
             
             with col_cancel:
                 if st.button("Cancel", use_container_width=True):
-                    st.rerun()
+                    st.rerun() # Menutup pop-up dialog secara automatik
 
         # --- BUTANG UTAMA PADA HALAMAN ---
         if st.button("Execute Core Table Hard Delete"):
+            # Bila butang ditekan, fungsi pop-up dialog di atas akan dipanggil
             confirm_delete_dialog(del_id)
                 
         # BUTTON BACK DI BAWAH KANDUNGAN
