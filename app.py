@@ -564,15 +564,35 @@ else:
         
         st.error("💣 Critical: Purging actions cannot be rolled back or undone from the database nodes.")
 
+        # --- FUNGSI POP-UP DIALOG (CONFIRMATION) ---
+        @st.dialog("⚠️ Confirm Permanent Deletion")
+        def confirm_delete_dialog(record_id):
+            st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
+            st.write("This action will immediately wipe the metadata cluster from the core database nodes.")
+            
+            # Susun butang secara bersebelahan (Yes / Cancel)
+            col_yes, col_cancel = st.columns([1, 1])
+            with col_yes:
+                if st.button("Yes, Purge Record", use_container_width=True):
+                    # Proses padam data dipindahkan ke dalam dialog sah
+                    cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
+                    if cursor.fetchone():
+                        cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
+                        conn.commit()
+                        st.success(f"Record ID {record_id} cleared safely.")
+                        # Rerun untuk kemaskini dataframe & tutup dialog
+                        switch_page("View Data")
+                    else:
+                        st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
+            
+            with col_cancel:
+                if st.button("Cancel", use_container_width=True):
+                    st.rerun() # Menutup pop-up dialog secara automatik
+
+        # --- BUTANG UTAMA PADA HALAMAN ---
         if st.button("Execute Core Table Hard Delete"):
-            cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(del_id),))
-            if cursor.fetchone():
-                cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(del_id),))
-                conn.commit()
-                st.success("Target database record metadata cleared safely.")
-                switch_page("View Data")
-            else:
-                st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
+            # Bila butang ditekan, fungsi pop-up dialog di atas akan dipanggil
+            confirm_delete_dialog(del_id)
                 
         # BUTTON BACK DI BAWAH KANDUNGAN
         st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
