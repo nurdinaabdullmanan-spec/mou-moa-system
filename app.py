@@ -46,7 +46,7 @@ conn.commit()
 UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/f/f1/UiTM_Logo.png"
 
 # ======================================================
-# ULTIMATE MASTERPIECE UI CSS (UiTM LUXURY KORPORAT)
+# ULTIMATE MASTERPIECE UI CSS (SOFT DEEP PURPLE MIX)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -61,9 +61,9 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - LUXURY DARK INDIGO */
+    /* BACKGROUND UTAMA - DIUBAH KEPADA PURPLE MUDA/LEMBUT YANG DIPUDARKAN (TIDAK HITAM PEKAT) */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: radial-gradient(circle at 20% 20%, #161129 0%, #0a0714 100%) !important; 
+        background: radial-gradient(circle at 50% 50%, #221a3b 0%, #130f24 100%) !important; 
         color: #f8fafc !important;
     }}
     
@@ -74,14 +74,14 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* LOGO BLENDING EFFECT */
+    /* LOGO BLENDING EFFECT (Blend perfectly with gold glow) */
     .logo-container {{
         text-align: center;
         padding: 10px 0;
     }}
     .uitm-logo {{
         width: 140px;
-        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4)); /* Efek gold glow pada logo */
+        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.5));
         mix-blend-mode: normal;
         transition: transform 0.3s ease;
     }}
@@ -89,7 +89,7 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR ULTRA-PREMIUM */
+    /* SIDEBAR GELAP YANG DEE SUKA (STAY ORIGINAL PREMIUM DARK) */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #110d21 0%, #07050e 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
@@ -135,7 +135,7 @@ st.markdown(f"""
         letter-spacing: 0.5px;
     }}
 
-    /* STATE ACTIVE - ROYAL PURPLE TO GOLD EMBOSS */
+    /* STATE ACTIVE */
     div[role="radiogroup"] label[data-selected="true"] {{
         background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
         border: 1px solid #fabf2c !important; 
@@ -172,7 +172,7 @@ st.markdown(f"""
 
     /* LUXURY HERO GLASS CARD */
     .content-card {{
-        background: rgba(25, 20, 44, 0.45) !important; 
+        background: rgba(15, 11, 30, 0.6) !important; 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border-radius: 24px;
@@ -191,10 +191,10 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: linear-gradient(145deg, rgba(30, 24, 54, 0.8) 0%, rgba(18, 14, 33, 0.8) 100%);
+        background: linear-gradient(145deg, rgba(35, 28, 61, 0.7) 0%, rgba(20, 16, 38, 0.7) 100%);
         padding: 26px;
         border-radius: 20px;
-        border: 1px solid rgba(250, 191, 44, 0.1);
+        border: 1px solid rgba(250, 191, 44, 0.15);
         box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         position: relative;
         overflow: hidden;
@@ -362,7 +362,7 @@ else:
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
             <div style="color:#94a3b8; font-size:10px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">PERMATANG PAUH</div>
             <div style="margin-top:12px; background:rgba(254, 240, 138, 0.05); padding:6px 14px; border-radius:30px; display:inline-block; border: 1px solid rgba(250,191,44,0.15);">
-                <span style="color:#fcd34d; font-size:10px;">●</span> 
+                <span style="color:#fabf2c; font-size:10px;">●</span> 
                 <span style="color:#e2e8f0; font-size:12px; font-weight:600;">{st.session_state.username}</span>
             </div>
         </div>
@@ -429,12 +429,13 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
+            # DIUBAH: Menggunakan warna-warni palet 'Viridis' yang lebih dinamik dan cantik
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
-                color="Total",  
-                color_continuous_scale=["#4b2e83", "#fabf2c"],
+                color="Country",  
+                color_discrete_sequence=px.colors.qualitative.Pastel, # Memberikan warna-warni berbeza setiap bar
                 text_auto=True
             )
             fig.update_layout(
@@ -444,7 +445,7 @@ else:
                 xaxis=dict(showgrid=False, title_font=dict(size=13, color="#fabf2c")),
                 yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.05)", title_font=dict(size=13, color="#fabf2c")),
                 margin=dict(t=15, b=15, l=10, r=10),
-                showlegend=False
+                showlegend=True
             )
             st.plotly_chart(fig, use_container_width=True)
         else:
@@ -477,7 +478,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: ADD DATA (SISTEM KORPORAT BARU)
+    # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add Data":
         st.title("➕ Deploy New Record Entry")
@@ -511,7 +512,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: UPDATE DATA (SISTEM KORPORAT BARU)
+    # MODULE: UPDATE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Data":
         st.title("📝 Edit Existing Records Mapping")
@@ -552,7 +553,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: DELETE DATA (SISTEM KORPORAT BARU)
+    # MODULE: DELETE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Data":
         st.title("🗑️ Purge Legal Log Entry")
