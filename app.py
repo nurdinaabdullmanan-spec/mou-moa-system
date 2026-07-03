@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# URL LOGO UITM (Transparent/PNG High Resolution)
-UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/f/f1/UiTM_Logo.png"
+# LINK LOGO UITM YANG BARU & STABIL (MENGELAKKAN ISU GAMBAR PECAH)
+UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # ======================================================
-# ULTIMATE MASTERPIECE UI CSS (SOFT DEEP PURPLE MIX)
+# ULTIMATE MASTERPIECE UI CSS (SOFT LIGHT PURPLE MIX)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -61,10 +61,10 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - DIUBAH KEPADA PURPLE MUDA/LEMBUT YANG DIPUDARKAN (TIDAK HITAM PEKAT) */
+    /* BACKGROUND UTAMA - DIUBAH KEPADA UNGU YANG SANGAT LEMBUT DAN PUDAR (LIGHT SUBTLE PURPLE) */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: radial-gradient(circle at 50% 50%, #221a3b 0%, #130f24 100%) !important; 
-        color: #f8fafc !important;
+        background: linear-gradient(135deg, #f4f0fa 0%, #e8e2f2 100%) !important; 
+        color: #211936 !important;
     }}
     
     .block-container {{
@@ -74,15 +74,17 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* LOGO BLENDING EFFECT (Blend perfectly with gold glow) */
+    /* LOGO BLENDING EFFECT (Disesuaikan semula untuk blend dengan background pudar) */
     .logo-container {{
         text-align: center;
-        padding: 10px 0;
+        padding: 15px 0;
     }}
     .uitm-logo {{
-        width: 140px;
-        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.5));
+        width: 150px;
+        filter: drop-shadow(0px 4px 12px rgba(75, 46, 131, 0.15));
         mix-blend-mode: normal;
+        display: block;
+        margin: 0 auto;
         transition: transform 0.3s ease;
     }}
     .uitm-logo:hover {{
@@ -92,8 +94,8 @@ st.markdown(f"""
     /* SIDEBAR GELAP YANG DEE SUKA (STAY ORIGINAL PREMIUM DARK) */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #110d21 0%, #07050e 100%) !important; 
-        border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
-        box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+        border-right: 1px solid rgba(75, 46, 131, 0.2) !important;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.15);
     }}
     
     section[data-testid="stSidebar"] .stMarkdown, 
@@ -102,7 +104,7 @@ st.markdown(f"""
         color: #ffffff !important;
     }}
 
-    /* NAVIGATION TILES */
+    /* NAVIGATION TILES IN SIDEBAR */
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
@@ -135,11 +137,11 @@ st.markdown(f"""
         letter-spacing: 0.5px;
     }}
 
-    /* STATE ACTIVE */
+    /* STATE ACTIVE AT SIDEBAR */
     div[role="radiogroup"] label[data-selected="true"] {{
         background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
         border: 1px solid #fabf2c !important; 
-        box-shadow: 0 0 20px rgba(250, 191, 44, 0.25), inset 0 0 8px rgba(250, 191, 44, 0.1) !important;
+        box-shadow: 0 0 20px rgba(250, 191, 44, 0.25) !important;
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
@@ -147,38 +149,36 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY */
+    /* TYPOGRAPHY FOR LIGHT THEME */
     h1 {{
-        color: #ffffff !important; 
+        color: #3b226b !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: 2px solid #fabf2c;
+        border-bottom: 3px solid #4b2e83;
         padding-bottom: 10px;
         display: inline-block;
     }}
     h2, h3 {{
-        color: #fabf2c !important;
+        color: #4b2e83 !important;
         font-weight: 600 !important;
         letter-spacing: 0.5px;
     }}
     
     .subtitle-fix {{
-        color: #94a3b8 !important;
+        color: #5d5370 !important;
         font-size: 15px;
         margin-top: 8px;
         margin-bottom: 35px;
         font-weight: 400;
     }}
 
-    /* LUXURY HERO GLASS CARD */
+    /* LUXURY WHITE GLASS CARD */
     .content-card {{
-        background: rgba(15, 11, 30, 0.6) !important; 
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: #ffffff !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(75, 46, 131, 0.08);
+        box-shadow: 0 15px 35px rgba(75, 46, 131, 0.04);
         margin-bottom: 30px;
     }}
 
@@ -191,11 +191,11 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: linear-gradient(145deg, rgba(35, 28, 61, 0.7) 0%, rgba(20, 16, 38, 0.7) 100%);
+        background: #ffffff;
         padding: 26px;
         border-radius: 20px;
-        border: 1px solid rgba(250, 191, 44, 0.15);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        border: 1px solid rgba(75, 46, 131, 0.08);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.02);
         position: relative;
         overflow: hidden;
     }}
@@ -208,11 +208,11 @@ st.markdown(f"""
     
     .metric-1::before {{ background: linear-gradient(90deg, #4b2e83, #fabf2c); }}
     .metric-2::before {{ background: linear-gradient(90deg, #0284c7, #38bdf8); }}
-    .metric-3::before {{ background: linear-gradient(90deg, #fabf2c, #fef08a); }}
+    .metric-3::before {{ background: linear-gradient(90deg, #ec4899, #f472b6); }}
 
     .metric-title {{
         font-size: 12px;
-        color: #a1a1aa;
+        color: #6b627a;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -221,63 +221,64 @@ st.markdown(f"""
     .metric-value {{
         font-size: 42px;
         font-weight: 700;
-        color: #ffffff;
+        color: #3b226b;
         margin-top: 8px;
         font-family: 'Cinzel', serif;
     }}
 
-    /* RICH GOLD CORPORATE BUTTONS */
+    /* DEEP PURPLE HIGH-END BUTTONS */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
-        border: 1px solid rgba(250, 191, 44, 0.4);
+        border: 1px solid #4b2e83;
         padding: 14px;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.5px;
-        color: #0b091a !important; 
-        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
-        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2);
+        color: #ffffff !important; 
+        background: linear-gradient(135deg, #4b2e83 0%, #321d59 100%) !important;
+        box-shadow: 0 6px 18px rgba(75, 46, 131, 0.15);
         transition: all 0.3s ease;
     }}
 
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4);
-        border-color: #fabf2c;
+        box-shadow: 0 12px 25px rgba(75, 46, 131, 0.25);
+        background: linear-gradient(135deg, #5b399c 0%, #4b2e83 100%) !important;
     }}
 
     /* BACK SYSTEM BUTTON */
     .back-btn-container .stButton > button {{
         width: auto !important;
         background: transparent !important;
-        color: #fabf2c !important;
-        border: 1px solid rgba(250, 191, 44, 0.3) !important;
+        color: #4b2e83 !important;
+        border: 1px solid rgba(75, 46, 131, 0.3) !important;
         padding: 10px 24px !important;
+        box-shadow: none !important;
     }}
     
     .back-btn-container .stButton > button:hover {{
-        background: rgba(250, 191, 44, 0.08) !important;
+        background: rgba(75, 46, 131, 0.05) !important;
     }}
 
     /* MODERN CONTRAST INPUTS */
-    .stTextInput input, .stNumberInput input, textarea {{
+    .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        background-color: rgba(10, 7, 20, 0.6) !important;
-        color: #ffffff !important;
-        padding: 12px 16px !important;
+        border: 1px solid #cbd5e1 !important;
+        background-color: #fcfbfe !important;
+        color: #211936 !important;
+        padding: 2px 4px !important;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #fabf2c !important;
-        box-shadow: 0 0 10px rgba(250, 191, 44, 0.2) !important;
+        border-color: #4b2e83 !important;
+        box-shadow: 0 0 10px rgba(75, 46, 131, 0.1) !important;
     }}
 
-    /* DATA FRAME PREMIUM CUSTOMIZATION */
+    /* DATA FRAME CUSTOMIZATION */
     [data-testid="stDataFrame"] {{
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
-        background: rgba(15, 11, 30, 0.8) !important;
+        background: #ffffff !important;
         overflow: hidden;
     }}
 </style>
@@ -305,7 +306,7 @@ if not st.session_state.logged_in:
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<h1 style='text-align:center; width:100%; border:none; margin-bottom:0;'>MoU/MoA Record Management</h1>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center; width:100%'><h1 style='border:none; margin-bottom:0;'>MoU/MoA Record Management</h1></div>", unsafe_allow_html=True)
     st.markdown('<p class="subtitle-fix" style="text-align:center;">UiTM Institutional Excellence Agreement Cluster Gateway.</p>', unsafe_allow_html=True)
 
     auth = st.sidebar.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
@@ -356,7 +357,7 @@ else:
     # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
         <div class="logo-container">
-            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:100px;" alt="UiTM Logo">
+            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:110px; filter: drop-shadow(0px 0px 8px rgba(250,191,44,0.3));" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
@@ -429,21 +430,21 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # DIUBAH: Menggunakan warna-warni palet 'Viridis' yang lebih dinamik dan cantik
+            # BAR CHART WARNA-WARNI CERIA
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
                 color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Pastel, # Memberikan warna-warni berbeza setiap bar
+                color_discrete_sequence=px.colors.qualitative.Pastel, 
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                font_color="#ffffff",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#fabf2c")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.05)", title_font=dict(size=13, color="#fabf2c")),
+                font_color="#211936",
+                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
+                yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.05)", title_font=dict(size=13, color="#4b2e83")),
                 margin=dict(t=15, b=15, l=10, r=10),
                 showlegend=True
             )
@@ -470,7 +471,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -504,7 +505,7 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -524,7 +525,7 @@ else:
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed rgba(255,255,255,0.1); margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 1px dashed #cbd5e1; margin:20px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -545,7 +546,7 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -587,7 +588,7 @@ else:
         if st.button("Confirm Delete"):
             confirm_delete_dialog(del_id)
                 
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
