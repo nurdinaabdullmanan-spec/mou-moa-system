@@ -77,9 +77,9 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA */
+    /* BACKGROUND UTAMA - MENUKAR KEPADA WARNA CREAM (#FFFDD0) */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: linear-gradient(135deg, #18161e 0%, #EFDECD 100%) !important; 
+        background: linear-gradient(135deg, #18161e 0%, #FFFDD0 100%) !important; 
         color: #f8fafc !important;
     }}
     
