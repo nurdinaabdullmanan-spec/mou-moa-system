@@ -63,7 +63,7 @@ st.markdown(f"""
 
     /* BACKGROUND UTAMA */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: linear-gradient(135deg, #2e2640 0%, #8A7AA8 100%) !important; 
+        background: linear-gradient(135deg, #2e2640 0%, #F4F6F9 100%) !important; 
         color: #f8fafc !important;
     }}
     
