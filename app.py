@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# URL LOGO UITM (Menggunakan versi transparent/PNG bertaraf tinggi)
+# URL LOGO UITM (Transparent/PNG High Resolution)
 UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/f/f1/UiTM_Logo.png"
 
 # ======================================================
@@ -61,7 +61,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - LUXURY DARK INDIGO COMPLEMENTING UITM PURPLE */
+    /* BACKGROUND UTAMA - LUXURY DARK INDIGO */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
         background: radial-gradient(circle at 20% 20%, #161129 0%, #0a0714 100%) !important; 
         color: #f8fafc !important;
@@ -74,14 +74,14 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* LOGO BLENDING EFFECT (Blending perfectly into the app poster design) */
+    /* LOGO BLENDING EFFECT */
     .logo-container {{
         text-align: center;
         padding: 10px 0;
     }}
     .uitm-logo {{
         width: 140px;
-        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4)); /* Memberi efek gold glow pada logo */
+        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4)); /* Efek gold glow pada logo */
         mix-blend-mode: normal;
         transition: transform 0.3s ease;
     }}
@@ -102,7 +102,7 @@ st.markdown(f"""
         color: #ffffff !important;
     }}
 
-    /* NAVIGATION TILES (MODERN SAAS DESIGN) */
+    /* NAVIGATION TILES */
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
@@ -143,7 +143,7 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #fabf2c !important; /* Text turns gold when active */
+        color: #fabf2c !important;
         font-weight: 700 !important;
     }}
 
@@ -299,7 +299,6 @@ def switch_page(page_name):
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
-    # Header dengan Logo UiTM Teradun (Blended)
     st.markdown(f"""
     <div class="logo-container">
         <img src="{UITM_LOGO_URL}" class="uitm-logo" alt="UiTM Logo">
@@ -477,13 +476,119 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # Rest of modules (Add, Update, Delete) keep matching the updated layout structural pattern...
-    else:
-        st.title(f"📝 {st.session_state.current_page}")
+    # ------------------------------------------------------
+    # MODULE: ADD DATA (SISTEM KORPORAT BARU)
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Add Data":
+        st.title("➕ Deploy New Record Entry")
+        st.markdown('<p class="subtitle-fix">Insert certified institutional MoU/MoA metadata into database.</p>', unsafe_allow_html=True)
+
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        st.write("Modul pengurusan rekod sedang berjalan mengikut tema korporat baharu.")
+        col1, col2 = st.columns(2)
+        with col1:
+            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            title = st.text_input("Agreement Title")
+            duration = st.text_input("Duration (e.g. 3 Years)")
+            department = st.text_input("Executing Department / Faculty")
+        with col2:
+            partner = st.text_input("External Partner Institution")
+            country = st.text_input("Country")
+            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Commit Data Stream to Database"):
+            cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
+                           (int(id_in), title, duration, department, partner, country, category))
+            conn.commit()
+            st.success("New legal record successfully mapped into SQL table cluster.")
+            switch_page("View Data")
+            
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Back to Dashboard", key="back_generic"):
+        if st.button("← Cancel & Back", key="back_add"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------------------------------------------------------
+    # MODULE: UPDATE DATA (SISTEM KORPORAT BARU)
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Update Data":
+        st.title("📝 Edit Existing Records Mapping")
+        st.markdown('<p class="subtitle-fix">Modify properties of existing collaboration data securely.</p>', unsafe_allow_html=True)
+
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        uid = st.number_input("Target Record ID Vector Lookup", min_value=1, step=1, format="%d")
+        cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
+        result = cursor.fetchone()
+
+        if result:
+            st.markdown("<hr style='border: 1px dashed rgba(255,255,255,0.1); margin:20px 0;'>", unsafe_allow_html=True)
+            col1, col2 = st.columns(2)
+            with col1:
+                title = st.text_input("Agreement Title Statement", result[1])
+                duration = st.text_input("Active Lifespan Duration", result[2])
+                department = st.text_input("Executing Department", result[3])
+            with col2:
+                partner = st.text_input("External Partner Institution", result[4])
+                country = st.text_input("Country Location", result[5])
+                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Update Changes"):
+                cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
+                               (title, duration, department, partner, country, category, int(uid)))
+                conn.commit()
+                st.success("Mutation vector completely updated inside system core table.")
+                switch_page("View Data")
+        else:
+            st.warning("Target configuration ID vector does not exist in cluster indexing.")
+            
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_update"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------------------------------------------------------
+    # MODULE: DELETE DATA (SISTEM KORPORAT BARU)
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Delete Data":
+        st.title("🗑️ Purge Legal Log Entry")
+        st.markdown('<p class="subtitle-fix">Purge records permanently from the system configuration.</p>', unsafe_allow_html=True)
+
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        del_id = st.number_input("Target Discard Record ID", min_value=1, step=1, format="%d")
+        st.error("💣 Critical: Purging actions cannot be rolled back or undone from the database nodes.")
+
+        @st.dialog("⚠️ Confirm Permanent Deletion")
+        def confirm_delete_dialog(record_id):
+            st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
+            st.write("This action will immediately wipe the metadata cluster from the core database nodes.")
+            
+            col_yes, col_cancel = st.columns([1, 1])
+            with col_yes:
+                if st.button("Yes, Delete Record", use_container_width=True):
+                    cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
+                    if cursor.fetchone():
+                        cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
+                        conn.commit()
+                        st.success(f"Record ID {record_id} cleared safely.")
+                        switch_page("View Data")
+                    else:
+                        st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
+            
+            with col_cancel:
+                if st.button("Cancel", use_container_width=True):
+                    st.rerun()
+
+        if st.button("Confirm Delete"):
+            confirm_delete_dialog(del_id)
+                
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
