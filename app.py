@@ -2,8 +2,8 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-import base64  
-import os      
+import base64  # Tambah library ini untuk membaca fail lokal
+import os      # Untuk memeriksa jika fail wujud
 
 # ======================================================
 # PAGE CONFIG
@@ -54,6 +54,7 @@ def get_local_logo_base64(file_path="Logo.png"):
             encoded_string = base64.b64encode(image_file.read()).decode()
         return f"data:image/png;base64,{encoded_string}"
     else:
+        # Jika fail tiada, kembali ke URL asal sebagai backup
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # Panggil fungsi untuk dapatkan data imej
@@ -61,29 +62,25 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# HIGHLY AGGRESSIVE UI CSS (FORCING TRUE SOFT PURPLE SYSTEM Theme)
+# REFINED UI CSS (FIXED INPUT LABELS CONTRAST)
 # ======================================================
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght=300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
     
     /* PENGURUSAN FONT */
     html, body, [class*="css"] {{
-        font-family: 'Inter', sans-serif !important;
+        font-family: 'Inter', sans-serif;
     }}
     
     h1, h2, h3, .uitm-title {{
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* 1. TUKAR KESELURUHAN BACKGROUND UTAMA KEPADA UNGU LEMBUT CAIR */
-    .stApp, 
-    [data-testid="stAppViewContainer"], 
-    [data-testid="stHeader"],
-    [data-testid="stMainBlockContainer"] {{
-        background-color: #f3ecf8 !important; 
-        background: #f3ecf8 !important;
-        color: #2e1065 !important;
+    /* BACKGROUND UTAMA */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
+        background: linear-gradient(135deg, #2e2640 0%, #1c1726 100%) !important; 
+        color: #f8fafc !important;
     }}
     
     .block-container {{
@@ -93,14 +90,17 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* TULISAN LABEL INPUT */
+    /* FIX: MEMAKSA SEMUA TULISAN LABEL INPUT MENJADI JELAS DAN TERANG */
     [data-testid="stWidgetLabel"] p, 
     label[data-testid="stWidgetLabel"], 
     .stTextInput label, 
     .stNumberInput label, 
-    .stSelectbox label {{
-        color: #4b2e83 !important;
+    .stSelectbox label,
+    div[data-baseline="select"] label {{
+        color: #ffffff !important;
         font-weight: 600 !important;
+        font-size: 15px !important;
+        text-shadow: 0px 1px 3px rgba(0,0,0,0.5);
     }}
 
     /* LOGO BLENDING EFFECT */
@@ -110,177 +110,200 @@ st.markdown(f"""
     }}
     .uitm-logo {{
         width: 140px;
-        filter: drop-shadow(0px 4px 10px rgba(75, 46, 131, 0.2));
+        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4));
+        mix-blend-mode: normal;
         display: block;
         margin: 0 auto;
+        transition: transform 0.3s ease;
+    }}
+    .uitm-logo:hover {{
+        transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP PREMIUM */
+    /* SIDEBAR GELAP */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
-        border-right: 2px solid #fabf2c !important;
+        border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.5);
     }}
     
+    section[data-testid="stSidebar"] .stMarkdown, 
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {{
         color: #ffffff !important;
     }}
 
-    /* NAVIGATION TILES IN SIDEBAR (PREMIUM GLASSMORPHIC UPGRADE) */
+    /* NAVIGATION TILES IN SIDEBAR */
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
-        gap: 12px !important;
-        padding-top: 10px;
+        gap: 12px;
+        padding-top: 15px;
     }}
 
     div[role="radiogroup"] label {{
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-radius: 16px !important;
-        padding: 16px 20px !important;
-        border: 1px solid rgba(255, 255, 255, 0.07) !important;
-        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 6px rgba(0, 0, 0, 0.2) !important;
-        transition: all 0.25s ease-in-out !important;
-        cursor: pointer !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 12px !important;
+        padding: 14px 20px !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.03) !important;
     }}
 
-    /* EFEK HOVER: Menyala lembut & bergerak sedikit ke kanan */
+    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {{
+        display: none !important;
+    }}
+
     div[role="radiogroup"] label:hover {{
-        background: rgba(75, 46, 131, 0.25) !important;
-        border-color: rgba(250, 191, 44, 0.3) !important;
-        transform: translateX(4px);
-        box-shadow: 0 6px 15px rgba(75, 46, 131, 0.4) !important;
+        background: rgba(75, 46, 131, 0.2) !important;
+        border-color: rgba(250, 191, 44, 0.4) !important;
+        transform: translateY(-2px);
     }}
 
-    /* APABILA MEMILIH/ACTIVE TILE (PREMIUM GOLD GLOW) */
+    div[role="radiogroup"] label p {{
+        color: #94a3b8 !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.5px;
+    }}
+
+    /* STATE ACTIVE AT SIDEBAR */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: linear-gradient(135deg, rgba(75, 46, 131, 0.8) 0%, rgba(42, 22, 77, 0.9) 100%) !important; 
+        background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
         border: 1px solid #fabf2c !important; 
-        box-shadow: 0 0 15px rgba(250, 191, 44, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1) !important;
-        transform: translateX(6px);
+        box-shadow: 0 0 20px rgba(250, 191, 44, 0.25) !important;
     }}
 
-    /* Tukar warna teks & tebalkan bila aktif */
     div[role="radiogroup"] label[data-selected="true"] p {{
         color: #fabf2c !important;
         font-weight: 700 !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }}
 
-    /* Suntikan Ikon Indikator Visual Semasa */
-    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {{
-        content: "⚡ ";
-        margin-right: 8px;
-        font-size: 14px;
-        opacity: 0.7;
+    /* TYPOGRAPHY */
+    h1 {{
+        color: #ffffff !important; 
+        font-weight: 700 !important;
+        letter-spacing: -0.5px;
+        border-bottom: 2px solid #fabf2c;
+        padding-bottom: 10px;
+        display: inline-block;
+    }}
+    h2, h3 {{
+        color: #fabf2c !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px;
     }}
     
-    div[role="radiogroup"] label[data-selected="true"] [data-testid="stMarkdownContainer"]::before {{
-        content: "✨ ";
-        opacity: 1;
+    .subtitle-fix {{
+        color: #cbd5e1 !important;
+        font-size: 15px;
+        margin-top: 8px;
+        margin-bottom: 35px;
+        font-weight: 400;
     }}
 
-    /* KAD KONTEN UTAMA (Ungu Kontras Pertengahan) */
+    /* KAD GLASSMORPHISM */
     .content-card {{
-        background: #e6daf2 !important; 
+        background: rgba(25, 20, 36, 0.6) !important; 
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid #d3beeb !important;
-        box-shadow: 0 10px 30px rgba(75, 46, 131, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         margin-bottom: 30px;
     }}
 
-    /* 2. PAKSA KAD METRIKS JADI WARNA PURPLE SOFT */
+    /* METRIC PANELS */
     .metric-grid {{
-        display: flex !important;
-        gap: 24px !important;
-        margin-bottom: 30px !important;
+        display: flex;
+        gap: 24px;
+        margin-bottom: 30px;
     }}
     
     .pro-metric {{
-        flex: 1 !important;
-        background-color: #dcc8f2 !important; 
-        background: #dcc8f2 !important;
-        padding: 22px 26px !important;
-        border-radius: 16px !important;
-        border: 1px solid #c7a9e6 !important;
-        box-shadow: 0 4px 18px rgba(75, 46, 131, 0.1) !important;
+        flex: 1;
+        background: linear-gradient(145deg, rgba(46, 38, 64, 0.6) 0%, rgba(28, 23, 38, 0.6) 100%);
+        padding: 26px;
+        border-radius: 20px;
+        border: 1px solid rgba(250, 191, 44, 0.15);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        position: relative;
+        overflow: hidden;
     }}
-
-    .metric-1 {{ border-left: 6px solid #4b2e83 !important; }}  
-    .metric-2 {{ border-left: 6px solid #8b5cf6 !important; }}  
-    .metric-3 {{ border-left: 6px solid #ec4899 !important; }}  
+    
+    .metric-1::before {{ background: linear-gradient(90deg, #4b2e83, #fabf2c); }}
+    .metric-2::before {{ background: linear-gradient(90deg, #0284c7, #38bdf8); }}
+    .metric-3::before {{ background: linear-gradient(90deg, #fabf2c, #fef08a); }}
 
     .metric-title {{
-        font-size: 12px !important;
-        color: #3b2366 !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
+        font-size: 12px;
+        color: #cbd5e1;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }}
     
     .metric-value {{
-        font-size: 38px !important;
-        font-weight: 800 !important;
-        color: #1e004b !important;
+        font-size: 42px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-top: 8px;
+        font-family: 'Cinzel', serif;
     }}
 
     /* BUTTONS */
     .stButton > button {{
-        border-radius: 14px !important;
-        color: #ffffff !important; 
-        background: linear-gradient(135deg, #4b2e83 0%, #3b2366 100%) !important;
-        border: 1px solid #4b2e83 !important;
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid rgba(250, 191, 44, 0.4);
+        padding: 14px;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        color: #0b091a !important; 
+        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
+        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2);
+        transition: all 0.3s ease;
     }}
+
     .stButton > button:hover {{
-        background: linear-gradient(135deg, #5c39a1 0%, #4b2e83 100%) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4);
+        border-color: #fabf2c;
+    }}
+
+    /* BACK SYSTEM BUTTON */
+    .back-btn-container .stButton > button {{
+        width: auto !important;
+        background: transparent !important;
+        color: #fabf2c !important;
+        border: 1px solid rgba(250, 191, 44, 0.3) !important;
+        padding: 10px 24px !important;
+    }}
+    
+    .back-btn-container .stButton > button:hover {{
+        background: rgba(250, 191, 44, 0.08) !important;
     }}
 
     /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-    }}
-
-    /* 3. HIAS & PAKSA TABEL DATAFRAME KEPADA THEME SOFT PURPLE (TIADA LAGI CELL PUTIH) */
-    [data-testid="stDataFrame"] {{
-        border: 2px solid #b392e3 !important;
-        border-radius: 18px !important;
-        background-color: #eae0f5 !important; 
-    }}
-
-    /* Overriding canvas/glide-data-grid inner styles */
-    div[data-testid="stDataFrame"] [role="grid"] div, 
-    div[data-testid="stDataFrame"] [class*="glide-grid"],
-    div[data-testid="stDataFrame"] td,
-    div[data-testid="stDataFrame"] th {{
-        background-color: #eae0f5 !important; 
-        color: #2e1065 !important;
-    }}
-
-    /* Header Tabel */
-    div[data-testid="stDataFrame"] [data-testid="table-header"],
-    div[data-testid="stDataFrame"] thead tr th {{
-        background-color: #4b2e83 !important; 
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background-color: rgba(20, 16, 28, 0.8) !important;
         color: #ffffff !important;
-        font-weight: 700 !important;
+        padding: 12px 16px !important;
+    }}
+    .stTextInput input:focus, .stNumberInput input:focus {{
+        border-color: #fabf2c !important;
+        box-shadow: 0 0 10px rgba(250, 191, 44, 0.2) !important;
     }}
 
-    /* Efek Zebra Baris Selang-Seli */
-    div[data-testid="stDataFrame"] tbody tr:nth-of-type(even) td,
-    div[data-testid="stDataFrame"] tr:nth-of-type(even) {{
-        background-color: #dfceff !important; 
-    }}
-    
-    div[data-testid="stDataFrame"] tbody tr:nth-of-type(odd) td,
-    div[data-testid="stDataFrame"] tr:nth-of-type(odd) {{
-        background-color: #f6f0fc !important; 
-    }}
-
-    /* Apabila di-hover */
-    div[data-testid="stDataFrame"] tr:hover, 
-    div[data-testid="stDataFrame"] td:hover {{
-        background-color: #ccb0f7 !important; 
+    /* DATA FRAME */
+    [data-testid="stDataFrame"] {{
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        background: rgba(25, 20, 36, 0.7) !important;
+        overflow: hidden;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -405,7 +428,6 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Kad metriks dengan latar belakang ungu lembut padat
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -437,16 +459,16 @@ else:
                 x="Country",
                 y="Total",
                 color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Bold, 
+                color_discrete_sequence=px.colors.qualitative.Pastel, 
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                font_color="#1e1b4b",
-                xaxis=dict(showgrid=False, title_font=dict(size=14, color="#4b2e83")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(75,46,131,0.1)", title_font=dict(size=14, color="#4b2e83")),
-                margin=dict(t=20, b=20, l=15, r=15),
+                font_color="#ffffff",
+                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#fabf2c")),
+                yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.05)", title_font=dict(size=13, color="#fabf2c")),
+                margin=dict(t=15, b=15, l=10, r=10),
                 showlegend=True
             )
             st.plotly_chart(fig, use_container_width=True)
@@ -470,23 +492,9 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        st.dataframe(
-            df, 
-            use_container_width=True, 
-            height=430,
-            hide_index=True, 
-            column_config={
-                "ID": st.column_config.NumberColumn("Record ID", format="%d"),
-                "Agreement Title": st.column_config.TextColumn("Agreement Title"),
-                "Duration": st.column_config.TextColumn("⏱️ Duration"),
-                "Department": st.column_config.TextColumn("Department / Faculty"),
-                "Partner": st.column_config.TextColumn("🤝 Partner Institution"),
-                "Country": st.column_config.TextColumn("📍 Country"),
-                "Category": st.column_config.TextColumn("Category Designation")
-            }
-        )
+        st.dataframe(df, use_container_width=True, height=400)
         
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -520,7 +528,7 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -540,7 +548,7 @@ else:
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed #cbd5e1; margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 1px dashed rgba(255,255,255,0.1); margin:20px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -561,7 +569,7 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -603,7 +611,7 @@ else:
         if st.button("Confirm Delete"):
             confirm_delete_dialog(del_id)
                 
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
