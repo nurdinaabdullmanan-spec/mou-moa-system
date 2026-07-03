@@ -2,8 +2,8 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-import base64  
-import os      
+import base64  # Tambah library ini untuk membaca fail lokal
+import os      # Untuk memeriksa jika fail wujud
 
 # ======================================================
 # PAGE CONFIG
@@ -54,6 +54,7 @@ def get_local_logo_base64(file_path="Logo.png"):
             encoded_string = base64.b64encode(image_file.read()).decode()
         return f"data:image/png;base64,{encoded_string}"
     else:
+        # Jika fail tiada, kembali ke URL asal sebagai backup
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # Panggil fungsi untuk dapatkan data imej
@@ -61,11 +62,11 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (LIGHT MODE - PREMIUM CREAM & GOLD THEME)
+# REFINED UI CSS (LIGHT MODE - CLEAN WHITE THEME)
 # ======================================================
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght=300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
     
     /* PENGURUSAN FONT */
     html, body, [class*="css"] {{
@@ -76,9 +77,9 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - KRIM LEMBUT / SOFT CREAM */
+    /* BACKGROUND UTAMA - PUTIH BERSIH */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: #fdfbf7 !important; 
+        background: #ffffff !important; 
         color: #1e293b !important;
     }}
     
@@ -177,7 +178,7 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY */
+    /* TYPOGRAPHY - WARNA GELAP UNTUK LATAR BELAKANG PUTIH */
     h1 {{
         color: #0f172a !important; 
         font-weight: 700 !important;
@@ -200,13 +201,13 @@ st.markdown(f"""
         font-weight: 400;
     }}
 
-    /* KAD PREMIUM LIGHT MODE - KRIM SEDIKIT GELAP UNTUK KONTRAS */
+    /* KAD PREMIUM LIGHT MODE */
     .content-card {{
-        background: #f5f0e6 !important; 
+        background: #f8fafc !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid #e2d9c8;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         margin-bottom: 30px;
     }}
 
@@ -219,11 +220,11 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: #efe9dc;
+        background: #f1f5f9;
         padding: 26px;
         border-radius: 20px;
-        border: 1px solid #dfd6c2;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         position: relative;
         overflow: hidden;
     }}
@@ -244,25 +245,25 @@ st.markdown(f"""
         font-family: 'Cinzel', serif;
     }}
 
-    /* BUTTONS - KUNING GOLD UTAM DENGAN TULISAN GELAP */
+    /* BUTTONS */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
-        border: 1px solid #fabf2c;
+        border: 1px solid #4b2e83;
         padding: 14px;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.5px;
-        color: #1e1b4b !important; 
-        background: linear-gradient(135deg, #fabf2c 0%, #e2aa22 100%) !important;
-        box-shadow: 0 4px 15px rgba(250, 191, 44, 0.2);
+        color: #ffffff !important; 
+        background: linear-gradient(135deg, #4b2e83 0%, #3b2366 100%) !important;
+        box-shadow: 0 4px 15px rgba(75, 46, 131, 0.2);
         transition: all 0.3s ease;
     }}
 
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(250, 191, 44, 0.35);
-        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 100%) !important;
+        box-shadow: 0 8px 25px rgba(75, 46, 131, 0.35);
+        background: linear-gradient(135deg, #5c39a1 0%, #4b2e83 100%) !important;
     }}
 
     /* BACK SYSTEM BUTTON */
@@ -424,15 +425,15 @@ else:
 
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="pro-metric">
+            <div class="pro-metric metric-1">
                 <div class="metric-title">Total Active Agreements</div>
                 <div class="metric-value">{total_records}</div>
             </div>
-            <div class="pro-metric">
+            <div class="pro-metric metric-2">
                 <div class="metric-title">Partner Countries</div>
                 <div class="metric-value">{total_country}</div>
             </div>
-            <div class="pro-metric">
+            <div class="pro-metric metric-3">
                 <div class="metric-title">Unique Categories</div>
                 <div class="metric-value">{total_category}</div>
             </div>
@@ -488,7 +489,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -522,7 +523,8 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
+        st.sidebar.markdown("", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -563,7 +565,7 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -605,7 +607,7 @@ else:
         if st.button("Confirm Delete"):
             confirm_delete_dialog(del_id)
                 
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
