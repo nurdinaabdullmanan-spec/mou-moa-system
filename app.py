@@ -61,7 +61,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# HIGHLY AGGRESSIVE UI CSS (FORCING LIGHT MODE + CUSTOM THEME)
+# HIGHLY AGGRESSIVE UI CSS (SOFT PURPLE THEME EMBEDDED)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -76,14 +76,13 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* FORCE LIGHT/CREAM BACKGROUND UTAMA */
+    /* RE-THEME: LATAR BELAKANG UTAMA (Krim Lembut / Warm Soft Purple Tinge) */
     .stApp, 
     [data-testid="stAppViewContainer"], 
     [data-testid="stHeader"],
     [data-testid="stMainBlockContainer"] {{
-        background-color: #fdfbf7 !important; 
-        background: #fdfbf7 !important;
-        color: #1e293b !important;
+        background-color: #f6f3fa !important; 
+        color: #1e1b4b !important;
     }}
     
     .block-container {{
@@ -93,17 +92,16 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* FIX: TULISAN LABEL INPUT UNTUK UTAMA */
+    /* TULISAN LABEL INPUT */
     [data-testid="stWidgetLabel"] p, 
     label[data-testid="stWidgetLabel"], 
     .stTextInput label, 
     .stNumberInput label, 
     .stSelectbox label,
     div[data-baseline="select"] label {{
-        color: #334155 !important;
+        color: #3b2366 !important;
         font-weight: 600 !important;
         font-size: 15px !important;
-        text-shadow: none !important;
     }}
 
     /* LOGO BLENDING EFFECT */
@@ -113,7 +111,7 @@ st.markdown(f"""
     }}
     .uitm-logo {{
         width: 140px;
-        filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1));
+        filter: drop-shadow(0px 4px 10px rgba(75, 46, 131, 0.15));
         mix-blend-mode: normal;
         display: block;
         margin: 0 auto;
@@ -123,10 +121,10 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP */
+    /* SIDEBAR EMERALD-DARK PURPLE OVERLAY */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
-        border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
+        border-right: 2px solid #fabf2c !important;
         box-shadow: 5px 0 25px rgba(0,0,0,0.15) !important;
     }}
     
@@ -157,13 +155,13 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label:hover {{
-        background: rgba(75, 46, 131, 0.2) !important;
+        background: rgba(75, 46, 131, 0.3) !important;
         border-color: rgba(250, 191, 44, 0.4) !important;
         transform: translateY(-2px);
     }}
 
     div[role="radiogroup"] label p {{
-        color: #94a3b8 !important;
+        color: #cbd5e1 !important;
         font-size: 14px !important;
         font-weight: 500 !important;
         letter-spacing: 0.5px;
@@ -181,12 +179,12 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY - GARISAN BAWAH TAJUK TELAH DIBUANG */
+    /* TYPOGRAPHY */
     h1 {{
         color: #1e1b4b !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: none !important; /* Membuang garisan bawah tajuk setiap halaman */
+        border-bottom: none !important; 
         padding-bottom: 0px;
         display: inline-block;
     }}
@@ -204,17 +202,17 @@ st.markdown(f"""
         font-weight: 400;
     }}
 
-    /* KAD KONTEN UTAMA */
+    /* KAD KONTEN UTAMA (Soft Lavender Accent) */
     .content-card {{
-        background: #f5f0e6 !important; 
+        background: #f0eaf7 !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid #e2d9c8 !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+        border: 1px solid #dfd3ee !important;
+        box-shadow: 0 10px 30px rgba(75, 46, 131, 0.04) !important;
         margin-bottom: 30px;
     }}
 
-    /* FORCE METRIC PANELS DESIGN */
+    /* METRIC PANELS RE-DESIGNED TO PURPLE SOFT background */
     .metric-grid {{
         display: flex !important;
         gap: 24px !important;
@@ -224,24 +222,23 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1 !important;
-        background-color: #ffffff !important;
-        background: #ffffff !important;
+        background-color: #ebdff7 !important; /* Diubah ke warna Purple Soft */
         padding: 22px 26px !important;
         border-radius: 16px !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06) !important;
+        box-shadow: 0 4px 18px rgba(75, 46, 131, 0.08) !important;
         position: relative !important;
         overflow: hidden !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 1px solid #dcc8f2 !important;
     }}
 
     .metric-1 {{ border-left: 6px solid #4b2e83 !important; }}  
-    .metric-2 {{ border-left: 6px solid #1e40af !important; }}  
-    .metric-3 {{ border-left: 6px solid #fabf2c !important; }}  
+    .metric-2 {{ border-left: 6px solid #8b5cf6 !important; }}  
+    .metric-3 {{ border-left: 6px solid #ec4899 !important; }}  
 
     .metric-title {{
         font-size: 12px !important;
-        color: #64748b !important;
-        font-weight: 600 !important;
+        color: #5c4d75 !important;
+        font-weight: 700 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.5px !important;
         margin-bottom: 4px !important;
@@ -249,8 +246,8 @@ st.markdown(f"""
     
     .metric-value {{
         font-size: 38px !important;
-        font-weight: 700 !important;
-        color: #0f172a !important;
+        font-weight: 800 !important;
+        color: #2e1065 !important;
         margin-top: 6px !important;
     }}
 
@@ -298,33 +295,49 @@ st.markdown(f"""
         padding: 12px 16px !important;
     }}
 
-    /* STYLING DATAFRAME / TABLE (image_dbb5a8.png & image_dbaee8.png) */
+    /* RE-STYLING DATAFRAME / TABLE INTERFACE */
     [data-testid="stDataFrame"] {{
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 20px !important;
-        background-color: #ffffff !important;
+        border: 2px solid #bca5db !important;
+        border-radius: 18px !important;
+        background-color: #f7f3fd !important; /* Latar belakang lembut ungu */
         overflow: hidden !important;
+        box-shadow: 0 6px 20px rgba(75, 46, 131, 0.06) !important;
     }}
 
+    /* Header Tabel */
     div[data-testid="stDataFrame"] thead tr th, 
-    div[data-testid="stDataFrame"] th {{
+    div[data-testid="stDataFrame"] th,
+    div[data-testid="stDataFrame"] [data-testid="table-header"] {{
         background-color: #4b2e83 !important; 
         color: #ffffff !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
     }}
 
+    /* Baris Selang Seli (Even) Diubah ke Soft Purple Tint */
     div[data-testid="stDataFrame"] tbody tr:nth-of-type(even),
     div[data-testid="stDataFrame"] tr:nth-of-type(even) {{
-        background-color: #f8fafc !important; 
+        background-color: #f1e8fa !important; 
+    }}
+    
+    /* Baris Ganjil (Odd) */
+    div[data-testid="stDataFrame"] tbody tr:nth-of-type(odd),
+    div[data-testid="stDataFrame"] tr:nth-of-type(odd) {{
+        background-color: #ffffff !important; 
     }}
 
+    /* Hover Effect Baris */
     div[data-testid="stDataFrame"] tbody tr:hover,
     div[data-testid="stDataFrame"] tr:hover {{
-        background-color: #e2e8f0 !important; 
+        background-color: #e3d2f6 !important; 
+        transition: background-color 0.2s ease;
     }}
 
     div[data-testid="stDataFrame"] td {{
-        color: #334155 !important;
+        color: #2e1065 !important;
+        font-weight: 500;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -449,7 +462,7 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Kad metriks tanpa sempadan garisan bawah
+        # Kad metriks dengan background baru yang berwarna ungu lembut
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -476,21 +489,22 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
+            # KEMASKINI CARTA: Menggunakan skema warna yang lebih terang dan bersemangat (Vivid Corporate Colors)
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
                 color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Pastel, 
+                color_discrete_sequence=px.colors.qualitative.Bold, # Ditukar dari Pastel ke Bold untuk warna yang terang
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                font_color="#1e293b",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.05)", title_font=dict(size=13, color="#4b2e83")),
-                margin=dict(t=15, b=15, l=10, r=10),
+                font_color="#1e1b4b",
+                xaxis=dict(showgrid=False, title_font=dict(size=14, color="#4b2e83", family="Inter")),
+                yaxis=dict(showgrid=True, gridcolor="rgba(75,46,131,0.1)", title_font=dict(size=14, color="#4b2e83", family="Inter")),
+                margin=dict(t=20, b=20, l=15, r=15),
                 showlegend=True
             )
             st.plotly_chart(fig, use_container_width=True)
@@ -499,7 +513,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: VIEW DATA
+    # MODULE: VIEW DATA (BEAUTIFIED REPOSITORY VIEW)
     # ------------------------------------------------------
     elif st.session_state.current_page == "View Data":
         st.title("🗂️ Repository View")
@@ -514,14 +528,20 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # Menghilangkan index tepi mengikut spesifikasi image_dbb5a8.png
+        # Kemasan Dataframe - reka bentuk yang menawan, dipadankan dengan hiasan custom CSS di atas
         st.dataframe(
             df, 
             use_container_width=True, 
-            height=400,
+            height=430,
             hide_index=True, 
             column_config={
-                "ID": st.column_config.NumberColumn(format="%d")
+                "ID": st.column_config.NumberColumn("Record ID", format="%d", width="medium"),
+                "Agreement Title": st.column_config.TextColumn("Agreement Title", width="large"),
+                "Duration": st.column_config.TextColumn("⏱️ Duration", width="small"),
+                "Department": st.column_config.TextColumn("Department / Faculty", width="medium"),
+                "Partner": st.column_config.TextColumn("🤝 Partner Institution", width="medium"),
+                "Country": st.column_config.TextColumn("📍 Country", width="small"),
+                "Category": st.column_config.TextColumn("Category Designation", width="medium")
             }
         )
         
