@@ -60,7 +60,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (LIGHT, MODERN & PROFESSIONAL THEME)
+# REFINED UI CSS (MIX LIGHT THEME + ORIGINAL SIDEBAR/BUTTONS)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -75,7 +75,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - TEMA CERAH */
+    /* BACKGROUND UTAMA - CERAH (Seperti diminta) */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
         background: #f4f6f9 !important; 
         color: #1e293b !important;
@@ -88,14 +88,14 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* TULISAN LABEL INPUT */
+    /* TULISAN LABEL INPUT KONTRAST CERAH */
     [data-testid="stWidgetLabel"] p, 
     label[data-testid="stWidgetLabel"], 
     .stTextInput label, 
     .stNumberInput label, 
     .stSelectbox label,
     div[data-baseline="select"] label {{
-        color: #475569 !important;
+        color: #334155 !important;
         font-weight: 600 !important;
         font-size: 14px !important;
         text-shadow: none;
@@ -108,6 +108,7 @@ st.markdown(f"""
     }}
     .uitm-logo {{
         width: 140px;
+        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4));
         display: block;
         margin: 0 auto;
         transition: transform 0.3s ease;
@@ -116,33 +117,33 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR MODEN & CERAH */
+    /* SIDEBAR KEKAL ASAL (DARK/PURPLE) */
     section[data-testid="stSidebar"] {{
-        background: #ffffff !important; 
-        border-right: 1px solid #e2e8f0 !important;
-        box-shadow: 2px 0 15px rgba(0,0,0,0.03);
+        background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
+        border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.5);
     }}
     
     section[data-testid="stSidebar"] .stMarkdown, 
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {{
-        color: #334155 !important;
+        color: #ffffff !important;
     }}
 
-    /* NAVIGATION TILES IN SIDEBAR */
+    /* NAVIGATION TILES IN SIDEBAR (KEKAL ASAL) */
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         padding-top: 15px;
     }}
 
     div[role="radiogroup"] label {{
-        background: #f8fafc !important;
-        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 12px !important;
         padding: 14px 20px !important;
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 1px solid rgba(255, 255, 255, 0.03) !important;
     }}
 
     div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {{
@@ -150,27 +151,27 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label:hover {{
-        background: #f1f5f9 !important;
-        border-color: #cbd5e1 !important;
+        background: rgba(75, 46, 131, 0.2) !important;
+        border-color: rgba(250, 191, 44, 0.4) !important;
         transform: translateY(-2px);
     }}
 
     div[role="radiogroup"] label p {{
-        color: #64748b !important;
+        color: #94a3b8 !important;
         font-size: 14px !important;
-        font-weight: 600 !important;
+        font-weight: 500 !important;
         letter-spacing: 0.5px;
     }}
 
-    /* STATE ACTIVE AT SIDEBAR */
+    /* STATE ACTIVE AT SIDEBAR (KEKAL PURPLE/GOLD) */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important; 
-        border: none !important; 
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+        background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
+        border: 1px solid #fabf2c !important; 
+        box-shadow: 0 0 20px rgba(250, 191, 44, 0.25) !important;
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #ffffff !important;
+        color: #fabf2c !important;
         font-weight: 700 !important;
     }}
 
@@ -179,14 +180,13 @@ st.markdown(f"""
         color: #0f172a !important; 
         font-weight: 800 !important;
         letter-spacing: -0.5px;
-        border-bottom: none !important; /* DIBUANG SEPERTI DIMINTA */
+        border-bottom: none !important; /* GARIS TAJUK DIBUANG */
         padding-bottom: 5px;
         display: inline-block;
     }}
     h2, h3 {{
         color: #1e293b !important;
         font-weight: 700 !important;
-        letter-spacing: 0px;
     }}
     
     .subtitle-fix {{
@@ -197,7 +197,7 @@ st.markdown(f"""
         font-weight: 400;
     }}
 
-    /* KAD KANDUNGAN PUTIH BERSIH */
+    /* KAD KANDUNGAN (TEMA CERAH) */
     .content-card {{
         background: #ffffff !important; 
         border-radius: 16px;
@@ -207,7 +207,7 @@ st.markdown(f"""
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS WARNA-WARNI (SCORECARD) */
+    /* SCORECARD WARNA-WARNI IKUT GAMBAR RUJUKAN */
     .metric-grid {{
         display: flex;
         gap: 20px;
@@ -224,9 +224,9 @@ st.markdown(f"""
         position: relative;
     }}
     
-    .metric-1 {{ border-left: 6px solid #6366f1; }} /* Purple/Indigo */
-    .metric-2 {{ border-left: 6px solid #0ea5e9; }} /* Blue */
-    .metric-3 {{ border-left: 6px solid #f59e0b; }} /* Yellow/Amber */
+    .metric-1 {{ border-left: 6px solid #4b2e83; }} /* Purple */
+    .metric-2 {{ border-left: 6px solid #3b82f6; }} /* Blue */
+    .metric-3 {{ border-left: 6px solid #fabf2c; }} /* Gold/Yellow */
 
     .metric-title {{
         font-size: 11px;
@@ -244,24 +244,25 @@ st.markdown(f"""
         font-family: 'Inter', sans-serif;
     }}
 
-    /* BUTTONS */
+    /* BUTTONS KEKAL ASAL (GOLD/YELLOW) */
     .stButton > button {{
         width: 100%;
-        border-radius: 12px;
-        border: none !important;
-        padding: 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(250, 191, 44, 0.4) !important;
+        padding: 14px;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.5px;
-        color: #ffffff !important; 
-        background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        color: #0b091a !important; 
+        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
+        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2);
         transition: all 0.3s ease;
     }}
 
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4);
+        border-color: #fabf2c !important;
     }}
 
     /* BACK SYSTEM BUTTON */
@@ -279,20 +280,20 @@ st.markdown(f"""
         color: #1e293b !important;
     }}
 
-    /* INPUT CONTROLS */
+    /* INPUT CONTROLS (TEMA CERAH) */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 10px !important;
         border: 1px solid #cbd5e1 !important;
-        background-color: #f8fafc !important;
+        background-color: #ffffff !important;
         color: #0f172a !important;
         padding: 12px 16px !important;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #3b82f6 !important;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+        border-color: #fabf2c !important;
+        box-shadow: 0 0 0 2px rgba(250, 191, 44, 0.2) !important;
     }}
 
-    /* DATA FRAME - LEBIH PRO & KEMAS */
+    /* DATA FRAME - KEMAS & PRO */
     [data-testid="stDataFrame"] {{
         border: 1px solid #e2e8f0;
         border-radius: 12px;
@@ -319,6 +320,7 @@ def switch_page(page_name):
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
+    # Ubah sikit teks login page supaya ngam dengan background putih
     st.markdown(f"""
     <div class="logo-container">
         <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo">
@@ -379,11 +381,11 @@ else:
             <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
-            <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:800; color:#0f172a; letter-spacing:0.5px;">UiTM MoU/MoA</div>
-            <div style="color:#64748b; font-size:10px; margin-top:4px; text-transform:uppercase; letter-spacing:1px; font-weight:600;">PERMATANG PAUH</div>
-            <div style="margin-top:12px; background:#f1f5f9; padding:6px 14px; border-radius:30px; display:inline-block; border: 1px solid #e2e8f0;">
-                <span style="color:#10b981; font-size:10px;">●</span> 
-                <span style="color:#334155; font-size:12px; font-weight:700;">{st.session_state.username}</span>
+            <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
+            <div style="color:#94a3b8; font-size:10px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">PERMATANG PAUH</div>
+            <div style="margin-top:12px; background:rgba(254, 240, 138, 0.05); padding:6px 14px; border-radius:30px; display:inline-block; border: 1px solid rgba(250,191,44,0.15);">
+                <span style="color:#fabf2c; font-size:10px;">●</span> 
+                <span style="color:#e2e8f0; font-size:12px; font-weight:600;">{st.session_state.username}</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -453,13 +455,13 @@ else:
                 x="Country",
                 y="Total",
                 color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Vivid, # Warna lebih terang
+                color_discrete_sequence=px.colors.qualitative.Vivid, 
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                font_color="#334155", # Tulisan carta gelap
+                font_color="#334155", 
                 xaxis=dict(showgrid=False, title_font=dict(size=13, color="#475569")),
                 yaxis=dict(showgrid=True, gridcolor="#e2e8f0", title_font=dict(size=13, color="#475569")),
                 margin=dict(t=15, b=15, l=10, r=10),
@@ -486,7 +488,7 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # Display Dataframe
+        # Display Dataframe (Kemas & Pro)
         st.dataframe(df, use_container_width=True, height=450, hide_index=True)
         
         st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
