@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# LINK LOGO UITM YANG STABIL DAN DIJAMIN KELUAR
-UITM_LOGO_URL = "https://korporat.uitm.edu.my/images/download/LogoUiTM.pdf"
+# LINK LOGO UITM YANG STABIL
+UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # ======================================================
-# REFINED UI CSS (PREMIUM DARK WITH SLIGHTLY FADED PURPLE BACKGROUND)
+# REFINED UI CSS (SLIGHTLY FADED MEDIUM-DARK PURPLE)
 # ======================================================
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
     
     /* PENGURUSAN FONT */
     html, body, [class*="css"] {{
@@ -61,9 +61,9 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - KEKAL TEMA GELAP, CUMA DIPUDARKAN SIKIT JURUSAN PURPLE GELAP YANG LEMBUT */
+    /* BACKGROUND UTAMA - DAH DIPUDARKAN SIKIT JURUSAN PURPLE KELABU ELEGAN */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: radial-gradient(circle at 50% 50%, #1a1528 0%, #0d0a16 100%) !important; 
+        background: linear-gradient(135deg, #2e2640 0%, #1c1726 100%) !important; 
         color: #f8fafc !important;
     }}
     
@@ -91,9 +91,9 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP REKABENTUK ASAL */
+    /* SIDEBAR GELAP */
     section[data-testid="stSidebar"] {{
-        background: linear-gradient(180deg, #110d21 0%, #07050e 100%) !important; 
+        background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
         box-shadow: 5px 0 25px rgba(0,0,0,0.5);
     }}
@@ -149,7 +149,7 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY FOR DARK GOLD EXCELLENCE */
+    /* TYPOGRAPHY */
     h1 {{
         color: #ffffff !important; 
         font-weight: 700 !important;
@@ -165,7 +165,7 @@ st.markdown(f"""
     }}
     
     .subtitle-fix {{
-        color: #94a3b8 !important;
+        color: #cbd5e1 !important;
         font-size: 15px;
         margin-top: 8px;
         margin-bottom: 35px;
@@ -174,7 +174,7 @@ st.markdown(f"""
 
     /* KAD GLASSMORPHISM */
     .content-card {{
-        background: rgba(15, 11, 30, 0.5) !important; 
+        background: rgba(25, 20, 36, 0.6) !important; 
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border-radius: 24px;
@@ -193,7 +193,7 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: linear-gradient(145deg, rgba(35, 28, 61, 0.6) 0%, rgba(20, 16, 38, 0.6) 100%);
+        background: linear-gradient(145deg, rgba(46, 38, 64, 0.6) 0%, rgba(28, 23, 38, 0.6) 100%);
         padding: 26px;
         border-radius: 20px;
         border: 1px solid rgba(250, 191, 44, 0.15);
@@ -202,19 +202,13 @@ st.markdown(f"""
         overflow: hidden;
     }}
     
-    .pro-metric::before {{
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 4px;
-    }}
-    
     .metric-1::before {{ background: linear-gradient(90deg, #4b2e83, #fabf2c); }}
     .metric-2::before {{ background: linear-gradient(90deg, #0284c7, #38bdf8); }}
     .metric-3::before {{ background: linear-gradient(90deg, #fabf2c, #fef08a); }}
 
     .metric-title {{
         font-size: 12px;
-        color: #a1a1aa;
+        color: #cbd5e1;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -228,7 +222,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif;
     }}
 
-    /* REFINED GOLD BUTTONS */
+    /* BUTTONS */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
@@ -266,7 +260,7 @@ st.markdown(f"""
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        background-color: rgba(10, 7, 20, 0.5) !important;
+        background-color: rgba(20, 16, 28, 0.6) !important;
         color: #ffffff !important;
         padding: 12px 16px !important;
     }}
@@ -279,7 +273,7 @@ st.markdown(f"""
     [data-testid="stDataFrame"] {{
         border: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 20px;
-        background: rgba(15, 11, 30, 0.7) !important;
+        background: rgba(25, 20, 36, 0.7) !important;
         overflow: hidden;
     }}
 </style>
@@ -431,7 +425,6 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # BAR CHART WARNA-WARNI CERIA (PASTEL MULTICOLOR)
             fig = px.bar(
                 country_chart,
                 x="Country",
