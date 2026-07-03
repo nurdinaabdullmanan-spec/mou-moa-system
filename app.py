@@ -535,7 +535,7 @@ else:
                 category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Push Configuration Changes"):
+            if st.button("Update Changes"):
                 cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
                                (title, duration, department, partner, country, category, int(uid)))
                 conn.commit()
@@ -573,7 +573,7 @@ else:
             # Susun butang secara bersebelahan (Yes / Cancel)
             col_yes, col_cancel = st.columns([1, 1])
             with col_yes:
-                if st.button("Yes, Purge Record", use_container_width=True):
+                if st.button("Yes, Delete Record", use_container_width=True):
                     # Proses padam data dipindahkan ke dalam dialog sah
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
@@ -590,7 +590,7 @@ else:
                     st.rerun() # Menutup pop-up dialog secara automatik
 
         # --- BUTANG UTAMA PADA HALAMAN ---
-        if st.button("Execute Core Table Hard Delete"):
+        if st.button("Confirm Delete"):
             # Bila butang ditekan, fungsi pop-up dialog di atas akan dipanggil
             confirm_delete_dialog(del_id)
                 
