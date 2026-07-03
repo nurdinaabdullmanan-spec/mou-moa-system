@@ -2,6 +2,8 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
+import base64  # Tambah library ini untuk membaca fail lokal
+import os      # Untuk memeriksa jika fail wujud
 
 # ======================================================
 # PAGE CONFIG
@@ -42,8 +44,22 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# LINK LOGO UITM YANG STABIL
-UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
+
+# ======================================================
+# FUNGSI MEMBACA FAIL LOKAL LOGO.PNG (BASE64)
+# ======================================================
+def get_local_logo_base64(file_path="Logo.png"):
+    if os.path.exists(file_path):
+        with open(file_path, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        return f"data:image/png;base64,{encoded_string}"
+    else:
+        # Jika fail tiada, kembali ke URL asal sebagai backup
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
+
+# Panggil fungsi untuk dapatkan data imej
+UITM_LOGO_SRC = get_local_logo_base64()
+
 
 # ======================================================
 # REFINED UI CSS (FIXED INPUT LABELS CONTRAST)
@@ -310,7 +326,7 @@ def switch_page(page_name):
 if not st.session_state.logged_in:
     st.markdown(f"""
     <div class="logo-container">
-        <img src="{UITM_LOGO_URL}" class="uitm-logo" alt="UiTM Logo">
+        <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo">
     </div>
     """, unsafe_allow_html=True)
     
@@ -365,7 +381,7 @@ else:
     # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
         <div class="logo-container">
-            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
