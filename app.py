@@ -76,7 +76,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* FORCE LIGHT/CREAM BACKGROUND UTAMA (MENYELESAIKAN ISU WARNA GELAP) */
+    /* FORCE LIGHT/CREAM BACKGROUND UTAMA */
     .stApp, 
     [data-testid="stAppViewContainer"], 
     [data-testid="stHeader"],
@@ -181,13 +181,13 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY */
+    /* TYPOGRAPHY - GARISAN BAWAH TAJUK TELAH DIBUANG */
     h1 {{
         color: #1e1b4b !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: 2px solid #4b2e83 !important;
-        padding-bottom: 10px;
+        border-bottom: none !important; /* Membuang garisan bawah tajuk setiap halaman */
+        padding-bottom: 0px;
         display: inline-block;
     }}
     h2, h3 {{
@@ -214,7 +214,7 @@ st.markdown(f"""
         margin-bottom: 30px;
     }}
 
-    /* FORCE METRIC PANELS DESIGN (image_dba6ab.png) */
+    /* FORCE METRIC PANELS DESIGN */
     .metric-grid {{
         display: flex !important;
         gap: 24px !important;
@@ -224,7 +224,7 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1 !important;
-        background-color: #ffffff !important; /* Paksa kad jadi warna putih */
+        background-color: #ffffff !important;
         background: #ffffff !important;
         padding: 22px 26px !important;
         border-radius: 16px !important;
@@ -234,10 +234,9 @@ st.markdown(f"""
         border: 1px solid #e2e8f0 !important;
     }}
 
-    /* Garisan berwarna di sebelah kiri kad */
-    .metric-1 {{ border-left: 6px solid #4b2e83 !important; }}  /* Ungu */
-    .metric-2 {{ border-left: 6px solid #1e40af !important; }}  /* Biru */
-    .metric-3 {{ border-left: 6px solid #fabf2c !important; }}  /* Gold */
+    .metric-1 {{ border-left: 6px solid #4b2e83 !important; }}  
+    .metric-2 {{ border-left: 6px solid #1e40af !important; }}  
+    .metric-3 {{ border-left: 6px solid #fabf2c !important; }}  
 
     .metric-title {{
         font-size: 12px !important;
@@ -251,7 +250,7 @@ st.markdown(f"""
     .metric-value {{
         font-size: 38px !important;
         font-weight: 700 !important;
-        color: #0f172a !important; /* Paksa nombor jadi gelap kemas */
+        color: #0f172a !important;
         margin-top: 6px !important;
     }}
 
@@ -299,7 +298,7 @@ st.markdown(f"""
         padding: 12px 16px !important;
     }}
 
-    /* STYLING DATAFRAME / TABLE (FORCE RECONSTRUCTION - image_dbaee8.png) */
+    /* STYLING DATAFRAME / TABLE (image_dbb5a8.png & image_dbaee8.png) */
     [data-testid="stDataFrame"] {{
         border: 1px solid #e2e8f0 !important;
         border-radius: 20px !important;
@@ -309,19 +308,19 @@ st.markdown(f"""
 
     div[data-testid="stDataFrame"] thead tr th, 
     div[data-testid="stDataFrame"] th {{
-        background-color: #4b2e83 !important; /* Header Purple Korporat */
+        background-color: #4b2e83 !important; 
         color: #ffffff !important;
         font-weight: 600 !important;
     }}
 
     div[data-testid="stDataFrame"] tbody tr:nth-of-type(even),
     div[data-testid="stDataFrame"] tr:nth-of-type(even) {{
-        background-color: #f8fafc !important; /* Zebra stripe */
+        background-color: #f8fafc !important; 
     }}
 
     div[data-testid="stDataFrame"] tbody tr:hover,
     div[data-testid="stDataFrame"] tr:hover {{
-        background-color: #e2e8f0 !important; /* Hover row effect */
+        background-color: #e2e8f0 !important; 
     }}
 
     div[data-testid="stDataFrame"] td {{
@@ -450,7 +449,7 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # FORCE RECONSTRUCTION: Kad tepi warna-warni berlatar putih bersih (image_dba6ab.png)
+        # Kad metriks tanpa sempadan garisan bawah
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -515,7 +514,7 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # Kemaskini Sempurna: Sembunyikan index tepi & aktifkan gaya jadual (image_dbaee8.png)
+        # Menghilangkan index tepi mengikut spesifikasi image_dbb5a8.png
         st.dataframe(
             df, 
             use_container_width=True, 
