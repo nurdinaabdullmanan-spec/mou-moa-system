@@ -61,7 +61,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (LIGHT MODE - CREAM & MULTICOLOR METRICS)
+# HIGHLY AGGRESSIVE UI CSS (FORCING LIGHT MODE + CUSTOM THEME)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -69,16 +69,20 @@ st.markdown(f"""
     
     /* PENGURUSAN FONT */
     html, body, [class*="css"] {{
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', sans-serif !important;
     }}
     
     h1, h2, h3, .uitm-title {{
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - KRIM LEMBUT */
-    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: #fdfbf7 !important; 
+    /* FORCE LIGHT/CREAM BACKGROUND UTAMA (MENYELESAIKAN ISU WARNA GELAP) */
+    .stApp, 
+    [data-testid="stAppViewContainer"], 
+    [data-testid="stHeader"],
+    [data-testid="stMainBlockContainer"] {{
+        background-color: #fdfbf7 !important; 
+        background: #fdfbf7 !important;
         color: #1e293b !important;
     }}
     
@@ -123,7 +127,7 @@ st.markdown(f"""
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
-        box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+        box-shadow: 5px 0 25px rgba(0,0,0,0.15) !important;
     }}
     
     section[data-testid="stSidebar"] .stMarkdown, 
@@ -182,7 +186,7 @@ st.markdown(f"""
         color: #1e1b4b !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: 2px solid #4b2e83;
+        border-bottom: 2px solid #4b2e83 !important;
         padding-bottom: 10px;
         display: inline-block;
     }}
@@ -205,68 +209,70 @@ st.markdown(f"""
         background: #f5f0e6 !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid #e2d9c8;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        border: 1px solid #e2d9c8 !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS DESIGN (image_dba6ab.png) */
+    /* FORCE METRIC PANELS DESIGN (image_dba6ab.png) */
     .metric-grid {{
-        display: flex;
-        gap: 24px;
-        margin-bottom: 30px;
+        display: flex !important;
+        gap: 24px !important;
+        margin-bottom: 30px !important;
+        width: 100% !important;
     }}
     
     .pro-metric {{
-        flex: 1;
+        flex: 1 !important;
+        background-color: #ffffff !important; /* Paksa kad jadi warna putih */
         background: #ffffff !important;
-        padding: 22px 26px;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-        position: relative;
-        overflow: hidden;
-        border: 1px solid #e2e8f0;
+        padding: 22px 26px !important;
+        border-radius: 16px !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border: 1px solid #e2e8f0 !important;
     }}
 
     /* Garisan berwarna di sebelah kiri kad */
-    .metric-1 {{ border-left: 5px solid #4b2e83 !important; }}  /* Ungu */
-    .metric-2 {{ border-left: 5px solid #1e40af !important; }}  /* Biru */
-    .metric-3 {{ border-left: 5px solid #fabf2c !important; }}  /* Gold */
+    .metric-1 {{ border-left: 6px solid #4b2e83 !important; }}  /* Ungu */
+    .metric-2 {{ border-left: 6px solid #1e40af !important; }}  /* Biru */
+    .metric-3 {{ border-left: 6px solid #fabf2c !important; }}  /* Gold */
 
     .metric-title {{
-        font-size: 11px;
-        color: #64748b;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-size: 12px !important;
+        color: #64748b !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        margin-bottom: 4px !important;
     }}
     
     .metric-value {{
-        font-size: 38px;
-        font-weight: 700;
-        color: #0f172a;
-        margin-top: 6px;
-        font-family: 'Inter', sans-serif !important;
+        font-size: 38px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important; /* Paksa nombor jadi gelap kemas */
+        margin-top: 6px !important;
     }}
 
     /* BUTTONS - PURPLE KORPORAT */
     .stButton > button {{
-        width: 100%;
-        border-radius: 14px;
-        border: 1px solid #4b2e83;
-        padding: 14px;
-        font-weight: 700;
-        font-size: 15px;
-        letter-spacing: 0.5px;
+        width: 100% !important;
+        border-radius: 14px !important;
+        border: 1px solid #4b2e83 !important;
+        padding: 14px !important;
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        letter-spacing: 0.5px !important;
         color: #ffffff !important; 
         background: linear-gradient(135deg, #4b2e83 0%, #3b2366 100%) !important;
-        box-shadow: 0 4px 15px rgba(75, 46, 131, 0.2);
-        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(75, 46, 131, 0.2) !important;
+        transition: all 0.3s ease !important;
     }}
 
     .stButton > button:hover {{
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(75, 46, 131, 0.35);
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 25px rgba(75, 46, 131, 0.35) !important;
         background: linear-gradient(135deg, #5c39a1 0%, #4b2e83 100%) !important;
     }}
 
@@ -292,33 +298,30 @@ st.markdown(f"""
         color: #0f172a !important;
         padding: 12px 16px !important;
     }}
-    .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #4b2e83 !important;
-        box-shadow: 0 0 10px rgba(75, 46, 131, 0.1) !important;
-    }}
 
-    /* STYLING DATAFRAME / TABLE (image_dbaee8.png) */
+    /* STYLING DATAFRAME / TABLE (FORCE RECONSTRUCTION - image_dbaee8.png) */
     [data-testid="stDataFrame"] {{
-        border: 1px solid #e2e8f0;
-        border-radius: 20px;
-        background: #ffffff !important;
-        overflow: hidden;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 20px !important;
+        background-color: #ffffff !important;
+        overflow: hidden !important;
     }}
 
-    div[data-testid="stDataFrame"] thead tr th {{
+    div[data-testid="stDataFrame"] thead tr th, 
+    div[data-testid="stDataFrame"] th {{
         background-color: #4b2e83 !important; /* Header Purple Korporat */
         color: #ffffff !important;
         font-weight: 600 !important;
-        border-bottom: 2px solid #3b2366 !important;
     }}
 
-    div[data-testid="stDataFrame"] tbody tr:nth-of-type(even) {{
+    div[data-testid="stDataFrame"] tbody tr:nth-of-type(even),
+    div[data-testid="stDataFrame"] tr:nth-of-type(even) {{
         background-color: #f8fafc !important; /* Zebra stripe */
     }}
 
-    div[data-testid="stDataFrame"] tbody tr:hover {{
+    div[data-testid="stDataFrame"] tbody tr:hover,
+    div[data-testid="stDataFrame"] tr:hover {{
         background-color: #e2e8f0 !important; /* Hover row effect */
-        cursor: pointer;
     }}
 
     div[data-testid="stDataFrame"] td {{
@@ -447,7 +450,7 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Reka bentuk kad tepi warna-warni (image_dba6ab.png)
+        # FORCE RECONSTRUCTION: Kad tepi warna-warni berlatar putih bersih (image_dba6ab.png)
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -512,7 +515,7 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # Menghilangkan index tepi & menambah konfigurasi gaya jadual kemas (image_dbaee8.png)
+        # Kemaskini Sempurna: Sembunyikan index tepi & aktifkan gaya jadual (image_dbaee8.png)
         st.dataframe(
             df, 
             use_container_width=True, 
