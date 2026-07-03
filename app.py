@@ -51,8 +51,8 @@ def get_base64_image(image_path):
     except FileNotFoundError:
         return ""
 
-# Membaca imej logo3.png yang terletak di luar folder (../logo3.png)
-logo_base64 = get_base64_image("../logo3.png")
+# Membaca imej logo3.png yang terletak di luar folder (../Logo.png)
+logo_base64 = get_base64_image("../Logo.png")
 UITM_LOGO_HTML_SRC = f"data:image/png;base64,{logo_base64}" if logo_base64 else ""
 
 # ======================================================
@@ -375,8 +375,8 @@ if not st.session_state.logged_in:
 else:
     # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
-        <div class="logo-container">
-            <img src="{UITM_LOGO_HTML_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
+        <div class="logo-img">
+            <img src="{Logo.png}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
