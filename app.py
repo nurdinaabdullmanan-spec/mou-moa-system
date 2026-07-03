@@ -61,7 +61,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# HIGHLY AGGRESSIVE UI CSS (SOFT PURPLE THEME EMBEDDED)
+# HIGHLY AGGRESSIVE UI CSS (FORCING TRUE SOFT PURPLE SYSTEM Theme)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -76,13 +76,14 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* RE-THEME: LATAR BELAKANG UTAMA (Krim Lembut / Warm Soft Purple Tinge) */
+    /* 1. TUKAR KESELURUHAN BACKGROUND UTAMA KEPADA UNGU LEMBUT CAIR */
     .stApp, 
     [data-testid="stAppViewContainer"], 
     [data-testid="stHeader"],
     [data-testid="stMainBlockContainer"] {{
-        background-color: #f6f3fa !important; 
-        color: #1e1b4b !important;
+        background-color: #f3ecf8 !important; 
+        background: #f3ecf8 !important;
+        color: #2e1065 !important;
     }}
     
     .block-container {{
@@ -97,11 +98,9 @@ st.markdown(f"""
     label[data-testid="stWidgetLabel"], 
     .stTextInput label, 
     .stNumberInput label, 
-    .stSelectbox label,
-    div[data-baseline="select"] label {{
-        color: #3b2366 !important;
+    .stSelectbox label {{
+        color: #4b2e83 !important;
         font-weight: 600 !important;
-        font-size: 15px !important;
     }}
 
     /* LOGO BLENDING EFFECT */
@@ -111,124 +110,67 @@ st.markdown(f"""
     }}
     .uitm-logo {{
         width: 140px;
-        filter: drop-shadow(0px 4px 10px rgba(75, 46, 131, 0.15));
-        mix-blend-mode: normal;
+        filter: drop-shadow(0px 4px 10px rgba(75, 46, 131, 0.2));
         display: block;
         margin: 0 auto;
-        transition: transform 0.3s ease;
-    }}
-    .uitm-logo:hover {{
-        transform: scale(1.05);
     }}
 
-    /* SIDEBAR EMERALD-DARK PURPLE OVERLAY */
+    /* SIDEBAR GELAP PREMIUM */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
         border-right: 2px solid #fabf2c !important;
-        box-shadow: 5px 0 25px rgba(0,0,0,0.15) !important;
     }}
     
-    section[data-testid="stSidebar"] .stMarkdown, 
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {{
         color: #ffffff !important;
     }}
 
     /* NAVIGATION TILES IN SIDEBAR */
-    div[role="radiogroup"] {{
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding-top: 15px;
-    }}
-
     div[role="radiogroup"] label {{
         background: rgba(255, 255, 255, 0.02) !important;
         border-radius: 12px !important;
         padding: 14px 20px !important;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
         border: 1px solid rgba(255, 255, 255, 0.03) !important;
     }}
-
-    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {{
-        display: none !important;
-    }}
-
     div[role="radiogroup"] label:hover {{
         background: rgba(75, 46, 131, 0.3) !important;
         border-color: rgba(250, 191, 44, 0.4) !important;
-        transform: translateY(-2px);
     }}
-
-    div[role="radiogroup"] label p {{
-        color: #cbd5e1 !important;
-        font-size: 14px !important;
-        font-weight: 500 !important;
-        letter-spacing: 0.5px;
-    }}
-
-    /* STATE ACTIVE AT SIDEBAR */
     div[role="radiogroup"] label[data-selected="true"] {{
         background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
         border: 1px solid #fabf2c !important; 
-        box-shadow: 0 0 20px rgba(250, 191, 44, 0.25) !important;
     }}
-
     div[role="radiogroup"] label[data-selected="true"] p {{
         color: #fabf2c !important;
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY */
-    h1 {{
-        color: #1e1b4b !important; 
-        font-weight: 700 !important;
-        letter-spacing: -0.5px;
-        border-bottom: none !important; 
-        padding-bottom: 0px;
-        display: inline-block;
-    }}
-    h2, h3 {{
-        color: #4b2e83 !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.5px;
-    }}
-    
-    .subtitle-fix {{
-        color: #475569 !important;
-        font-size: 15px;
-        margin-top: 8px;
-        margin-bottom: 35px;
-        font-weight: 400;
-    }}
-
-    /* KAD KONTEN UTAMA (Soft Lavender Accent) */
+    /* KAD KONTEN UTAMA (Ungu Kontras Pertengahan) */
     .content-card {{
-        background: #f0eaf7 !important; 
+        background: #e6daf2 !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid #dfd3ee !important;
-        box-shadow: 0 10px 30px rgba(75, 46, 131, 0.04) !important;
+        border: 1px solid #d3beeb !important;
+        box-shadow: 0 10px 30px rgba(75, 46, 131, 0.05) !important;
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS RE-DESIGNED TO PURPLE SOFT background */
+    /* 2. PAKSA KAD METRIKS JADI WARNA PURPLE SOFT */
     .metric-grid {{
         display: flex !important;
         gap: 24px !important;
         margin-bottom: 30px !important;
-        width: 100% !important;
     }}
     
     .pro-metric {{
         flex: 1 !important;
-        background-color: #ebdff7 !important; /* Diubah ke warna Purple Soft */
+        background-color: #dcc8f2 !important; 
+        background: #dcc8f2 !important;
         padding: 22px 26px !important;
         border-radius: 16px !important;
-        box-shadow: 0 4px 18px rgba(75, 46, 131, 0.08) !important;
-        position: relative !important;
-        overflow: hidden !important;
-        border: 1px solid #dcc8f2 !important;
+        border: 1px solid #c7a9e6 !important;
+        box-shadow: 0 4px 18px rgba(75, 46, 131, 0.1) !important;
     }}
 
     .metric-1 {{ border-left: 6px solid #4b2e83 !important; }}  
@@ -237,107 +179,74 @@ st.markdown(f"""
 
     .metric-title {{
         font-size: 12px !important;
-        color: #5c4d75 !important;
+        color: #3b2366 !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.5px !important;
-        margin-bottom: 4px !important;
     }}
     
     .metric-value {{
         font-size: 38px !important;
         font-weight: 800 !important;
-        color: #2e1065 !important;
-        margin-top: 6px !important;
+        color: #1e004b !important;
     }}
 
-    /* BUTTONS - PURPLE KORPORAT */
+    /* BUTTONS */
     .stButton > button {{
-        width: 100% !important;
         border-radius: 14px !important;
-        border: 1px solid #4b2e83 !important;
-        padding: 14px !important;
-        font-weight: 700 !important;
-        font-size: 15px !important;
-        letter-spacing: 0.5px !important;
         color: #ffffff !important; 
         background: linear-gradient(135deg, #4b2e83 0%, #3b2366 100%) !important;
-        box-shadow: 0 4px 15px rgba(75, 46, 131, 0.2) !important;
-        transition: all 0.3s ease !important;
-    }}
-
-    .stButton > button:hover {{
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 25px rgba(75, 46, 131, 0.35) !important;
-        background: linear-gradient(135deg, #5c39a1 0%, #4b2e83 100%) !important;
-    }}
-
-    /* BACK SYSTEM BUTTON */
-    .back-btn-container .stButton > button {{
-        width: auto !important;
-        background: transparent !important;
-        color: #4b2e83 !important;
         border: 1px solid #4b2e83 !important;
-        padding: 10px 24px !important;
-        box-shadow: none !important;
     }}
-    
-    .back-btn-container .stButton > button:hover {{
-        background: rgba(75, 46, 131, 0.05) !important;
+    .stButton > button:hover {{
+        background: linear-gradient(135deg, #5c39a1 0%, #4b2e83 100%) !important;
     }}
 
     /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
-        border: 1px solid #cbd5e1 !important;
         background-color: #ffffff !important;
         color: #0f172a !important;
-        padding: 12px 16px !important;
     }}
 
-    /* RE-STYLING DATAFRAME / TABLE INTERFACE */
+    /* 3. HIAS & PAKSA TABEL DATAFRAME KEPADA THEME SOFT PURPLE (TIADA LAGI CELL PUTIH) */
     [data-testid="stDataFrame"] {{
-        border: 2px solid #bca5db !important;
+        border: 2px solid #b392e3 !important;
         border-radius: 18px !important;
-        background-color: #f7f3fd !important; /* Latar belakang lembut ungu */
-        overflow: hidden !important;
-        box-shadow: 0 6px 20px rgba(75, 46, 131, 0.06) !important;
+        background-color: #eae0f5 !important; 
+    }}
+
+    /* Overriding canvas/glide-data-grid inner styles */
+    div[data-testid="stDataFrame"] [role="grid"] div, 
+    div[data-testid="stDataFrame"] [class*="glide-grid"],
+    div[data-testid="stDataFrame"] td,
+    div[data-testid="stDataFrame"] th {{
+        background-color: #eae0f5 !important; 
+        color: #2e1065 !important;
     }}
 
     /* Header Tabel */
-    div[data-testid="stDataFrame"] thead tr th, 
-    div[data-testid="stDataFrame"] th,
-    div[data-testid="stDataFrame"] [data-testid="table-header"] {{
+    div[data-testid="stDataFrame"] [data-testid="table-header"],
+    div[data-testid="stDataFrame"] thead tr th {{
         background-color: #4b2e83 !important; 
         color: #ffffff !important;
         font-weight: 700 !important;
-        text-transform: uppercase;
-        font-size: 13px;
-        letter-spacing: 0.5px;
     }}
 
-    /* Baris Selang Seli (Even) Diubah ke Soft Purple Tint */
-    div[data-testid="stDataFrame"] tbody tr:nth-of-type(even),
+    /* Efek Zebra Baris Selang-Seli */
+    div[data-testid="stDataFrame"] tbody tr:nth-of-type(even) td,
     div[data-testid="stDataFrame"] tr:nth-of-type(even) {{
-        background-color: #f1e8fa !important; 
+        background-color: #dfceff !important; 
     }}
     
-    /* Baris Ganjil (Odd) */
-    div[data-testid="stDataFrame"] tbody tr:nth-of-type(odd),
+    div[data-testid="stDataFrame"] tbody tr:nth-of-type(odd) td,
     div[data-testid="stDataFrame"] tr:nth-of-type(odd) {{
-        background-color: #ffffff !important; 
+        background-color: #f6f0fc !important; 
     }}
 
-    /* Hover Effect Baris */
-    div[data-testid="stDataFrame"] tbody tr:hover,
-    div[data-testid="stDataFrame"] tr:hover {{
-        background-color: #e3d2f6 !important; 
-        transition: background-color 0.2s ease;
-    }}
-
-    div[data-testid="stDataFrame"] td {{
-        color: #2e1065 !important;
-        font-weight: 500;
+    /* Apabila di-hover */
+    div[data-testid="stDataFrame"] tr:hover, 
+    div[data-testid="stDataFrame"] td:hover {{
+        background-color: #ccb0f7 !important; 
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -462,7 +371,7 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Kad metriks dengan background baru yang berwarna ungu lembut
+        # Kad metriks dengan latar belakang ungu lembut padat
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -489,21 +398,21 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # KEMASKINI CARTA: Menggunakan skema warna yang lebih terang dan bersemangat (Vivid Corporate Colors)
+            # Menggunakan Bold palette supaya warna carta bar menonjol cerah
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
                 color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Bold, # Ditukar dari Pastel ke Bold untuk warna yang terang
+                color_discrete_sequence=px.colors.qualitative.Bold, 
                 text_auto=True
             )
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
                 font_color="#1e1b4b",
-                xaxis=dict(showgrid=False, title_font=dict(size=14, color="#4b2e83", family="Inter")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(75,46,131,0.1)", title_font=dict(size=14, color="#4b2e83", family="Inter")),
+                xaxis=dict(showgrid=False, title_font=dict(size=14, color="#4b2e83")),
+                yaxis=dict(showgrid=True, gridcolor="rgba(75,46,131,0.1)", title_font=dict(size=14, color="#4b2e83")),
                 margin=dict(t=20, b=20, l=15, r=15),
                 showlegend=True
             )
@@ -513,7 +422,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: VIEW DATA (BEAUTIFIED REPOSITORY VIEW)
+    # MODULE: VIEW DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "View Data":
         st.title("🗂️ Repository View")
@@ -528,20 +437,20 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # Kemasan Dataframe - reka bentuk yang menawan, dipadankan dengan hiasan custom CSS di atas
+        # Paparan tabel yang cantik dengan CSS Override Ungu Lembut hiasan dalaman
         st.dataframe(
             df, 
             use_container_width=True, 
             height=430,
             hide_index=True, 
             column_config={
-                "ID": st.column_config.NumberColumn("Record ID", format="%d", width="medium"),
-                "Agreement Title": st.column_config.TextColumn("Agreement Title", width="large"),
-                "Duration": st.column_config.TextColumn("⏱️ Duration", width="small"),
-                "Department": st.column_config.TextColumn("Department / Faculty", width="medium"),
-                "Partner": st.column_config.TextColumn("🤝 Partner Institution", width="medium"),
-                "Country": st.column_config.TextColumn("📍 Country", width="small"),
-                "Category": st.column_config.TextColumn("Category Designation", width="medium")
+                "ID": st.column_config.NumberColumn("Record ID", format="%d"),
+                "Agreement Title": st.column_config.TextColumn("Agreement Title"),
+                "Duration": st.column_config.TextColumn("⏱️ Duration"),
+                "Department": st.column_config.TextColumn("Department / Faculty"),
+                "Partner": st.column_config.TextColumn("🤝 Partner Institution"),
+                "Country": st.column_config.TextColumn("📍 Country"),
+                "Category": st.column_config.TextColumn("Category Designation")
             }
         )
         
