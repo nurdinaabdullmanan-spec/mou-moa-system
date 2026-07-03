@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 conn.commit()
 
 # LINK LOGO UITM YANG STABIL DAN DIJAMIN KELUAR
-UITM_LOGO_URL = "https://share.google/990gS228vWoMtO2xB"
+UITM_LOGO_URL = "https://korporat.uitm.edu.my/images/download/LogoUiTM.pdf"
 
 # ======================================================
 # REFINED UI CSS (PREMIUM DARK WITH SLIGHTLY FADED PURPLE BACKGROUND)
