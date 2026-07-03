@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# LINK LOGO UITM YANG BARU & STABIL (MENGELAKKAN ISU GAMBAR PECAH)
+# LINK LOGO UITM YANG STABIL DAN DIJAMIN KELUAR
 UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # ======================================================
-# ULTIMATE MASTERPIECE UI CSS (SOFT LIGHT PURPLE MIX)
+# REFINED UI CSS (PREMIUM DARK WITH SLIGHTLY FADED PURPLE BACKGROUND)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -61,10 +61,10 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - DIUBAH KEPADA UNGU YANG SANGAT LEMBUT DAN PUDAR (LIGHT SUBTLE PURPLE) */
+    /* BACKGROUND UTAMA - KEKAL TEMA GELAP, CUMA DIPUDARKAN SIKIT JURUSAN PURPLE GELAP YANG LEMBUT */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: linear-gradient(135deg, #f4f0fa 0%, #e8e2f2 100%) !important; 
-        color: #211936 !important;
+        background: radial-gradient(circle at 50% 50%, #1a1528 0%, #0d0a16 100%) !important; 
+        color: #f8fafc !important;
     }}
     
     .block-container {{
@@ -74,14 +74,14 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* LOGO BLENDING EFFECT (Disesuaikan semula untuk blend dengan background pudar) */
+    /* LOGO BLENDING EFFECT */
     .logo-container {{
         text-align: center;
         padding: 15px 0;
     }}
     .uitm-logo {{
-        width: 150px;
-        filter: drop-shadow(0px 4px 12px rgba(75, 46, 131, 0.15));
+        width: 140px;
+        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4));
         mix-blend-mode: normal;
         display: block;
         margin: 0 auto;
@@ -91,11 +91,11 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP YANG DEE SUKA (STAY ORIGINAL PREMIUM DARK) */
+    /* SIDEBAR GELAP REKABENTUK ASAL */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #110d21 0%, #07050e 100%) !important; 
-        border-right: 1px solid rgba(75, 46, 131, 0.2) !important;
-        box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+        border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.5);
     }}
     
     section[data-testid="stSidebar"] .stMarkdown, 
@@ -149,40 +149,42 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY FOR LIGHT THEME */
+    /* TYPOGRAPHY FOR DARK GOLD EXCELLENCE */
     h1 {{
-        color: #3b226b !important; 
+        color: #ffffff !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: 3px solid #4b2e83;
+        border-bottom: 2px solid #fabf2c;
         padding-bottom: 10px;
         display: inline-block;
     }}
     h2, h3 {{
-        color: #4b2e83 !important;
+        color: #fabf2c !important;
         font-weight: 600 !important;
         letter-spacing: 0.5px;
     }}
     
     .subtitle-fix {{
-        color: #5d5370 !important;
+        color: #94a3b8 !important;
         font-size: 15px;
         margin-top: 8px;
         margin-bottom: 35px;
         font-weight: 400;
     }}
 
-    /* LUXURY WHITE GLASS CARD */
+    /* KAD GLASSMORPHISM */
     .content-card {{
-        background: #ffffff !important; 
+        background: rgba(15, 11, 30, 0.5) !important; 
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid rgba(75, 46, 131, 0.08);
-        box-shadow: 0 15px 35px rgba(75, 46, 131, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         margin-bottom: 30px;
     }}
 
-    /* HIGH-END METRIC LAYOUT */
+    /* METRIC PANELS */
     .metric-grid {{
         display: flex;
         gap: 24px;
@@ -191,11 +193,11 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: #ffffff;
+        background: linear-gradient(145deg, rgba(35, 28, 61, 0.6) 0%, rgba(20, 16, 38, 0.6) 100%);
         padding: 26px;
         border-radius: 20px;
-        border: 1px solid rgba(75, 46, 131, 0.08);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+        border: 1px solid rgba(250, 191, 44, 0.15);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
         position: relative;
         overflow: hidden;
     }}
@@ -208,11 +210,11 @@ st.markdown(f"""
     
     .metric-1::before {{ background: linear-gradient(90deg, #4b2e83, #fabf2c); }}
     .metric-2::before {{ background: linear-gradient(90deg, #0284c7, #38bdf8); }}
-    .metric-3::before {{ background: linear-gradient(90deg, #ec4899, #f472b6); }}
+    .metric-3::before {{ background: linear-gradient(90deg, #fabf2c, #fef08a); }}
 
     .metric-title {{
         font-size: 12px;
-        color: #6b627a;
+        color: #a1a1aa;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -221,64 +223,63 @@ st.markdown(f"""
     .metric-value {{
         font-size: 42px;
         font-weight: 700;
-        color: #3b226b;
+        color: #ffffff;
         margin-top: 8px;
         font-family: 'Cinzel', serif;
     }}
 
-    /* DEEP PURPLE HIGH-END BUTTONS */
+    /* REFINED GOLD BUTTONS */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
-        border: 1px solid #4b2e83;
+        border: 1px solid rgba(250, 191, 44, 0.4);
         padding: 14px;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.5px;
-        color: #ffffff !important; 
-        background: linear-gradient(135deg, #4b2e83 0%, #321d59 100%) !important;
-        box-shadow: 0 6px 18px rgba(75, 46, 131, 0.15);
+        color: #0b091a !important; 
+        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
+        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2);
         transition: all 0.3s ease;
     }}
 
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 12px 25px rgba(75, 46, 131, 0.25);
-        background: linear-gradient(135deg, #5b399c 0%, #4b2e83 100%) !important;
+        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4);
+        border-color: #fabf2c;
     }}
 
     /* BACK SYSTEM BUTTON */
     .back-btn-container .stButton > button {{
         width: auto !important;
         background: transparent !important;
-        color: #4b2e83 !important;
-        border: 1px solid rgba(75, 46, 131, 0.3) !important;
+        color: #fabf2c !important;
+        border: 1px solid rgba(250, 191, 44, 0.3) !important;
         padding: 10px 24px !important;
-        box-shadow: none !important;
     }}
     
     .back-btn-container .stButton > button:hover {{
-        background: rgba(75, 46, 131, 0.05) !important;
+        background: rgba(250, 191, 44, 0.08) !important;
     }}
 
-    /* MODERN CONTRAST INPUTS */
+    /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
-        border: 1px solid #cbd5e1 !important;
-        background-color: #fcfbfe !important;
-        color: #211936 !important;
-        padding: 2px 4px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background-color: rgba(10, 7, 20, 0.5) !important;
+        color: #ffffff !important;
+        padding: 12px 16px !important;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #4b2e83 !important;
-        box-shadow: 0 0 10px rgba(75, 46, 131, 0.1) !important;
+        border-color: #fabf2c !important;
+        box-shadow: 0 0 10px rgba(250, 191, 44, 0.2) !important;
     }}
 
-    /* DATA FRAME CUSTOMIZATION */
+    /* DATA FRAME */
     [data-testid="stDataFrame"] {{
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 20px;
-        background: #ffffff !important;
+        background: rgba(15, 11, 30, 0.7) !important;
         overflow: hidden;
     }}
 </style>
@@ -357,7 +358,7 @@ else:
     # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
         <div class="logo-container">
-            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:110px; filter: drop-shadow(0px 0px 8px rgba(250,191,44,0.3));" alt="UiTM Logo">
+            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
@@ -430,7 +431,7 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # BAR CHART WARNA-WARNI CERIA
+            # BAR CHART WARNA-WARNI CERIA (PASTEL MULTICOLOR)
             fig = px.bar(
                 country_chart,
                 x="Country",
@@ -442,9 +443,9 @@ else:
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                font_color="#211936",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.05)", title_font=dict(size=13, color="#4b2e83")),
+                font_color="#ffffff",
+                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#fabf2c")),
+                yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.05)", title_font=dict(size=13, color="#fabf2c")),
                 margin=dict(t=15, b=15, l=10, r=10),
                 showlegend=True
             )
@@ -471,7 +472,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -505,7 +506,7 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -525,7 +526,7 @@ else:
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed #cbd5e1; margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 1px dashed rgba(255,255,255,0.1); margin:20px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -546,7 +547,7 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -588,7 +589,7 @@ else:
         if st.button("Confirm Delete"):
             confirm_delete_dialog(del_id)
                 
-        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
