@@ -126,24 +126,58 @@ st.markdown(f"""
         color: #ffffff !important;
     }}
 
-    /* NAVIGATION TILES IN SIDEBAR */
+    /* NAVIGATION TILES IN SIDEBAR (PREMIUM GLASSMORPHIC UPGRADE) */
+    div[role="radiogroup"] {{
+        display: flex;
+        flex-direction: column;
+        gap: 12px !important;
+        padding-top: 10px;
+    }}
+
     div[role="radiogroup"] label {{
-        background: rgba(255, 255, 255, 0.02) !important;
-        border-radius: 12px !important;
-        padding: 14px 20px !important;
-        border: 1px solid rgba(255, 255, 255, 0.03) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-radius: 16px !important;
+        padding: 16px 20px !important;
+        border: 1px solid rgba(255, 255, 255, 0.07) !important;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+        transition: all 0.25s ease-in-out !important;
+        cursor: pointer !important;
     }}
+
+    /* EFEK HOVER: Menyala lembut & bergerak sedikit ke kanan */
     div[role="radiogroup"] label:hover {{
-        background: rgba(75, 46, 131, 0.3) !important;
-        border-color: rgba(250, 191, 44, 0.4) !important;
+        background: rgba(75, 46, 131, 0.25) !important;
+        border-color: rgba(250, 191, 44, 0.3) !important;
+        transform: translateX(4px);
+        box-shadow: 0 6px 15px rgba(75, 46, 131, 0.4) !important;
     }}
+
+    /* APABILA MEMILIH/ACTIVE TILE (PREMIUM GOLD GLOW) */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
+        background: linear-gradient(135deg, rgba(75, 46, 131, 0.8) 0%, rgba(42, 22, 77, 0.9) 100%) !important; 
         border: 1px solid #fabf2c !important; 
+        box-shadow: 0 0 15px rgba(250, 191, 44, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1) !important;
+        transform: translateX(6px);
     }}
+
+    /* Tukar warna teks & tebalkan bila aktif */
     div[role="radiogroup"] label[data-selected="true"] p {{
         color: #fabf2c !important;
         font-weight: 700 !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }}
+
+    /* Suntikan Ikon Indikator Visual Semasa */
+    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {{
+        content: "⚡ ";
+        margin-right: 8px;
+        font-size: 14px;
+        opacity: 0.7;
+    }}
+    
+    div[role="radiogroup"] label[data-selected="true"] [data-testid="stMarkdownContainer"]::before {{
+        content: "✨ ";
+        opacity: 1;
     }}
 
     /* KAD KONTEN UTAMA (Ungu Kontras Pertengahan) */
@@ -398,7 +432,6 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
-            # Menggunakan Bold palette supaya warna carta bar menonjol cerah
             fig = px.bar(
                 country_chart,
                 x="Country",
@@ -437,7 +470,6 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # Paparan tabel yang cantik dengan CSS Override Ungu Lembut hiasan dalaman
         st.dataframe(
             df, 
             use_container_width=True, 
