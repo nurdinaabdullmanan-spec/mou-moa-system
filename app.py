@@ -2,6 +2,7 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
+import base64  # Ditambah untuk membaca imej lokal
 
 # ======================================================
 # PAGE CONFIG
@@ -42,8 +43,18 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# LINK LOGO UITM YANG STABIL
-UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
+# FUNGSI UNTUK MENUKAR IMEJ LOKAL KEPADA BASE64 HTML
+def get_base64_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        # Jika fail tiada, sistem tidak akan crash tetapi logo tidak keluar
+        return ""
+
+# Membaca imej lokal 'UiTM_Logo.png' dari folder yang sama
+logo_base64 = get_base64_image("UiTM_Logo.png")
+UITM_LOGO_HTML_SRC = f"data:image/png;base64,{logo_base64}" if logo_base64 else ""
 
 # ======================================================
 # REFINED UI CSS (FIXED INPUT LABELS CONTRAST)
@@ -63,7 +74,7 @@ st.markdown(f"""
 
     /* BACKGROUND UTAMA */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: linear-gradient(135deg, #2e2640 0%, #F4F6F9 100%) !important; 
+        background: linear-gradient(135deg, #2e2640 0%, #1c1726 100%) !important; 
         color: #f8fafc !important;
     }}
     
@@ -308,9 +319,10 @@ def switch_page(page_name):
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
+    # Menggunakan HTML SRC lokal berformat Base64
     st.markdown(f"""
     <div class="logo-container">
-        <img src="{UITM_LOGO_URL}" class="uitm-logo" alt="UiTM Logo">
+        <img src="{UITM_LOGO_HTML_SRC}" class="uitm-logo" alt="UiTM Logo">
     </div>
     """, unsafe_allow_html=True)
     
@@ -362,10 +374,10 @@ if not st.session_state.logged_in:
 # ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
 else:
-    # Sidebar Logo dan Profil
+    # Sidebar Logo dan Profil - Menggunakan HTML SRC lokal berformat Base64
     st.sidebar.markdown(f"""
         <div class="logo-container">
-            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
+            <img src="{UITM_LOGO_HTML_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
