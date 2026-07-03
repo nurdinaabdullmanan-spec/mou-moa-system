@@ -2,7 +2,6 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-import base64  # Untuk pemprosesan imej lokal secara selamat
 
 # ======================================================
 # PAGE CONFIG
@@ -15,7 +14,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# DATABASE CONNECTION & LOGO PROCESSING
+# DATABASE CONNECTION
 # ======================================================
 conn = sqlite3.connect("mou_moa_db.db", check_same_thread=False)
 cursor = conn.cursor()
@@ -43,17 +42,8 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 """)
 conn.commit()
 
-# FUNGSI UNTUK MENUKAR IMEJ LOKAL KEPADA BASE64 HTML
-def get_base64_image(image_path):
-    try:
-        with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    except FileNotFoundError:
-        return ""
-
-# Membaca imej logo3.png yang terletak di luar folder (../Logo.png)
-logo_base64 = get_base64_image("../Logo.png")
-UITM_LOGO_HTML_SRC = f"data:image/png;base64,{logo_base64}" if logo_base64 else ""
+# LINK LOGO UITM YANG STABIL
+UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # ======================================================
 # REFINED UI CSS (FIXED INPUT LABELS CONTRAST)
@@ -318,10 +308,9 @@ def switch_page(page_name):
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
-    # Menggunakan HTML SRC lokal berformat Base64 yang memuat fail logo3.png
     st.markdown(f"""
     <div class="logo-container">
-        <img src="{UITM_LOGO_HTML_SRC}" class="uitm-logo" alt="UiTM Logo">
+        <img src="{UITM_LOGO_URL}" class="uitm-logo" alt="UiTM Logo">
     </div>
     """, unsafe_allow_html=True)
     
@@ -375,8 +364,8 @@ if not st.session_state.logged_in:
 else:
     # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
-        <div class="logo-img">
-            <img src="{Logo.png}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
+        <div class="logo-container">
+            <img src="{UITM_LOGO_URL}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
         <div style="text-align:center; padding: 10px 0 25px 0;">
             <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
