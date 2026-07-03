@@ -2,8 +2,8 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-import base64  # Tambah library ini untuk membaca fail lokal
-import os      # Untuk memeriksa jika fail wujud
+import base64  
+import os      
 
 # ======================================================
 # PAGE CONFIG
@@ -54,7 +54,6 @@ def get_local_logo_base64(file_path="Logo.png"):
             encoded_string = base64.b64encode(image_file.read()).decode()
         return f"data:image/png;base64,{encoded_string}"
     else:
-        # Jika fail tiada, kembali ke URL asal sebagai backup
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # Panggil fungsi untuk dapatkan data imej
@@ -62,11 +61,11 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (LIGHT MODE - CLEAN WHITE THEME)
+# REFINED UI CSS (LIGHT MODE - CREAM & MULTICOLOR METRICS)
 # ======================================================
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght=300;400;500;600;700&display=swap');
     
     /* PENGURUSAN FONT */
     html, body, [class*="css"] {{
@@ -77,9 +76,9 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - PUTIH BERSIH */
+    /* BACKGROUND UTAMA - KRIM LEMBUT */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: #ffffff !important; 
+        background: #fdfbf7 !important; 
         color: #1e293b !important;
     }}
     
@@ -120,7 +119,7 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP (Kekal eksklusif korporat) */
+    /* SIDEBAR GELAP */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
@@ -178,9 +177,9 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY - WARNA GELAP UNTUK LATAR BELAKANG PUTIH */
+    /* TYPOGRAPHY */
     h1 {{
-        color: #0f172a !important; 
+        color: #1e1b4b !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
         border-bottom: 2px solid #4b2e83;
@@ -201,17 +200,17 @@ st.markdown(f"""
         font-weight: 400;
     }}
 
-    /* KAD PREMIUM LIGHT MODE */
+    /* KAD KONTEN UTAMA */
     .content-card {{
-        background: #f8fafc !important; 
+        background: #f5f0e6 !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2d9c8;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS */
+    /* METRIC PANELS DESIGN (DARI image_dba6ab.png) */
     .metric-grid {{
         display: flex;
         gap: 24px;
@@ -220,32 +219,37 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: #f1f5f9;
-        padding: 26px;
-        border-radius: 20px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        background: #ffffff !important;
+        padding: 22px 26px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         position: relative;
         overflow: hidden;
+        border: 1px solid #e2e8f0;
     }}
 
+    /* Garisan berwarna di sebelah kiri kad */
+    .metric-1 {{ border-left: 5px solid #4b2e83 !important; }}  /* Ungu */
+    .metric-2 {{ border-left: 5px solid #1e40af !important; }}  /* Biru */
+    .metric-3 {{ border-left: 5px solid #fabf2c !important; }}  /* Gold */
+
     .metric-title {{
-        font-size: 12px;
+        font-size: 11px;
         color: #64748b;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
     }}
     
     .metric-value {{
-        font-size: 42px;
+        font-size: 38px;
         font-weight: 700;
         color: #0f172a;
-        margin-top: 8px;
-        font-family: 'Cinzel', serif;
+        margin-top: 6px;
+        font-family: 'Inter', sans-serif !important; /* Guna font solid kemas */
     }}
 
-    /* BUTTONS */
+    /* BUTTONS - KEMBALI KEPADA PURPLE KORPORAT */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
@@ -423,6 +427,7 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
+        # Implementasi Reka Bentuk Dari image_dba6ab.png
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -489,7 +494,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -523,8 +528,7 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
-        st.sidebar.markdown("", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -565,7 +569,7 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -607,7 +611,7 @@ else:
         if st.button("Confirm Delete"):
             confirm_delete_dialog(del_id)
                 
-        st.markdown("<br><hr style='border:0.5px solid #e2e8f0;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
