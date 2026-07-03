@@ -2,7 +2,7 @@ import plotly.express as px
 import streamlit as st
 import sqlite3
 import pandas as pd
-import base64  # Ditambah untuk membaca imej lokal
+import base64  # Untuk pemprosesan imej lokal secara selamat
 
 # ======================================================
 # PAGE CONFIG
@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# DATABASE CONNECTION
+# DATABASE CONNECTION & LOGO PROCESSING
 # ======================================================
 conn = sqlite3.connect("mou_moa_db.db", check_same_thread=False)
 cursor = conn.cursor()
@@ -49,11 +49,10 @@ def get_base64_image(image_path):
         with open(image_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
     except FileNotFoundError:
-        # Jika fail tiada, sistem tidak akan crash tetapi logo tidak keluar
         return ""
 
-# Membaca imej lokal 'UiTM_Logo.png' dari folder yang sama
-logo_base64 = get_base64_image("UiTM_Logo.png")
+# Membaca imej logo3.png yang terletak di luar folder (../logo3.png)
+logo_base64 = get_base64_image("../logo3.png")
 UITM_LOGO_HTML_SRC = f"data:image/png;base64,{logo_base64}" if logo_base64 else ""
 
 # ======================================================
@@ -319,7 +318,7 @@ def switch_page(page_name):
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
-    # Menggunakan HTML SRC lokal berformat Base64
+    # Menggunakan HTML SRC lokal berformat Base64 yang memuat fail logo3.png
     st.markdown(f"""
     <div class="logo-container">
         <img src="{UITM_LOGO_HTML_SRC}" class="uitm-logo" alt="UiTM Logo">
@@ -374,7 +373,7 @@ if not st.session_state.logged_in:
 # ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
 else:
-    # Sidebar Logo dan Profil - Menggunakan HTML SRC lokal berformat Base64
+    # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
         <div class="logo-container">
             <img src="{UITM_LOGO_HTML_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
