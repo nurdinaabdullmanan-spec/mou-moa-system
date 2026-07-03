@@ -43,55 +43,55 @@ CREATE TABLE IF NOT EXISTS collaboration_data (
 conn.commit()
 
 # ======================================================
-# ULTIMATE ENTERPRISE UI CSS (UiTM THEME MASTERCLASS)
+# ULTIMATE CLEAN ENTERPRISE UI (UiTM THEME MASTERCLASS V2)
 # ======================================================
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
-    /* BACKGROUND UTAMA SYSTEM KANAN */
+    /* MAIN BACKGROUND CLEANING */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background-color: #f4f3f8 !important; 
+        background-color: #f8fafc !important; /* Super clean slate tint */
     }
     
     .block-container {
-        padding: 2rem 4rem !important;
+        padding: 2.5rem 5rem !important;
     }
 
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
-    /* SIDEBAR PREMIUM ENTERPRISE */
+    /* PREMIUM SIDEBAR */
     section[data-testid="stSidebar"] {
-        background-color: #161233 !important; 
-        border-right: 2px solid #fabf2c !important; /* Gold divider border line */
+        background-color: #0f172a !important; /* Modern Slate Dark */
+        border-right: 1px solid #e2e8f0 !important;
     }
     
     section[data-testid="stSidebar"] .stMarkdown, 
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {
-        color: #ffffff !important;
+        color: #f1f5f9 !important;
     }
 
-    /* NAVIGATION BUTTON STYLE (MODERN RAILS) */
+    /* NAVIGATION RADIOGROUP UPGRADE */
     div[role="radiogroup"] {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        padding-top: 10px;
+        gap: 6px;
+        padding-top: 15px;
     }
 
     div[role="radiogroup"] label {
-        background: rgba(255, 255, 255, 0.02) !important;
-        border-radius: 14px !important;
-        padding: 14px 20px !important;
+        background: transparent !important;
+        border-radius: 10px !important;
+        padding: 12px 18px !important;
         margin-bottom: 0px !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        transition: all 0.2s ease !important;
+        border: 1px solid transparent !important;
     }
 
     div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {
@@ -99,186 +99,169 @@ st.markdown("""
     }
 
     div[role="radiogroup"] label:hover {
-        background: rgba(255, 255, 255, 0.07) !important;
-        border-color: rgba(255, 255, 255, 0.15) !important;
-        transform: translateX(4px);
+        background: rgba(255, 255, 255, 0.04) !important;
     }
 
     div[role="radiogroup"] label p {
-        color: #cbd5e1 !important;
+        color: #94a3b8 !important;
         font-size: 14px !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.3px;
+        font-weight: 500 !important;
     }
 
-    /* ACTIVE MENU STATE (UiTM Premium Gold) */
+    /* ACTIVE MENU STATE (UiTM Premium Gold Accent) */
     div[role="radiogroup"] label[data-selected="true"] {
-        background: linear-gradient(135deg, #fabf2c, #e0a71b) !important; 
+        background: #fabf2c !important; 
         border: 1px solid #fabf2c !important;
-        box-shadow: 0 8px 20px rgba(250, 191, 44, 0.25) !important;
     }
 
     div[role="radiogroup"] label[data-selected="true"] p {
-        color: #110e26 !important;
-        font-weight: 700 !important;
+        color: #0f172a !important;
+        font-weight: 600 !important;
     }
 
-    /* TYPOGRAPHY CONFIGS */
+    /* TYPOGRAPHY */
     h1 {
-        color: #2b164c !important; 
+        color: #1e1b4b !important; /* Deep Royal Navy */
         font-weight: 800 !important;
-        font-size: 34px !important;
-        letter-spacing: -0.8px;
+        font-size: 32px !important;
+        letter-spacing: -0.6px;
+        margin-bottom: 5px !important;
     }
     h2, h3 {
-        color: #1e3a8a !important; 
+        color: #1e1b4b !important; 
         font-weight: 700 !important;
     }
     
     .subtitle-fix {
-        color: #6b7280 !important;
+        color: #64748b !important;
         font-size: 15px;
-        margin-top: -12px;
-        margin-bottom: 30px;
+        margin-top: -5px;
+        margin-bottom: 35px;
         font-weight: 400;
     }
     
     label {
-        color: #374151 !important;
-        font-weight: 700 !important;
-        font-size: 14px !important;
+        color: #334155 !important;
+        font-weight: 600 !important;
+        font-size: 13px !important;
         margin-bottom: 6px !important;
     }
 
-    /* PREMIUM CONTENT CARD */
+    /* MINIMALIST CONTENT CARD */
     .content-card {
-        background: #f0eef7 !important; /* Soft Tone Lavender-Grey Base */
-        border-radius: 20px;
+        background: #ffffff !important;
+        border-radius: 16px;
         padding: 35px;
-        border: 1px solid #dfdaeb;
-        box-shadow: 0 10px 25px -5px rgba(43, 22, 76, 0.04);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
         margin-bottom: 25px;
     }
 
-    /* CUSTOM ENTERPRISE GRADIENT METRIC CARDS */
+    /* METRIC CARDS OVERHAUL */
     .metric-grid {
         display: flex;
         gap: 20px;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
     }
     
     .pro-metric {
         flex: 1;
-        background: white;
+        background: #ffffff;
         padding: 24px;
-        border-radius: 18px;
-        border: 1px solid #e4e2ed;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        position: relative;
-        overflow: hidden;
+        border-radius: 14px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     }
-    
-    .pro-metric::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 6px; height: 100%;
-    }
-    
-    .metric-1::before { background: #4b2e83; } /* UiTM Purple Line */
-    .metric-2::before { background: #1e40af; } /* Pro Blue Line */
-    .metric-3::before { background: #fabf2c; } /* UiTM Gold Line */
 
     .metric-title {
-        font-size: 13px;
-        color: #6b7280;
+        font-size: 12px;
+        color: #64748b;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     
     .metric-value {
-        font-size: 38px;
-        font-weight: 800;
-        color: #111827;
-        margin-top: 5px;
+        font-size: 32px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-top: 6px;
     }
 
-    /* PRO SUBMIT BUTTONS */
+    /* PRO PRIMARY BUTTONS */
     .stButton > button {
         width: 100%;
-        border-radius: 14px;
+        border-radius: 10px;
         border: none;
-        padding: 15px;
-        font-weight: 700;
-        font-size: 15px;
+        padding: 12px 24px;
+        font-weight: 600;
+        font-size: 14px;
         color: white !important;
-        background: linear-gradient(135deg, #4b2e83, #321e58) !important;
-        box-shadow: 0 6px 20px rgba(75, 46, 131, 0.25);
-        transition: all 0.25s ease;
+        background: #4b2e83 !important; /* UiTM Purple Base */
+        transition: all 0.2s ease;
     }
 
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(75, 46, 131, 0.35);
+        background: #3b2366 !important;
+        transform: translateY(-1px);
     }
 
-    /* BACK BUTTON AT THE BOTTOM */
+    /* BACK BUTTON (CLEAN OUTLINE) */
     .back-btn-container .stButton > button {
         width: auto !important;
         background: transparent !important;
-        color: #4b2e83 !important;
-        border: 2px solid #4b2e83 !important;
-        padding: 10px 24px !important;
-        font-size: 14px !important;
-        font-weight: 700 !important;
-        border-radius: 12px !important;
-        box-shadow: none !important;
-        transition: all 0.2s ease;
+        color: #64748b !important;
+        border: 1px solid #cbd5e1 !important;
+        padding: 8px 20px !important;
+        font-size: 13px !important;
     }
     
     .back-btn-container .stButton > button:hover {
-        background: #4b2e83 !important;
-        color: white !important;
-        transform: translateY(-1px);
+        background: #f8fafc !important;
+        color: #0f172a !important;
     }
 
     /* SIDEBAR LOGOUT BUTTON */
     section[data-testid="stSidebar"] .stButton > button {
         background: transparent !important;
-        border: 1px solid #f87171 !important;
+        border: 1px solid rgba(248, 113, 113, 0.4) !important;
         color: #f87171 !important;
-        box-shadow: none !important;
-        padding: 10px !important;
+        padding: 8px !important;
     }
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: #ef4444 !important;
         color: white !important;
+        border-color: #ef4444 !important;
     }
 
-    /* INPUT FIELDS & SELECTBOXES */
+    /* FORMS & INPUT FIELDS */
     .stTextInput input, .stNumberInput input, textarea {
-        border-radius: 12px !important;
-        border: 1px solid #cbd1db !important;
+        border-radius: 10px !important;
+        border: 1px solid #cbd5e1 !important;
         background-color: #ffffff !important;
-        color: #0f172a !important;
-        padding: 12px 16px !important;
+        padding: 10px 14px !important;
+    }
+    .stTextInput input:focus, .stNumberInput input:focus {
+        border-color: #4b2e83 !important;
     }
     
     .stSelectbox div[data-baseweb="select"] {
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         background-color: #ffffff !important;
-        border: 1px solid #cbd1db !important;
-    }
-    .stSelectbox div[data-baseweb="select"] * {
-        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
     }
 
-    /* DATA TABLES */
-    [data-testid="stDataFrame"] {
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        background: #ffffff !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+    /* UTILITY CLASSES */
+    .badge-user {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #cbd5e1;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -291,7 +274,6 @@ if "logged_in" not in st.session_state:
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Dashboard"
 
-# Fungsi untuk kemaskini halaman dengan selamat (SINKRONISASI RADIO)
 def switch_page(page_name):
     st.session_state.current_page = page_name
     st.rerun()
@@ -351,12 +333,13 @@ else:
     # Sidebar Header Profile Panel
     st.sidebar.markdown(
         f"""
-        <div style="text-align:center; padding: 15px 0 30px 0;">
-            <div style="font-size:26px; font-weight:800; color:#fabf2c; letter-spacing:-0.5px;">UiTM MoU/MoA Collaboration Records</div>
-            <div style="color:#9da4b0; font-size:12px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">UiTM PERMATANG PAUH</div>
-            <div style="margin-top:15px; background:rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; display:inline-block;">
-                <span style="color:#6be084; font-size:10px;">●</span> 
-                <span style="color:#cbd5e1; font-size:13px; font-weight:600;">{st.session_state.username}</span>
+        <div style="padding: 20px 10px 25px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px;">
+            <div style="font-size: 18px; font-weight: 700; color: #ffffff; letter-spacing: -0.3px;">UiTM MoU/MoA</div>
+            <div style="color: #64748b; font-size: 11px; margin-top: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Permatang Pauh Campus</div>
+            <div style="margin-top: 15px;">
+                <div class="badge-user">
+                    <span style="color: #22c55e;">●</span> {st.session_state.username}
+                </div>
             </div>
         </div>
         """,
@@ -365,8 +348,6 @@ else:
 
     # Sidebar Navigation System 
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
-    
-    # Dapatkan index semasa berdasarkan data halaman terkini
     current_index = menu_options.index(st.session_state.current_page)
     
     selected_menu = st.sidebar.radio(
@@ -375,7 +356,6 @@ else:
         index=current_index
     )
     
-    # Jika pengguna ubah radio button secara manual di sidebar
     if selected_menu != st.session_state.current_page:
         st.session_state.current_page = selected_menu
         st.rerun()
@@ -401,28 +381,27 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Custom HTML Enterprise Metrics Layout
+        # Clean Metrics Layout
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="pro-metric metric-1">
+            <div class="pro-metric">
                 <div class="metric-title">Total Active Agreements</div>
                 <div class="metric-value">{total_records}</div>
             </div>
-            <div class="pro-metric metric-2">
+            <div class="pro-metric">
                 <div class="metric-title">Partner Countries</div>
                 <div class="metric-value">{total_country}</div>
             </div>
-            <div class="pro-metric metric-3">
+            <div class="pro-metric">
                 <div class="metric-title">Unique Categories</div>
                 <div class="metric-value">{total_category}</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
         
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.subheader("🌐 Global Distribution Portfolio")
+        st.markdown("<br>", unsafe_allow_html=True)
         
         if total_records > 0:
             country_chart = df["Country"].value_counts().reset_index()
@@ -432,16 +411,16 @@ else:
                 country_chart,
                 x="Country",
                 y="Total",
-                color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Prism, 
                 text_auto=True
             )
+            # Upgraded Minimalistic Plotly Theme
+            fig.update_traces(marker_color='#4b2e83', marker_line_color='#3b2366', opacity=0.95, marker_line_width=1)
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
-                yaxis=dict(showgrid=True, gridcolor="#e2e8f0", title_font=dict(size=13, color="#4b2e83")),
-                margin=dict(t=15, b=15, l=10, r=10),
+                xaxis=dict(showgrid=False, title_font=dict(size=12, color="#64748b"), tickfont=dict(color="#64748b")),
+                yaxis=dict(showgrid=True, gridcolor="#f1f5f9", title_font=dict(size=12, color="#64748b"), tickfont=dict(color="#64748b")),
+                margin=dict(t=10, b=10, l=10, r=10),
                 showlegend=False
             )
             st.plotly_chart(fig, use_container_width=True)
@@ -457,7 +436,8 @@ else:
         st.markdown('<p class="subtitle-fix">Search and browse full records from the system database.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        search = st.text_input("🔍 Filter Stream Matrix (Enter Title, Partner or Country)")
+        search = st.text_input("🔍 Filter Stream Matrix (Enter Title, Partner or Country)", placeholder="Type to search...")
+        st.markdown("<br>", unsafe_allow_html=True)
 
         if search:
             sql = "SELECT * FROM collaboration_data WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?"
@@ -467,8 +447,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        # BUTTON BACK
-        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -486,15 +465,15 @@ else:
         col1, col2 = st.columns(2)
         with col1:
             id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
-            title = st.text_input("Agreement Title")
-            duration = st.text_input("Duration")
-            department = st.text_input("Executing Department / Faculty")
+            title = st.text_input("Agreement Title", placeholder="e.g., Academic Exchange Agreement")
+            duration = st.text_input("Duration", placeholder="e.g., 5 Years")
+            department = st.text_input("Executing Department / Faculty", placeholder="e.g., College of Engineering")
         with col2:
-            partner = st.text_input("External Partner Institution")
-            country = st.text_input("Country")
+            partner = st.text_input("External Partner Institution", placeholder="e.g., Universitas Indonesia")
+            country = st.text_input("Country", placeholder="e.g., Indonesia")
             category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
         if st.button("Commit Data Stream to Database"):
             cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
                            (int(id_in), title, duration, department, partner, country, category))
@@ -502,8 +481,7 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        # BUTTON BACK DI BAWAH KANDUNGAN
-        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -523,7 +501,7 @@ else:
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed #cbd1db; margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 0; border-top: 1px dashed #e2e8f0; margin: 25px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -534,7 +512,7 @@ else:
                 country = st.text_input("Country Location", result[5])
                 category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
-            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("<br><br>", unsafe_allow_html=True)
             if st.button("Update Changes"):
                 cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
                                (title, duration, department, partner, country, category, int(uid)))
@@ -542,10 +520,10 @@ else:
                 st.success("Mutation vector completely updated inside system core table.")
                 switch_page("View Data")
         else:
+            st.markdown("<br>", unsafe_allow_html=True)
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        # BUTTON BACK DI BAWAH KANDUNGAN
-        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -562,40 +540,36 @@ else:
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         del_id = st.number_input("Target Discard Record ID", min_value=1, step=1, format="%d")
         
+        st.markdown("<br>", unsafe_allow_html=True)
         st.error("💣 Critical: Purging actions cannot be rolled back or undone from the database nodes.")
+        st.markdown("<br>", unsafe_allow_html=True)
 
-        # --- FUNGSI POP-UP DIALOG (CONFIRMATION) ---
         @st.dialog("⚠️ Confirm Permanent Deletion")
         def confirm_delete_dialog(record_id):
             st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the metadata cluster from the core database nodes.")
+            st.markdown("<br>", unsafe_allow_html=True)
             
-            # Susun butang secara bersebelahan (Yes / Cancel)
             col_yes, col_cancel = st.columns([1, 1])
             with col_yes:
                 if st.button("Yes, Delete Record", use_container_width=True):
-                    # Proses padam data dipindahkan ke dalam dialog sah
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
                         conn.commit()
                         st.success(f"Record ID {record_id} cleared safely.")
-                        # Rerun untuk kemaskini dataframe & tutup dialog
                         switch_page("View Data")
                     else:
                         st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
             
             with col_cancel:
                 if st.button("Cancel", use_container_width=True):
-                    st.rerun() # Menutup pop-up dialog secara automatik
+                    st.rerun()
 
-        # --- BUTANG UTAMA PADA HALAMAN ---
         if st.button("Confirm Delete"):
-            # Bila butang ditekan, fungsi pop-up dialog di atas akan dipanggil
             confirm_delete_dialog(del_id)
                 
-        # BUTTON BACK DI BAWAH KANDUNGAN
-        st.markdown("<br><hr style='border:0.5px solid #dfdaeb;'><br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
