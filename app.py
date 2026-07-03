@@ -46,7 +46,7 @@ conn.commit()
 UITM_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
 # ======================================================
-# REFINED UI CSS (SLIGHTLY FADED MEDIUM-DARK PURPLE)
+# REFINED UI CSS (FIXED INPUT LABELS CONTRAST)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -61,7 +61,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - DAH DIPUDARKAN SIKIT JURUSAN PURPLE KELABU ELEGAN */
+    /* BACKGROUND UTAMA */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
         background: linear-gradient(135deg, #2e2640 0%, #1c1726 100%) !important; 
         color: #f8fafc !important;
@@ -73,6 +73,19 @@ st.markdown(f"""
 
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
+
+    /* FIX: MEMAKSA SEMUA TULISAN LABEL INPUT MENJADI JELAS DAN TERANG */
+    [data-testid="stWidgetLabel"] p, 
+    label[data-testid="stWidgetLabel"], 
+    .stTextInput label, 
+    .stNumberInput label, 
+    .stSelectbox label,
+    div[data-baseline="select"] label {{
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        font-size: 15px !important;
+        text-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    }}
 
     /* LOGO BLENDING EFFECT */
     .logo-container {{
@@ -259,8 +272,8 @@ st.markdown(f"""
     /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        background-color: rgba(20, 16, 28, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background-color: rgba(20, 16, 28, 0.8) !important;
         color: #ffffff !important;
         padding: 12px 16px !important;
     }}
