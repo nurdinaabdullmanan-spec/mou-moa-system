@@ -61,7 +61,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# HIGHLY AGGRESSIVE UI CSS (FORCING TRUE SOFT PURPLE SYSTEM Theme)
+# HIGHLY AGGRESSIVE UI CSS (CLEAN FLAT MINIMALIST THEME)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -76,7 +76,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* 1. TUKAR KESELURUHAN BACKGROUND UTAMA KEPADA UNGU LEMBUT CAIR */
+    /* TUKAR KESELURUHAN BACKGROUND UTAMA KEPADA UNGU LEMBUT CAIR */
     .stApp, 
     [data-testid="stAppViewContainer"], 
     [data-testid="stHeader"],
@@ -115,69 +115,77 @@ st.markdown(f"""
         margin: 0 auto;
     }}
 
-    /* SIDEBAR GELAP PREMIUM */
+    /* SIDEBAR GELAP MINIMALIS (PERSIS GAMBAR CONTOH) */
     section[data-testid="stSidebar"] {{
-        background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
-        border-right: 2px solid #fabf2c !important;
+        background-color: #0b0f19 !important; /* Biru Gelap / Hitam Pentadbir */
+        background: #0b0f19 !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
     }}
     
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {{
-        color: #ffffff !important;
+        color: #94a3b8 !important;
     }}
 
-    /* NAVIGATION TILES IN SIDEBAR (PREMIUM GLASSMORPHIC UPGRADE) */
+    /* --- REKA BENTUK SIDEBAR NAVIGATION (MODERN MINIMALIST OVERHAUL) --- */
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
-        gap: 12px !important;
-        padding-top: 10px;
+        gap: 4px !important; /* Jarak rapat seperti menu admin asli */
+        padding: 10px 0;
     }}
 
-    div[role="radiogroup"] label {{
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-radius: 16px !important;
-        padding: 16px 20px !important;
-        border: 1px solid rgba(255, 255, 255, 0.07) !important;
-        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 6px rgba(0, 0, 0, 0.2) !important;
-        transition: all 0.25s ease-in-out !important;
-        cursor: pointer !important;
-    }}
-
-    /* EFEK HOVER: Menyala lembut & bergerak sedikit ke kanan */
-    div[role="radiogroup"] label:hover {{
-        background: rgba(75, 46, 131, 0.25) !important;
-        border-color: rgba(250, 191, 44, 0.3) !important;
-        transform: translateX(4px);
-        box-shadow: 0 6px 15px rgba(75, 46, 131, 0.4) !important;
-    }}
-
-    /* APABILA MEMILIH/ACTIVE TILE (PREMIUM GOLD GLOW) */
-    div[role="radiogroup"] label[data-selected="true"] {{
-        background: linear-gradient(135deg, rgba(75, 46, 131, 0.8) 0%, rgba(42, 22, 77, 0.9) 100%) !important; 
-        border: 1px solid #fabf2c !important; 
-        box-shadow: 0 0 15px rgba(250, 191, 44, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1) !important;
-        transform: translateX(6px);
-    }}
-
-    /* Tukar warna teks & tebalkan bila aktif */
-    div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #fabf2c !important;
-        font-weight: 700 !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }}
-
-    /* Suntikan Ikon Indikator Visual Semasa */
-    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before {{
-        content: "⚡ ";
-        margin-right: 8px;
-        font-size: 14px;
-        opacity: 0.7;
+    /* Sembunyikan bulatan asal Streamlit secara total */
+    div[role="radiogroup"] [data-testid="stBlock"] {{
+        display: none !important;
     }}
     
-    div[role="radiogroup"] label[data-selected="true"] [data-testid="stMarkdownContainer"]::before {{
-        content: "✨ ";
-        opacity: 1;
+    div[role="radiogroup"] label {{
+        padding: 10px 16px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        border-radius: 8px !important; /* Melengkung halus */
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        transition: all 0.15s ease-in-out !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+    }}
+
+    /* Sorokkan elemen bulatan radio dalaman Streamlit */
+    div[role="radiogroup"] label [data-testid="stWidgetLabel"] div[style*="background-color"] {{
+        display: none !important;
+    }}
+    div[role="radiogroup"] label div[class*="st-"] {{
+        display: none !important;
+    }}
+
+    /* HOVER STATE: Kelabu/Biru lembut pudar */
+    div[role="radiogroup"] label:hover {{
+        background: rgba(255, 255, 255, 0.05) !important;
+    }}
+    div[role="radiogroup"] label:hover p {{
+        color: #ffffff !important;
+    }}
+
+    /* SELECTED STATE (BUTANG AKTIF - PERSIS RUJUKAN) */
+    div[role="radiogroup"] label[data-selected="true"] {{
+        background: rgba(255, 255, 255, 0.12) !important; /* Latar rata semi-lutsinar */
+    }}
+    
+    div[role="radiogroup"] label[data-selected="true"] p {{
+        color: #ffffff !important; /* Tulisan putih penuh cerah */
+        font-weight: 500 !important;
+    }}
+
+    /* Membetulkan alignment font di sidebar */
+    div[role="radiogroup"] label p {{
+        font-size: 14px !important;
+        color: #94a3b8 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }}
 
     /* KAD KONTEN UTAMA (Ungu Kontras Pertengahan) */
@@ -190,7 +198,7 @@ st.markdown(f"""
         margin-bottom: 30px;
     }}
 
-    /* 2. PAKSA KAD METRIKS JADI WARNA PURPLE SOFT */
+    /* PAKSA KAD METRIKS JADI WARNA PURPLE SOFT */
     .metric-grid {{
         display: flex !important;
         gap: 24px !important;
@@ -235,6 +243,20 @@ st.markdown(f"""
         background: linear-gradient(135deg, #5c39a1 0%, #4b2e83 100%) !important;
     }}
 
+    /* LOGOUT BUTTON IN SIDEBAR */
+    div[data-testid="stSidebar"] .stButton > button {{
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #f1f5f9 !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+    }}
+    div[data-testid="stSidebar"] .stButton > button:hover {{
+        background: rgba(239, 68, 68, 0.2) !important;
+        border-color: #ef4444 !important;
+        color: #fca5a5 !important;
+    }}
+
     /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
@@ -242,14 +264,13 @@ st.markdown(f"""
         color: #0f172a !important;
     }}
 
-    /* 3. HIAS & PAKSA TABEL DATAFRAME KEPADA THEME SOFT PURPLE (TIADA LAGI CELL PUTIH) */
+    /* HIAS & PAKSA TABEL DATAFRAME KEPADA THEME SOFT PURPLE */
     [data-testid="stDataFrame"] {{
         border: 2px solid #b392e3 !important;
         border-radius: 18px !important;
         background-color: #eae0f5 !important; 
     }}
 
-    /* Overriding canvas/glide-data-grid inner styles */
     div[data-testid="stDataFrame"] [role="grid"] div, 
     div[data-testid="stDataFrame"] [class*="glide-grid"],
     div[data-testid="stDataFrame"] td,
@@ -258,7 +279,6 @@ st.markdown(f"""
         color: #2e1065 !important;
     }}
 
-    /* Header Tabel */
     div[data-testid="stDataFrame"] [data-testid="table-header"],
     div[data-testid="stDataFrame"] thead tr th {{
         background-color: #4b2e83 !important; 
@@ -266,7 +286,6 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* Efek Zebra Baris Selang-Seli */
     div[data-testid="stDataFrame"] tbody tr:nth-of-type(even) td,
     div[data-testid="stDataFrame"] tr:nth-of-type(even) {{
         background-color: #dfceff !important; 
@@ -277,7 +296,6 @@ st.markdown(f"""
         background-color: #f6f0fc !important; 
     }}
 
-    /* Apabila di-hover */
     div[data-testid="stDataFrame"] tr:hover, 
     div[data-testid="stDataFrame"] td:hover {{
         background-color: #ccb0f7 !important; 
@@ -291,7 +309,7 @@ st.markdown(f"""
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "current_page" not in st.session_state:
-    st.session_state.current_page = "Dashboard"
+    st.session_state.current_page = "🏠 Dashboard"
 
 def switch_page(page_name):
     st.session_state.current_page = page_name
@@ -358,26 +376,34 @@ else:
     # Sidebar Logo dan Profil
     st.sidebar.markdown(f"""
         <div class="logo-container">
-            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:100px;" alt="UiTM Logo">
         </div>
-        <div style="text-align:center; padding: 10px 0 25px 0;">
-            <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
-            <div style="color:#94a3b8; font-size:10px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">PERMATANG PAUH</div>
-            <div style="margin-top:12px; background:rgba(254, 240, 138, 0.05); padding:6px 14px; border-radius:30px; display:inline-block; border: 1px solid rgba(250,191,44,0.15);">
-                <span style="color:#fabf2c; font-size:10px;">●</span> 
-                <span style="color:#e2e8f0; font-size:12px; font-weight:600;">{st.session_state.username}</span>
+        <div style="text-align:center; padding: 5px 0 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px;">
+            <div style="font-family:'Cinzel', serif; font-size:16px; font-weight:700; color:#ffffff; letter-spacing:0.5px;">UiTM MoU/MoA</div>
+            <div style="color:#64748b; font-size:9px; margin-top:2px; text-transform:uppercase; letter-spacing:1px;">PERMATANG PAUH</div>
+            <div style="margin-top:10px; background:rgba(255,255,255,0.03); padding:4px 12px; border-radius:6px; display:inline-block; border: 1px solid rgba(255,255,255,0.05);">
+                <span style="color:#10b981; font-size:10px;">●</span> 
+                <span style="color:#94a3b8; font-size:12px; font-weight:500;">{st.session_state.username}</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System 
-    menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
+    # Sidebar Navigation System (Menggunakan Teks + Ikon yang rapat persis seperti rujukan)
+    menu_options = ["🏠 Dashboard", "📂 View Data", "➕ Add Data", "📝 Update Data", "🗑️ Delete Data"]
+    
+    # Memastikan sinkronisasi indeks sekiranya state berubah fail-safe
+    if st.session_state.current_page not in menu_options:
+        st.session_state.current_page = "🏠 Dashboard"
+        
     current_index = menu_options.index(st.session_state.current_page)
     
+    st.sidebar.markdown("<div style='color:#475569; font-size:11px; font-weight:700; padding-left:16px; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px;'>System Module Connector</div>", unsafe_allow_html=True)
+    
     selected_menu = st.sidebar.radio(
-        "SYSTEM MODULE CONNECTOR",
+        "NAVIGATION_HIDDEN_LABEL", # Label ini disembunyikan oleh sistem CSS kita
         menu_options,
-        index=current_index
+        index=current_index,
+        label_visibility="collapsed"
     )
     
     if selected_menu != st.session_state.current_page:
@@ -385,7 +411,7 @@ else:
         st.rerun()
 
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-    if st.sidebar.button("Terminated Access", key="logout_btn"):
+    if st.sidebar.button("🚪 Logout", key="logout_btn"):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -397,7 +423,7 @@ else:
     # ------------------------------------------------------
     # MODULE: DASHBOARD
     # ------------------------------------------------------
-    if st.session_state.current_page == "Dashboard":
+    if st.session_state.current_page == "🏠 Dashboard":
         st.title("📊 Analytics Dashboard")
         st.markdown('<p class="subtitle-fix">Real-time Overview of Institutional Agreements & External Collaborations.</p>', unsafe_allow_html=True)
 
@@ -405,7 +431,6 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Kad metriks dengan latar belakang ungu lembut padat
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -457,7 +482,7 @@ else:
     # ------------------------------------------------------
     # MODULE: VIEW DATA
     # ------------------------------------------------------
-    elif st.session_state.current_page == "View Data":
+    elif st.session_state.current_page == "📂 View Data":
         st.title("🗂️ Repository View")
         st.markdown('<p class="subtitle-fix">Search and browse full records from the system database.</p>', unsafe_allow_html=True)
 
@@ -489,14 +514,14 @@ else:
         st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
-            switch_page("Dashboard")
+            switch_page("🏠 Dashboard")
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: ADD DATA
     # ------------------------------------------------------
-    elif st.session_state.current_page == "Add Data":
+    elif st.session_state.current_page == "➕ Add Data":
         st.title("➕ Deploy New Record Entry")
         st.markdown('<p class="subtitle-fix">Insert certified institutional MoU/MoA metadata into database.</p>', unsafe_allow_html=True)
 
@@ -518,19 +543,19 @@ else:
                            (int(id_in), title, duration, department, partner, country, category))
             conn.commit()
             st.success("New legal record successfully mapped into SQL table cluster.")
-            switch_page("View Data")
+            switch_page("📂 View Data")
             
         st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
-            switch_page("Dashboard")
+            switch_page("🏠 Dashboard")
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: UPDATE DATA
     # ------------------------------------------------------
-    elif st.session_state.current_page == "Update Data":
+    elif st.session_state.current_page == "📝 Update Data":
         st.title("📝 Edit Existing Records Mapping")
         st.markdown('<p class="subtitle-fix">Modify properties of existing collaboration data securely.</p>', unsafe_allow_html=True)
 
@@ -557,21 +582,21 @@ else:
                                (title, duration, department, partner, country, category, int(uid)))
                 conn.commit()
                 st.success("Mutation vector completely updated inside system core table.")
-                switch_page("View Data")
+                switch_page("📂 View Data")
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
         st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
-            switch_page("Dashboard")
+            switch_page("🏠 Dashboard")
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: DELETE DATA
     # ------------------------------------------------------
-    elif st.session_state.current_page == "Delete Data":
+    elif st.session_state.current_page == "🗑️ Delete Data":
         st.title("🗑️ Purge Legal Log Entry")
         st.markdown('<p class="subtitle-fix">Purge records permanently from the system configuration.</p>', unsafe_allow_html=True)
 
@@ -592,7 +617,7 @@ else:
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
                         conn.commit()
                         st.success(f"Record ID {record_id} cleared safely.")
-                        switch_page("View Data")
+                        switch_page("📂 View Data")
                     else:
                         st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
             
@@ -606,6 +631,6 @@ else:
         st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
-            switch_page("Dashboard")
+            switch_page("🏠 Dashboard")
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
