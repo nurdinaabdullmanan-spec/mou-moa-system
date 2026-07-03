@@ -210,7 +210,7 @@ st.markdown(f"""
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS DESIGN (DARI image_dba6ab.png) */
+    /* METRIC PANELS DESIGN (image_dba6ab.png) */
     .metric-grid {{
         display: flex;
         gap: 24px;
@@ -246,10 +246,10 @@ st.markdown(f"""
         font-weight: 700;
         color: #0f172a;
         margin-top: 6px;
-        font-family: 'Inter', sans-serif !important; /* Guna font solid kemas */
+        font-family: 'Inter', sans-serif !important;
     }}
 
-    /* BUTTONS - KEMBALI KEPADA PURPLE KORPORAT */
+    /* BUTTONS - PURPLE KORPORAT */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
@@ -297,12 +297,32 @@ st.markdown(f"""
         box-shadow: 0 0 10px rgba(75, 46, 131, 0.1) !important;
     }}
 
-    /* DATA FRAME */
+    /* STYLING DATAFRAME / TABLE (image_dbaee8.png) */
     [data-testid="stDataFrame"] {{
         border: 1px solid #e2e8f0;
         border-radius: 20px;
         background: #ffffff !important;
         overflow: hidden;
+    }}
+
+    div[data-testid="stDataFrame"] thead tr th {{
+        background-color: #4b2e83 !important; /* Header Purple Korporat */
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        border-bottom: 2px solid #3b2366 !important;
+    }}
+
+    div[data-testid="stDataFrame"] tbody tr:nth-of-type(even) {{
+        background-color: #f8fafc !important; /* Zebra stripe */
+    }}
+
+    div[data-testid="stDataFrame"] tbody tr:hover {{
+        background-color: #e2e8f0 !important; /* Hover row effect */
+        cursor: pointer;
+    }}
+
+    div[data-testid="stDataFrame"] td {{
+        color: #334155 !important;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -427,7 +447,7 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Implementasi Reka Bentuk Dari image_dba6ab.png
+        # Reka bentuk kad tepi warna-warni (image_dba6ab.png)
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
@@ -492,7 +512,16 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        st.dataframe(df, use_container_width=True, height=400)
+        # Menghilangkan index tepi & menambah konfigurasi gaya jadual kemas (image_dbaee8.png)
+        st.dataframe(
+            df, 
+            use_container_width=True, 
+            height=400,
+            hide_index=True, 
+            column_config={
+                "ID": st.column_config.NumberColumn(format="%d")
+            }
+        )
         
         st.markdown("<br><hr style='border:0.5px solid #cbd5e1;'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
