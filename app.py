@@ -88,7 +88,6 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* MEMAKSA SEMUA TULISAN LABEL INPUT MENJADI JELAS DAN TERANG */
     [data-testid="stWidgetLabel"] p, 
     label[data-testid="stWidgetLabel"], 
     .stTextInput label, 
@@ -134,9 +133,11 @@ st.markdown(f"""
     /* ======================================================
        LUXURY & PRO SIDEBAR NAVIGATION
        ====================================================== */
-    /* MENGHILANGKAN TERUS TITIK BULAT DAN SPACING DEFAULT */
-    div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before,
-    div[role="radiogroup"] label [data-baseweb="radio"] div {{
+    
+    /* SEMBUNYIKAN BULATAN RADIO BUTTON (MERAH & PUTIH) */
+    div[role="radiogroup"] label > div:first-child,
+    div[role="radiogroup"] label [data-baseweb="radio"] > div:first-child,
+    .stRadio div[role="radiogroup"] label > div:first-of-type {{
         display: none !important;
         width: 0 !important;
         height: 0 !important;
@@ -390,7 +391,7 @@ else:
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System - Nama menu tanpa emoji
+    # Sidebar Navigation System 
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
     current_index = 0
