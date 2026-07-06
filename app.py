@@ -323,7 +323,16 @@ if not st.session_state.logged_in:
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<div style='text-align:center; width:100%'><h1 style='border:none; margin-bottom:0;'>MoU/MoA Record Management</h1></div>", unsafe_allow_html=True)
+    st.markdown(
+    """
+    <div style='text-align:center; width:100%'>
+        <h1 style='color:#000000 !important; border:none; margin-bottom:0;'>
+            MoU/MoA Record Management
+        </h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
     auth = st.sidebar.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
 
