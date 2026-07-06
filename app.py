@@ -192,15 +192,15 @@ st.markdown(f"""
         letter-spacing: 1.5px !important;
     }}
 
-    /* TYPOGRAPHY UTAMA (WARNA ASAL) */
-    h1 {{
-        color: #4b2e83 !important; 
-        font-weight: 700 !important;
-        letter-spacing: -0.5px;
-        border-bottom: none !important;
-        padding-bottom: 5px;
-        margin-bottom: 30px !important;
+   h1 {{
+    color: #1e293b !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    border-bottom: none !important;
+    padding-bottom: 5px;
+    margin-bottom: 30px !important;
     }}
+
     h2, h3 {{
         color: #2e60a3 !important;
         font-weight: 700 !important;
