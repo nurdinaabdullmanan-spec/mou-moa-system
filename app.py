@@ -75,7 +75,7 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA - WARNA ASAL KEKAL */
+    /* BACKGROUND UTAMA */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
         background: #f8fafc !important; 
         color: #1e293b !important;
@@ -117,7 +117,7 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP - DIKEKALKAN SEPERTI ASAL */
+    /* SIDEBAR GELAP */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #36013F 0%, #0d0a14 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
@@ -148,58 +148,59 @@ st.markdown(f"""
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
-        gap: 6px !important;
-        padding-top: 15px;
+        gap: 8px !important; /* Jarak antara kad menu */
+        padding-top: 5px;
     }}
 
+    /* BASE KAD UNTUK MENU */
     div[role="radiogroup"] label {{
-        background: transparent !important;
-        border-radius: 4px 8px 8px 4px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-radius: 12px !important;
         padding: 14px 18px !important;
-        border: none !important;
-        border-left: 3px solid transparent !important;
-        box-shadow: none !important;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
         margin: 0 !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
         cursor: pointer;
     }}
 
     /* HOVER EFFECT MEWAH */
     div[role="radiogroup"] label:hover {{
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-left: 3px solid rgba(250, 191, 44, 0.4) !important;
-        transform: translateX(4px);
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(250, 191, 44, 0.3) !important;
+        transform: translateY(-2px) translateX(4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2) !important;
     }}
 
-    /* TIPOGRAFI PRO UNTUK MENU */
+    /* TIPOGRAFI TEKS MENU */
     div[role="radiogroup"] label p {{
-        color: #94a3b8 !important; 
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        letter-spacing: 1.5px !important;
-        text-transform: uppercase !important;
-        margin-left: 5px !important; /* Jarak sikit dari tepi selepas buang bullet */
+        color: #cbd5e1 !important; 
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.5px !important;
     }}
 
     /* ACTIVE MENU ITEM - GAYA KORPORAT EKSKLUSIF */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: linear-gradient(90deg, rgba(75, 46, 131, 0.5) 0%, rgba(20, 15, 30, 0) 100%) !important;
-        border-left: 3px solid #fabf2c !important; 
+        background: linear-gradient(135deg, rgba(75, 46, 131, 0.9) 0%, rgba(20, 15, 30, 0.6) 100%) !important;
+        border-left: 4px solid #fabf2c !important; 
+        border-color: rgba(75, 46, 131, 0.6) !important;
+        box-shadow: 0 4px 20px rgba(75, 46, 131, 0.5) !important;
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
         color: #fabf2c !important; 
-        font-weight: 800 !important;
-        letter-spacing: 1.5px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        text-shadow: 0 0 10px rgba(250, 191, 44, 0.3);
     }}
 
-   h1 {{
-    color: #1e293b !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.5px;
-    border-bottom: none !important;
-    padding-bottom: 5px;
-    margin-bottom: 30px !important;
+    h1 {{
+        color: #1e293b !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px;
+        border-bottom: none !important;
+        padding-bottom: 5px;
+        margin-bottom: 30px !important;
     }}
 
     h2, h3 {{
@@ -219,7 +220,7 @@ st.markdown(f"""
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS (SCORECARDS WARNA WARNI - DIKEKALKAN) */
+    /* METRIC PANELS */
     .metric-grid {{ display: flex; gap: 20px; margin-bottom: 30px; }}
     .pro-metric {{
         flex: 1; background: #ffffff; padding: 24px 20px;
@@ -239,7 +240,7 @@ st.markdown(f"""
         margin-top: 5px; font-family: 'Inter', sans-serif;
     }}
 
-    /* BUTTONS UMUM (PURPLE KEKAL) */
+    /* BUTTONS UMUM */
     .stButton > button {{
         width: 100%; border-radius: 12px; border: 1px solid rgba(75, 46, 131, 0.4);
         padding: 12px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
@@ -250,7 +251,7 @@ st.markdown(f"""
         transform: translateY(-2px); box-shadow: 0 8px 25px rgba(75, 46, 131, 0.3); border-color: #4b2e83;
     }}
 
-    /* BUTTON DI SIDEBAR (TERMINATED ACCESS) - EMAS KEKAL */
+    /* BUTTON DI SIDEBAR (TERMINATED ACCESS) */
     section[data-testid="stSidebar"] .stButton > button {{
         background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
         color: #0b091a !important; border: 1px solid rgba(250, 191, 44, 0.4) !important;
@@ -260,7 +261,7 @@ st.markdown(f"""
         box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4) !important; border-color: #fabf2c !important;
     }}
 
-    /* BACK SYSTEM BUTTON - KEKAL */
+    /* BACK SYSTEM BUTTON */
     .back-btn-container .stButton > button {{
         width: auto !important; background: transparent !important; color: #4b2e83 !important;
         border: 1px solid rgba(75, 46, 131, 0.3) !important; padding: 8px 20px !important; box-shadow: none !important;
@@ -376,23 +377,30 @@ if not st.session_state.logged_in:
 # ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
 else:
-    # Sidebar Logo dan Profil (Tema Gelap Asal Dikekalkan)
+    # Sidebar Logo dan Profil (Gaya Baru Berbentuk Card)
     st.sidebar.markdown(f"""
-        <div class="logo-container">
+        <div class="logo-container" style="padding-bottom: 5px;">
             <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
         </div>
-        <div style="text-align:center; padding: 10px 0 25px 0;">
-            <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
+        <div style="text-align:center; padding: 15px; margin-bottom: 25px; background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+            <div style="font-family:'Cinzel', serif; font-size:17px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA</div>
             <div style="color:#94a3b8; font-size:10px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">PERMATANG PAUH</div>
-            <div style="margin-top:12px; background:rgba(254, 240, 138, 0.05); padding:6px 14px; border-radius:30px; display:inline-block; border: 1px solid rgba(250,191,44,0.15);">
-                <span style="color:#fabf2c; font-size:10px;">●</span> 
-                <span style="color:#e2e8f0; font-size:12px; font-weight:600;">{st.session_state.username}</span>
+            <div style="margin-top:12px; background:rgba(254, 240, 138, 0.1); padding:8px 15px; border-radius:30px; display:inline-block; border: 1px solid rgba(250,191,44,0.3); box-shadow: 0 0 10px rgba(250,191,44,0.1);">
+                <span style="color:#fabf2c; font-size:12px;">👤</span> 
+                <span style="color:#ffffff; font-size:12px; font-weight:600; margin-left: 4px;">{st.session_state.username}</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System 
+    # Sidebar Navigation System (Dilengkapi dengan Ikon)
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
+    menu_icons = {
+        "Dashboard": "📊", 
+        "View Data": "🗂️", 
+        "Add Data": "➕", 
+        "Update Data": "📝", 
+        "Delete Data": "🗑️"
+    }
     
     current_index = 0
     if st.session_state.current_page in menu_options:
@@ -402,7 +410,8 @@ else:
         "SYSTEM MODULE",
         menu_options,
         index=current_index,
-        label_visibility="collapsed" # Sembunyikan label asal supaya lebih kemas
+        format_func=lambda item: f"{menu_icons[item]} \u00A0 {item}", # Letak ikon & space
+        label_visibility="collapsed"
     )
     
     if selected_menu != st.session_state.current_page:
@@ -410,7 +419,7 @@ else:
         st.rerun()
 
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-    if st.sidebar.button("Terminated Access", key="logout_btn"):
+    if st.sidebar.button("🚪 Terminated Access", key="logout_btn"):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -491,7 +500,6 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-        # GENERATE BEAUTIFUL HTML TABLE (Dikekalkan)
         if len(df) > 0:
             html_table = df.to_html(index=False, classes="styled-table", escape=False)
             st.markdown(f'<div class="table-container">{html_table}</div>', unsafe_allow_html=True)
