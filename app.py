@@ -60,7 +60,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (ORIGINAL COLORS + CLEAN SIDEBAR + CUSTOM TABLE)
+# REFINED UI CSS (LUXURY & PRO SIDEBAR MENU)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -132,54 +132,64 @@ st.markdown(f"""
     }}
 
     /* ======================================================
-       MINIMALIST SIDEBAR NAVIGATION (PLAIN LAYOUT SEPERTI GAMBAR)
+       LUXURY & PRO SIDEBAR NAVIGATION
        ====================================================== */
-    /* HIDE THE RADIO BUTTON CIRCLES */
+    /* MENGHILANGKAN TERUS TITIK BULAT DAN SPACING DEFAULT */
     div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before,
     div[role="radiogroup"] label [data-baseweb="radio"] div {{
         display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }}
 
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
-        gap: 2px !important;
-        padding-top: 5px;
+        gap: 6px !important;
+        padding-top: 15px;
     }}
 
     div[role="radiogroup"] label {{
         background: transparent !important;
-        border-radius: 8px !important;
-        padding: 12px 15px !important;
+        border-radius: 4px 8px 8px 4px !important;
+        padding: 14px 18px !important;
         border: none !important;
+        border-left: 3px solid transparent !important;
         box-shadow: none !important;
-        transition: background-color 0.2s ease, color 0.2s ease !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
         margin: 0 !important;
         cursor: pointer;
     }}
 
+    /* HOVER EFFECT MEWAH */
     div[role="radiogroup"] label:hover {{
-        background: rgba(255, 255, 255, 0.05) !important;
-        transform: none !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-left: 3px solid rgba(250, 191, 44, 0.4) !important;
+        transform: translateX(4px);
     }}
 
+    /* TIPOGRAFI PRO UNTUK MENU */
     div[role="radiogroup"] label p {{
-        color: #94a3b8 !important; /* Warna kelabu asal sidebar */
-        font-size: 15px !important;
-        font-weight: 500 !important;
-        letter-spacing: 0.5px;
+        color: #94a3b8 !important; 
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        margin-left: 5px !important; /* Jarak sikit dari tepi selepas buang bullet */
     }}
 
-    /* ACTIVE MENU ITEM */
+    /* ACTIVE MENU ITEM - GAYA KORPORAT EKSKLUSIF */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: rgba(75, 46, 131, 0.4) !important; /* Effect highlight tanpa kotak terang */
-        border: none !important; 
-        box-shadow: none !important;
+        background: linear-gradient(90deg, rgba(75, 46, 131, 0.5) 0%, rgba(20, 15, 30, 0) 100%) !important;
+        border-left: 3px solid #fabf2c !important; 
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #fabf2c !important; /* Warna emas asal untuk active menu */
-        font-weight: 700 !important;
+        color: #fabf2c !important; 
+        font-weight: 800 !important;
+        letter-spacing: 1.5px !important;
     }}
 
     /* TYPOGRAPHY UTAMA (WARNA ASAL) */
@@ -300,9 +310,7 @@ if "current_page" not in st.session_state:
     st.session_state.current_page = "Dashboard"
 
 def switch_page(page_name):
-    # Membersihkan emoji jika ada semasa pertukaran halaman
-    clean_name = page_name.split(" ", 1)[1] if " " in page_name and len(page_name.split(" ", 1)[0]) <= 2 else page_name
-    st.session_state.current_page = clean_name
+    st.session_state.current_page = page_name
     st.rerun()
 
 # ======================================================
@@ -377,25 +385,22 @@ else:
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System (Layout Rata dengan Emoji)
-    menu_options_display = ["🏠 Dashboard", "📂 View Data", "➕ Add Data", "📝 Update Data", "🗑️ Delete Data"]
+    # Sidebar Navigation System - Nama menu tanpa emoji
+    menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
     current_index = 0
-    for i, opt in enumerate(menu_options_display):
-        if st.session_state.current_page in opt:
-            current_index = i
-            break
+    if st.session_state.current_page in menu_options:
+        current_index = menu_options.index(st.session_state.current_page)
             
     selected_menu = st.sidebar.radio(
-        "SYSTEM MODULE CONNECTOR",
-        menu_options_display,
+        "SYSTEM MODULE",
+        menu_options,
         index=current_index,
         label_visibility="collapsed" # Sembunyikan label asal supaya lebih kemas
     )
     
-    clean_selected = selected_menu.split(" ", 1)[1] if " " in selected_menu else selected_menu
-    if clean_selected != st.session_state.current_page:
-        st.session_state.current_page = clean_selected
+    if selected_menu != st.session_state.current_page:
+        st.session_state.current_page = selected_menu
         st.rerun()
 
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
