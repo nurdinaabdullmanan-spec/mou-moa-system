@@ -120,7 +120,7 @@ st.markdown(f"""
 
     /* SIDEBAR GELAP - DIKEKALKAN SEPERTI ASAL */
     section[data-testid="stSidebar"] {{
-        background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
+        background: linear-gradient(180deg, #36013F 0%, #0d0a14 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
         box-shadow: 5px 0 25px rgba(0,0,0,0.5);
     }}
