@@ -62,7 +62,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (WHITE THEME & PURPLE BUTTONS)
+# REFINED UI CSS (WHITE THEME, PURPLE BUTTONS, COLORFUL CARDS)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -79,7 +79,7 @@ st.markdown(f"""
 
     /* BACKGROUND UTAMA - DITUKAR KE PUTIH */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: #ffffff !important; 
+        background: #f8fafc !important; /* Slightly off-white for contrast against white cards */
         color: #1e293b !important;
     }}
     
@@ -99,7 +99,7 @@ st.markdown(f"""
     div[data-baseline="select"] label {{
         color: #1e293b !important;
         font-weight: 600 !important;
-        font-size: 15px !important;
+        font-size: 14px !important;
         text-shadow: none !important;
     }}
 
@@ -177,63 +177,57 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY UTAMA (DISELARASKAN UNTUK BACKGROUND PUTIH) */
+    /* TYPOGRAPHY UTAMA */
     h1 {{
         color: #4b2e83 !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: 2px solid #4b2e83;
-        padding-bottom: 10px;
-        display: inline-block;
+        border-bottom: none !important;
+        padding-bottom: 5px;
+        margin-bottom: 30px !important;
     }}
     h2, h3 {{
-        color: #4b2e83 !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.5px;
-    }}
-    
-    .subtitle-fix {{
-        color: #475569 !important;
-        font-size: 15px;
-        margin-top: 8px;
-        margin-bottom: 35px;
-        font-weight: 400;
+        color: #2e60a3 !important;
+        font-weight: 700 !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 18px !important;
     }}
 
-    /* KAD GLASSMORPHISM - CERAH UNTUK TEMA PUTIH */
+    /* KAD GLASSMORPHISM / CONTAINER CERAH */
     .content-card {{
         background: #ffffff !important; 
-        border-radius: 24px;
-        padding: 40px;
+        border-radius: 16px;
+        padding: 30px;
         border: 1px solid #e2e8f0;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS */
+    /* METRIC PANELS (SCORECARDS WARNA WARNI) */
     .metric-grid {{
         display: flex;
-        gap: 24px;
+        gap: 20px;
         margin-bottom: 30px;
     }}
     
     .pro-metric {{
         flex: 1;
-        background: #f8fafc;
-        padding: 26px;
-        border-radius: 20px;
+        background: #ffffff;
+        padding: 24px 20px;
+        border-radius: 12px;
         border: 1px solid #e2e8f0;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         position: relative;
         overflow: hidden;
     }}
     
-    .metric-1::before {{ background: linear-gradient(90deg, #4b2e83, #fabf2c); }}
-    .metric-2::before {{ background: linear-gradient(90deg, #0284c7, #38bdf8); }}
-    .metric-3::before {{ background: linear-gradient(90deg, #fabf2c, #fef08a); }}
+    /* GARI TEPI TEBAL BERWARNA SEPERTI DALAM GAMBAR */
+    .metric-1 {{ border-left: 6px solid #5a3982 !important; }}
+    .metric-2 {{ border-left: 6px solid #1f6a8d !important; }}
+    .metric-3 {{ border-left: 6px solid #edb100 !important; }}
 
     .metric-title {{
-        font-size: 12px;
+        font-size: 10px;
         color: #64748b;
         font-weight: 600;
         text-transform: uppercase;
@@ -241,31 +235,31 @@ st.markdown(f"""
     }}
     
     .metric-value {{
-        font-size: 42px;
-        font-weight: 700;
-        color: #4b2e83;
-        margin-top: 8px;
-        font-family: 'Cinzel', serif;
+        font-size: 32px;
+        font-weight: 800;
+        color: #1e293b;
+        margin-top: 5px;
+        font-family: 'Inter', sans-serif;
     }}
 
     /* BUTTONS UMUM (TUKAR KE PURPLE) */
     .stButton > button {{
         width: 100%;
-        border-radius: 14px;
+        border-radius: 12px;
         border: 1px solid rgba(75, 46, 131, 0.4);
-        padding: 14px;
+        padding: 12px;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.5px;
         color: #ffffff !important; 
         background: linear-gradient(135deg, #6b21a8 0%, #4b2e83 100%) !important;
-        box-shadow: 0 6px 20px rgba(75, 46, 131, 0.2);
+        box-shadow: 0 4px 15px rgba(75, 46, 131, 0.2);
         transition: all 0.3s ease;
     }}
 
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(75, 46, 131, 0.4);
+        box-shadow: 0 8px 25px rgba(75, 46, 131, 0.3);
         border-color: #4b2e83;
     }}
 
@@ -288,7 +282,7 @@ st.markdown(f"""
         background: transparent !important;
         color: #4b2e83 !important;
         border: 1px solid rgba(75, 46, 131, 0.3) !important;
-        padding: 10px 24px !important;
+        padding: 8px 20px !important;
         box-shadow: none !important;
     }}
     
@@ -298,21 +292,21 @@ st.markdown(f"""
 
     /* INPUT CONTROLS (TEMA CERAH) */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
-        border-radius: 12px !important;
+        border-radius: 8px !important;
         border: 1px solid #cbd5e1 !important;
-        background-color: #f8fafc !important;
+        background-color: #ffffff !important;
         color: #1e293b !important;
-        padding: 12px 16px !important;
+        padding: 10px 14px !important;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
         border-color: #4b2e83 !important;
-        box-shadow: 0 0 10px rgba(75, 46, 131, 0.2) !important;
+        box-shadow: 0 0 0 2px rgba(75, 46, 131, 0.1) !important;
     }}
 
     /* DATA FRAME */
     [data-testid="stDataFrame"] {{
         border: 1px solid #e2e8f0;
-        border-radius: 20px;
+        border-radius: 12px;
         background: #ffffff !important;
         overflow: hidden;
     }}
@@ -342,7 +336,6 @@ if not st.session_state.logged_in:
     """, unsafe_allow_html=True)
     
     st.markdown("<div style='text-align:center; width:100%'><h1 style='border:none; margin-bottom:0;'>MoU/MoA Record Management</h1></div>", unsafe_allow_html=True)
-    st.markdown('<p class="subtitle-fix" style="text-align:center;">UiTM Institutional Excellence Agreement Cluster Gateway.</p>', unsafe_allow_html=True)
 
     auth = st.sidebar.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
 
@@ -432,8 +425,7 @@ else:
     # MODULE: DASHBOARD
     # ------------------------------------------------------
     if st.session_state.current_page == "Dashboard":
-        st.title("📊 Analytics Dashboard")
-        st.markdown('<p class="subtitle-fix">Real-time Overview of Institutional Agreements & External Collaborations.</p>', unsafe_allow_html=True)
+        st.title("📊 Record Analytics Dashboard")
 
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
@@ -442,21 +434,19 @@ else:
         st.markdown(f"""
         <div class="metric-grid">
             <div class="pro-metric metric-1">
-                <div class="metric-title">Total Active Agreements</div>
+                <div class="metric-title">TOTAL ACTIVE AGREEMENTS</div>
                 <div class="metric-value">{total_records}</div>
             </div>
             <div class="pro-metric metric-2">
-                <div class="metric-title">Partner Countries</div>
+                <div class="metric-title">PARTNER COUNTRIES</div>
                 <div class="metric-value">{total_country}</div>
             </div>
             <div class="pro-metric metric-3">
-                <div class="metric-title">Unique Categories</div>
+                <div class="metric-title">UNIQUE CATEGORIES</div>
                 <div class="metric-value">{total_category}</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
         
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.subheader("🌐 Global Distribution Portfolio")
@@ -465,12 +455,15 @@ else:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
 
+            # Set warna terang (bright colors) bersesuaian dengan gambar
+            bright_colors = ["#5a3982", "#1f6a8d", "#38a3a0", "#147f3b", "#70ad47", "#edb100", "#e84c22"]
+
             fig = px.bar(
                 country_chart,
                 x="Country",
                 y="Total",
                 color="Country",  
-                color_discrete_sequence=px.colors.qualitative.Pastel, 
+                color_discrete_sequence=bright_colors, 
                 text_auto=True
             )
             # Disesuaikan untuk memaparkan teks dengan jelas pada background putih
@@ -478,10 +471,10 @@ else:
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
                 font_color="#1e293b",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", title_font=dict(size=13, color="#4b2e83")),
+                xaxis=dict(showgrid=False, title_font=dict(size=12, color="#64748b")),
+                yaxis=dict(showgrid=True, gridcolor="#f1f5f9", title_font=dict(size=12, color="#64748b")),
                 margin=dict(t=15, b=15, l=10, r=10),
-                showlegend=True
+                showlegend=False # Disembunyikan untuk kelihatan lebih kemas seperti di dalam gambar
             )
             st.plotly_chart(fig, use_container_width=True)
         else:
@@ -493,7 +486,6 @@ else:
     # ------------------------------------------------------
     elif st.session_state.current_page == "View Data":
         st.title("🗂️ Repository View")
-        st.markdown('<p class="subtitle-fix">Search and browse full records from the system database.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         search = st.text_input("🔍 Filter Stream Matrix (Enter Title, Partner or Country)")
@@ -518,7 +510,6 @@ else:
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add Data":
         st.title("➕ Deploy New Record Entry")
-        st.markdown('<p class="subtitle-fix">Insert certified institutional MoU/MoA metadata into database.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
@@ -552,7 +543,6 @@ else:
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Data":
         st.title("📝 Edit Existing Records Mapping")
-        st.markdown('<p class="subtitle-fix">Modify properties of existing collaboration data securely.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         uid = st.number_input("Target Record ID Vector Lookup", min_value=1, step=1, format="%d")
@@ -593,7 +583,6 @@ else:
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Data":
         st.title("🗑️ Purge Legal Log Entry")
-        st.markdown('<p class="subtitle-fix">Purge records permanently from the system configuration.</p>', unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         del_id = st.number_input("Target Discard Record ID", min_value=1, step=1, format="%d")
