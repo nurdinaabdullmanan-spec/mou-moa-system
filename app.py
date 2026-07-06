@@ -62,7 +62,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (FIXED INPUT LABELS CONTRAST)
+# REFINED UI CSS (WHITE THEME & PURPLE BUTTONS)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -77,10 +77,10 @@ st.markdown(f"""
         font-family: 'Cinzel', serif !important;
     }}
 
-    /* BACKGROUND UTAMA */
+    /* BACKGROUND UTAMA - DITUKAR KE PUTIH */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: linear-gradient(135deg, #1c1726 0%, #A999F0 100%) !important; 
-        color: #f8fafc !important;
+        background: #ffffff !important; 
+        color: #1e293b !important;
     }}
     
     .block-container {{
@@ -97,10 +97,10 @@ st.markdown(f"""
     .stNumberInput label, 
     .stSelectbox label,
     div[data-baseline="select"] label {{
-        color: #ffffff !important;
+        color: #1e293b !important;
         font-weight: 600 !important;
         font-size: 15px !important;
-        text-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+        text-shadow: none !important;
     }}
 
     /* LOGO BLENDING EFFECT */
@@ -110,7 +110,7 @@ st.markdown(f"""
     }}
     .uitm-logo {{
         width: 140px;
-        filter: drop-shadow(0px 0px 12px rgba(250, 191, 44, 0.4));
+        filter: drop-shadow(0px 0px 12px rgba(75, 46, 131, 0.2));
         mix-blend-mode: normal;
         display: block;
         margin: 0 auto;
@@ -120,7 +120,7 @@ st.markdown(f"""
         transform: scale(1.05);
     }}
 
-    /* SIDEBAR GELAP */
+    /* SIDEBAR GELAP - DIKEKALKAN (JANGAN SENTUH) */
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #161224 0%, #0d0a14 100%) !important; 
         border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
@@ -133,7 +133,7 @@ st.markdown(f"""
         color: #ffffff !important;
     }}
 
-    /* NAVIGATION TILES IN SIDEBAR */
+    /* NAVIGATION TILES IN SIDEBAR - DIKEKALKAN */
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
@@ -166,7 +166,6 @@ st.markdown(f"""
         letter-spacing: 0.5px;
     }}
 
-    /* STATE ACTIVE AT SIDEBAR */
     div[role="radiogroup"] label[data-selected="true"] {{
         background: linear-gradient(135deg, #4b2e83 0%, #2a164d 100%) !important; 
         border: 1px solid #fabf2c !important; 
@@ -178,38 +177,36 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* TYPOGRAPHY */
+    /* TYPOGRAPHY UTAMA (DISELARASKAN UNTUK BACKGROUND PUTIH) */
     h1 {{
-        color: #ffffff !important; 
+        color: #4b2e83 !important; 
         font-weight: 700 !important;
         letter-spacing: -0.5px;
-        border-bottom: 2px solid #fabf2c;
+        border-bottom: 2px solid #4b2e83;
         padding-bottom: 10px;
         display: inline-block;
     }}
     h2, h3 {{
-        color: #fabf2c !important;
+        color: #4b2e83 !important;
         font-weight: 600 !important;
         letter-spacing: 0.5px;
     }}
     
     .subtitle-fix {{
-        color: #cbd5e1 !important;
+        color: #475569 !important;
         font-size: 15px;
         margin-top: 8px;
         margin-bottom: 35px;
         font-weight: 400;
     }}
 
-    /* KAD GLASSMORPHISM */
+    /* KAD GLASSMORPHISM - CERAH UNTUK TEMA PUTIH */
     .content-card {{
-        background: rgba(25, 20, 36, 0.6) !important; 
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: #ffffff !important; 
         border-radius: 24px;
         padding: 40px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
         margin-bottom: 30px;
     }}
 
@@ -222,11 +219,11 @@ st.markdown(f"""
     
     .pro-metric {{
         flex: 1;
-        background: linear-gradient(145deg, rgba(46, 38, 64, 0.6) 0%, rgba(28, 23, 38, 0.6) 100%);
+        background: #f8fafc;
         padding: 26px;
         border-radius: 20px;
-        border: 1px solid rgba(250, 191, 44, 0.15);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         position: relative;
         overflow: hidden;
     }}
@@ -237,7 +234,7 @@ st.markdown(f"""
 
     .metric-title {{
         font-size: 12px;
-        color: #cbd5e1;
+        color: #64748b;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -246,63 +243,77 @@ st.markdown(f"""
     .metric-value {{
         font-size: 42px;
         font-weight: 700;
-        color: #ffffff;
+        color: #4b2e83;
         margin-top: 8px;
         font-family: 'Cinzel', serif;
     }}
 
-    /* BUTTONS */
+    /* BUTTONS UMUM (TUKAR KE PURPLE) */
     .stButton > button {{
         width: 100%;
         border-radius: 14px;
-        border: 1px solid rgba(250, 191, 44, 0.4);
+        border: 1px solid rgba(75, 46, 131, 0.4);
         padding: 14px;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.5px;
-        color: #0b091a !important; 
-        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
-        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2);
+        color: #ffffff !important; 
+        background: linear-gradient(135deg, #6b21a8 0%, #4b2e83 100%) !important;
+        box-shadow: 0 6px 20px rgba(75, 46, 131, 0.2);
         transition: all 0.3s ease;
     }}
 
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4);
-        border-color: #fabf2c;
+        box-shadow: 0 12px 30px rgba(75, 46, 131, 0.4);
+        border-color: #4b2e83;
+    }}
+
+    /* BUTTON DI SIDEBAR (TERMINATED ACCESS) - KEKALKAN WARNA ASAL (EMAS) */
+    section[data-testid="stSidebar"] .stButton > button {{
+        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
+        color: #0b091a !important;
+        border: 1px solid rgba(250, 191, 44, 0.4) !important;
+        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2) !important;
+    }}
+    
+    section[data-testid="stSidebar"] .stButton > button:hover {{
+        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4) !important;
+        border-color: #fabf2c !important;
     }}
 
     /* BACK SYSTEM BUTTON */
     .back-btn-container .stButton > button {{
         width: auto !important;
         background: transparent !important;
-        color: #fabf2c !important;
-        border: 1px solid rgba(250, 191, 44, 0.3) !important;
+        color: #4b2e83 !important;
+        border: 1px solid rgba(75, 46, 131, 0.3) !important;
         padding: 10px 24px !important;
+        box-shadow: none !important;
     }}
     
     .back-btn-container .stButton > button:hover {{
-        background: rgba(250, 191, 44, 0.08) !important;
+        background: rgba(75, 46, 131, 0.08) !important;
     }}
 
-    /* INPUT CONTROLS */
+    /* INPUT CONTROLS (TEMA CERAH) */
     .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        background-color: rgba(20, 16, 28, 0.8) !important;
-        color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        background-color: #f8fafc !important;
+        color: #1e293b !important;
         padding: 12px 16px !important;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #fabf2c !important;
-        box-shadow: 0 0 10px rgba(250, 191, 44, 0.2) !important;
+        border-color: #4b2e83 !important;
+        box-shadow: 0 0 10px rgba(75, 46, 131, 0.2) !important;
     }}
 
     /* DATA FRAME */
     [data-testid="stDataFrame"] {{
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
-        background: rgba(25, 20, 36, 0.7) !important;
+        background: #ffffff !important;
         overflow: hidden;
     }}
 </style>
@@ -462,12 +473,13 @@ else:
                 color_discrete_sequence=px.colors.qualitative.Pastel, 
                 text_auto=True
             )
+            # Disesuaikan untuk memaparkan teks dengan jelas pada background putih
             fig.update_layout(
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                font_color="#ffffff",
-                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#fabf2c")),
-                yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.05)", title_font=dict(size=13, color="#fabf2c")),
+                font_color="#1e293b",
+                xaxis=dict(showgrid=False, title_font=dict(size=13, color="#4b2e83")),
+                yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", title_font=dict(size=13, color="#4b2e83")),
                 margin=dict(t=15, b=15, l=10, r=10),
                 showlegend=True
             )
@@ -494,7 +506,7 @@ else:
 
         st.dataframe(df, use_container_width=True, height=400)
         
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Back to Dashboard", key="back_view"):
             switch_page("Dashboard")
@@ -528,7 +540,7 @@ else:
             st.success("New legal record successfully mapped into SQL table cluster.")
             switch_page("View Data")
             
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_add"):
             switch_page("Dashboard")
@@ -548,7 +560,7 @@ else:
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed rgba(255,255,255,0.1); margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 1px dashed rgba(0,0,0,0.1); margin:20px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -569,7 +581,7 @@ else:
         else:
             st.warning("Target configuration ID vector does not exist in cluster indexing.")
             
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
@@ -611,7 +623,7 @@ else:
         if st.button("Confirm Delete"):
             confirm_delete_dialog(del_id)
                 
-        st.markdown("<br><hr style='border:0.5px solid rgba(255,255,255,0.05);'><br>", unsafe_allow_html=True)
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
