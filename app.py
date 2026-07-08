@@ -130,81 +130,62 @@ st.markdown(f"""
         color: #ffffff !important;
     }}
 
-    /* ======================================================
-       LUXURY & PRO SIDEBAR NAVIGATION
+/* ======================================================
+       LUXURY & PRO SIDEBAR NAVIGATION (ULTIMATE HIDE)
        ====================================================== */
     
-   /* SEMBUNYIKAN BULATAN RADIO BUTTON - EFEKTIF */
-    div[data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] {{
+    /* Sembunyikan container radio button sepenuhnya */
+    div[data-testid="stRadio"] div[role="radiogroup"] label div[data-testid="stDecoration"] {{
+        display: none !important;
+    }}
+
+    /* Target elemen yang memegang bulatan tersebut */
+    div[data-testid="stRadio"] div[role="radiogroup"] label > div:first-child {{
+        display: none !important;
+    }}
+    
+    /* Pastikan tiada margin kiri untuk teks selepas bulatan dibuang */
+    div[data-testid="stRadio"] div[role="radiogroup"] label {{
         padding-left: 0px !important;
-    }}
-
-    div[role="radiogroup"] label input[type="radio"] {{
-        display: none !important;
-    }}
-
-    div[role="radiogroup"] label > div:first-child {{
-        display: none !important;
-    }}
-
-    /* Memastikan teks menu kekal terpapar */
-    div[role="radiogroup"] label {{
-        display: flex !important;
-        align-items: center !important;
-        padding-left: 18px !important; /* Jarak teks dari kiri setelah bulatan dibuang */
-    }}
-
-    /* Adjust margin teks supaya tak rapat sangat ke kiri lepas buang bulatan */
-    div[role="radiogroup"] label p {{
         margin-left: 0px !important;
     }}
 
+    /* Pastikan struktur menu kemas */
     div[role="radiogroup"] {{
-        display: flex;
-        flex-direction: column;
         gap: 6px !important;
         padding-top: 15px;
     }}
 
-    div[role="radiogroup"] label {{
+    /* Gaya item menu */
+    div[role="radiogroup"] > label {{
         background: transparent !important;
         border-radius: 4px 8px 8px 4px !important;
         padding: 14px 18px !important;
         border: none !important;
         border-left: 3px solid transparent !important;
         box-shadow: none !important;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        transition: all 0.3s ease !important;
         margin: 0 !important;
         cursor: pointer;
     }}
 
-    /* HOVER EFFECT MEWAH */
-    div[role="radiogroup"] label:hover {{
+    /* Hover effect */
+    div[role="radiogroup"] > label:hover {{
         background: rgba(255, 255, 255, 0.03) !important;
         border-left: 3px solid rgba(250, 191, 44, 0.4) !important;
-        transform: translateX(4px);
     }}
 
-    /* TIPOGRAFI PRO UNTUK MENU */
-    div[role="radiogroup"] label p {{
-        color: #94a3b8 !important; 
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        letter-spacing: 1.5px !important;
-        text-transform: uppercase !important;
-        margin-left: 5px !important; /* Jarak sikit dari tepi selepas buang bullet */
-    }}
-
-    /* ACTIVE MENU ITEM - GAYA KORPORAT EKSKLUSIF */
-    div[role="radiogroup"] label[data-selected="true"] {{
+    /* Active effect */
+    div[role="radiogroup"] > label[data-selected="true"],
+    div[role="radiogroup"] > label[aria-checked="true"] {{
         background: linear-gradient(90deg, rgba(75, 46, 131, 0.5) 0%, rgba(20, 15, 30, 0) 100%) !important;
         border-left: 3px solid #fabf2c !important; 
     }}
 
-    div[role="radiogroup"] label[data-selected="true"] p {{
+    div[role="radiogroup"] > label[data-selected="true"] p,
+    div[role="radiogroup"] > label[aria-checked="true"] p {{
         color: #fabf2c !important; 
         font-weight: 800 !important;
-        letter-spacing: 1.5px !important;
     }}
 
    h1 {{
