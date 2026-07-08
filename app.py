@@ -357,9 +357,10 @@ else:
 # ------------------------------------------------------
 # SIDEBAR DESIGN 
 # ------------------------------------------------------
-    html_header = f"""<div style="text-align: center; padding-top: 15px; margin-bottom: 5px;">
+    html_header = f"""
+<div style="text-align: center; padding-top: 5px; font-family: sans-serif;">
 <img src="{UITM_LOGO_SRC}" style="width: 100px; display: inline-block; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3));" alt="UiTM Logo">
-<div style="color: #ffffff !important; font-size: 15px; font-weight: 800; margin-top: 18px; margin-bottom: 5px; line-height: 1.4; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+<div style="color: #ffffff !important; font-size: 15px; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.4; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
 UiTM MoU/MoA Collaboration<br>Record Management
 </div>
 <div style="color: #ffffff !important; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px;">
@@ -369,7 +370,8 @@ Kampus Permatang Pauh
 <span style="color: #facc15; font-size: 10px; margin-right: 5px;">●</span>
 <span style="color: #ffffff !important; font-size: 11px; font-weight: 600;">{st.session_state.username}</span>
 </div>
-</div>"""
+</div>
+"""
     
     # Sidebar Navigation System (Bulatan Dibuang melalui CSS stSelectionControlBase)
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
