@@ -60,7 +60,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# CUSTOM UI CSS (DEEP PURPLE SIDEBAR & COLORFUL SCORECARDS)
+# CUSTOM UI CSS (CLEAN SIDEBAR & REMOVED RADIO DOTS)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -104,23 +104,9 @@ st.markdown(f"""
         border-right: none !important;
         box-shadow: 2px 0 15px rgba(0,0,0,0.1) !important;
     }}
-    
-    section[data-testid="stSidebar"] .stMarkdown, 
-    section[data-testid="stSidebar"] p, 
-    section[data-testid="stSidebar"] label {{
-        color: #f3e8ff !important;
-    }}
 
-    /* NAVIGATION MENU - UPPERCASE TEXT & GOLD BORDER ON ACTIVE */
-    div[data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] {{
-        padding-left: 0px !important;
-    }}
-
-    div[role="radiogroup"] label input[type="radio"] {{
-        display: none !important;
-    }}
-
-    div[role="radiogroup"] label > div:first-child {{
+    /* BUANG BULATAN RADIO DAN INPUT NATIVE STREAMLIT */
+    div[role="radiogroup"] [data-testid="stSelectionControlBase"] {{
         display: none !important;
     }}
 
@@ -135,9 +121,9 @@ st.markdown(f"""
         display: flex !important;
         align-items: center !important;
         background: transparent !important;
-        padding: 14px 20px !important;
+        padding: 14px 25px !important;
         border: none !important;
-        border-radius: 0 !important; /* Flat edges like the image */
+        border-radius: 0 !important; 
         transition: all 0.2s ease !important;
         margin: 0 !important;
         cursor: pointer;
@@ -151,17 +137,18 @@ st.markdown(f"""
     /* TYPOGRAPHY NAVIGASI MENU (UPPERCASE GREY) */
     div[role="radiogroup"] label p {{
         color: #94a3b8 !important; 
-        font-size: 12px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.8px !important;
-        margin-left: 0px !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }}
 
     /* ACTIVE MENU ITEM - DARK BG + GOLD LEFT BORDER */
     div[role="radiogroup"] label[data-selected="true"] {{
         background: rgba(0, 0, 0, 0.2) !important;
-        border-left: 3px solid #eab308 !important; /* Gold border */
+        border-left: 4px solid #eab308 !important; /* Gold border */
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
@@ -177,7 +164,8 @@ st.markdown(f"""
         display: flex;
         justify-content: center;
     }}
-    .logout-container-box button {{
+    
+    section[data-testid="stSidebar"] div.logout-container-box button {{
         background: linear-gradient(135deg, #fcd34d 0%, #d97706 100%) !important;
         color: #ffffff !important;
         border: none !important;
@@ -187,12 +175,14 @@ st.markdown(f"""
         font-weight: 700 !important;
         text-align: center !important;
         padding: 10px 20px !important;
-        width: 80% !important;
+        width: 85% !important;
         transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }}
-    .logout-container-box button:hover {{
+    
+    section[data-testid="stSidebar"] div.logout-container-box button:hover {{
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5) !important;
+        color: #ffffff !important;
     }}
 
     /* ======================================================
@@ -240,9 +230,9 @@ st.markdown(f"""
         justify-content: center;
     }}
     /* Colored Left Borders */
-    .metric-purple {{ border-left: 4px solid #6b21a8; }} /* Purple */
-    .metric-teal {{ border-left: 4px solid #0f766e; }} /* Teal */
-    .metric-gold {{ border-left: 4px solid #d97706; }} /* Gold */
+    .metric-purple {{ border-left: 4px solid #6b21a8; }} 
+    .metric-teal {{ border-left: 4px solid #0f766e; }} 
+    .metric-gold {{ border-left: 4px solid #d97706; }} 
 
     .metric-title {{
         font-size: 10px; 
@@ -259,9 +249,7 @@ st.markdown(f"""
         line-height: 1;
     }}
 
-    /* ======================================================
-       SEGALANYA BUTTON UTAMA - UNGU HARMONI (MAIN AREA)
-       ====================================================== */
+    /* BUTTON UTAMA UTK LUAR SIDEBAR */
     .stButton > button {{
         width: 100%; 
         border-radius: 8px; 
@@ -289,55 +277,6 @@ st.markdown(f"""
         background: #f8fafc !important; 
         color: #0f172a !important;
     }}
-
-    /* INPUT FORMS CONTROLS */
-    .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
-        border-radius: 8px !important; 
-        border: 1px solid #cbd5e1 !important;
-        background-color: #ffffff !important; 
-        color: #0f172a !important; 
-    }}
-    
-    /* MODEN REPOSITORY TABLE WITH STATUS BADGES */
-    .table-container {{
-        width: 100%; 
-        overflow-x: auto; 
-        border-radius: 8px;
-        border: 1px solid #e2e8f0; 
-    }}
-    .styled-table {{
-        width: 100%; 
-        border-collapse: collapse; 
-        font-size: 13px; 
-        background-color: #ffffff;
-    }}
-    .styled-table thead tr {{
-        background-color: #f8fafc; 
-        color: #475569; 
-        text-align: left;
-        border-bottom: 1px solid #e2e8f0;
-    }}
-    .styled-table th {{
-        padding: 14px 18px; 
-        font-weight: 600; 
-    }}
-    .styled-table td {{
-        padding: 14px 18px; 
-        border-bottom: 1px solid #f1f5f9; 
-        color: #334155;
-    }}
-    
-    /* PILL BADGES DESIGN FOR CATEGORIES */
-    .badge {{
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 11px;
-        font-weight: 600;
-        display: inline-block;
-    }}
-    .badge-mou {{ background-color: #f3e8ff; color: #7c3aed; }}
-    .badge-moa {{ background-color: #fff7ed; color: #ea580c; }}
-    .badge-generic {{ background-color: #f1f5f9; color: #475569; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -415,25 +354,26 @@ if not st.session_state.logged_in:
 # ======================================================
 else:
     # ------------------------------------------------------
-    # SIDEBAR DESIGN (BERDASARKAN GAMBAR)
+    # SIDEBAR DESIGN (BERDASARKAN GAMBAR & FORCE GOLD TEXT)
     # ------------------------------------------------------
     st.sidebar.markdown(f"""
-        <div style="text-align: center; padding-top: 10px; margin-bottom: 5px;">
+        <div style="text-align: center; padding-top: 15px; margin-bottom: 5px;">
             <img src="{UITM_LOGO_SRC}" style="width: 100px; display: inline-block; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3));" alt="UiTM Logo">
-            <h3 style="color: #FFFFFF; font-size: 15px; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.3;">
+            <!-- TULISAN EMAS DIPAKSA GUNA !IMPORTANT SUPAYA TIDAK GELAP -->
+            <h3 style="color: #facc15 !important; font-size: 15px; font-weight: 800; margin-top: 18px; margin-bottom: 5px; line-height: 1.4; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
                 UiTM MoU/MoA Collaboration<br>Record Management
             </h3>
-            <p style="color: #cbd5e1; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
+            <p style="color: #cbd5e1 !important; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px;">
                 Kampus Permatang Pauh
             </p>
-            <div style="display: inline-block; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 4px 12px; margin-top: 12px;">
-                <span style="color: #facc15; font-size: 10px; margin-right: 4px;">●</span>
-                <span style="color: #f8fafc; font-size: 11px; font-weight: 600;">{st.session_state.username}</span>
+            <div style="display: inline-block; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 4px 14px; margin-top: 12px;">
+                <span style="color: #facc15; font-size: 10px; margin-right: 5px;">●</span>
+                <span style="color: #f8fafc !important; font-size: 11px; font-weight: 600;">{st.session_state.username}</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System (CSS Uppercase handled above)
+    # Sidebar Navigation System (Bulatan Dibuang melalui CSS stSelectionControlBase)
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
     current_index = 0
@@ -539,34 +479,34 @@ else:
 
         # GENERATE PREMIUM HTML TABLE WITH COLORED PILL BADGES
         if len(df) > 0:
-            html_table = "<table class='styled-table'><thead><tr>"
+            html_table = "<table class='styled-table' style='width:100%; border-collapse:collapse; font-size:13px; background-color:#ffffff; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden;'>"
+            html_table += "<thead style='background-color:#f8fafc; color:#475569; border-bottom:1px solid #e2e8f0;'><tr>"
             for col in df.columns:
-                html_table += f"<th>{col}</th>"
+                html_table += f"<th style='padding:14px 18px; font-weight:600; text-align:left;'>{col}</th>"
             html_table += "</tr></thead><tbody>"
             
             for _, row in df.iterrows():
-                html_table += "<tr>"
-                html_table += f"<td>{row['ID']}</td>"
-                html_table += f"<td>{row['Agreement Title']}</td>"
-                html_table += f"<td>{row['Duration']}</td>"
-                html_table += f"<td>{row['Department']}</td>"
-                html_table += f"<td>{row['Partner']}</td>"
-                html_table += f"<td>{row['Country']}</td>"
+                html_table += "<tr style='border-bottom:1px solid #f1f5f9; color:#334155;'>"
+                html_table += f"<td style='padding:14px 18px;'>{row['ID']}</td>"
+                html_table += f"<td style='padding:14px 18px;'>{row['Agreement Title']}</td>"
+                html_table += f"<td style='padding:14px 18px;'>{row['Duration']}</td>"
+                html_table += f"<td style='padding:14px 18px;'>{row['Department']}</td>"
+                html_table += f"<td style='padding:14px 18px;'>{row['Partner']}</td>"
+                html_table += f"<td style='padding:14px 18px;'>{row['Country']}</td>"
                 
-                # Check category for badge rendering
                 cat_val = str(row['Category'])
                 if "mou" in cat_val.lower():
-                    badge_markup = f"<td><span class='badge badge-mou'>{cat_val}</span></td>"
+                    badge_markup = f"<td style='padding:14px 18px;'><span style='background-color:#f3e8ff; color:#7c3aed; padding:4px 8px; border-radius:6px; font-size:11px; font-weight:600;'>{cat_val}</span></td>"
                 elif "moa" in cat_val.lower():
-                    badge_markup = f"<td><span class='badge badge-moa'>{cat_val}</span></td>"
+                    badge_markup = f"<td style='padding:14px 18px;'><span style='background-color:#fff7ed; color:#ea580c; padding:4px 8px; border-radius:6px; font-size:11px; font-weight:600;'>{cat_val}</span></td>"
                 else:
-                    badge_markup = f"<td><span class='badge badge-generic'>{cat_val}</span></td>"
+                    badge_markup = f"<td style='padding:14px 18px;'><span style='background-color:#f1f5f9; color:#475569; padding:4px 8px; border-radius:6px; font-size:11px; font-weight:600;'>{cat_val}</span></td>"
                 
                 html_table += badge_markup
                 html_table += "</tr>"
                 
             html_table += "</tbody></table>"
-            st.markdown(f'<div class="table-container">{html_table}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="width:100%; overflow-x:auto;">{html_table}</div>', unsafe_allow_html=True)
         else:
             st.info("No data found in the repository.")
         
