@@ -60,7 +60,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# CUSTOM UI CSS (PURPLE SIDEBAR & GOLD ACCENTS)
+# CUSTOM UI CSS (DEEP PURPLE SIDEBAR & COLORFUL SCORECARDS)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -96,26 +96,13 @@ st.markdown(f"""
         font-size: 14px !important;
     }}
 
-    /* LOGO CONTAINER (WHITE COMPATIBLE CARD INSIDE SIDEBAR) */
-    .logo-container {{
-        background: rgba(255, 255, 255, 0.95);
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: center;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }}
-    .uitm-logo {{
-        width: 130px;
-        display: block;
-    }}
-
-    /* SIDEBAR UNGU PREMIUM */
+    /* ======================================================
+       DARK DEEP PURPLE SIDEBAR (BERDASARKAN GAMBAR)
+       ====================================================== */
     section[data-testid="stSidebar"] {{
-        background: #4c1d95 !important; /* Deep Rich Purple */
-        border-right: 1px solid #4c1d95 !important;
-        box-shadow: 2px 0 15px rgba(0,0,0,0.05) !important;
+        background: #190525 !important; /* Deep dark plum/purple */
+        border-right: none !important;
+        box-shadow: 2px 0 15px rgba(0,0,0,0.1) !important;
     }}
     
     section[data-testid="stSidebar"] .stMarkdown, 
@@ -124,9 +111,7 @@ st.markdown(f"""
         color: #f3e8ff !important;
     }}
 
-    /* ======================================================
-       LUXURY SIDEBAR NAVIGATION (FOR PURPLE THEME)
-       ====================================================== */
+    /* NAVIGATION MENU - UPPERCASE TEXT & GOLD BORDER ON ACTIVE */
     div[data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] {{
         padding-left: 0px !important;
     }}
@@ -139,24 +124,20 @@ st.markdown(f"""
         display: none !important;
     }}
 
-    div[role="radiogroup"] label {{
-        display: flex !important;
-        align-items: center !important;
-        padding-left: 14px !important; 
-    }}
-
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
-        gap: 6px !important;
-        padding-top: 10px;
+        gap: 2px !important;
+        padding-top: 25px;
     }}
 
     div[role="radiogroup"] label {{
+        display: flex !important;
+        align-items: center !important;
         background: transparent !important;
-        border-radius: 8px !important;
-        padding: 12px 14px !important;
+        padding: 14px 20px !important;
         border: none !important;
+        border-radius: 0 !important; /* Flat edges like the image */
         transition: all 0.2s ease !important;
         margin: 0 !important;
         cursor: pointer;
@@ -164,31 +145,63 @@ st.markdown(f"""
 
     /* HOVER EFFECT MENU */
     div[role="radiogroup"] label:hover {{
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
     }}
 
-    /* TIPOGRAFI NAVIGASI MENU */
+    /* TYPOGRAPHY NAVIGASI MENU (UPPERCASE GREY) */
     div[role="radiogroup"] label p {{
-        color: #d8b4fe !important; /* Soft lavender */
-        font-size: 14px !important;
-        font-weight: 500 !important;
+        color: #94a3b8 !important; 
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
+        margin-left: 0px !important;
     }}
 
-    /* ACTIVE MENU ITEM - KONTRAST PUTIH BERSIH ATAS SIDEBAR UNGU */
+    /* ACTIVE MENU ITEM - DARK BG + GOLD LEFT BORDER */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: #ffffff !important;
+        background: rgba(0, 0, 0, 0.2) !important;
+        border-left: 3px solid #eab308 !important; /* Gold border */
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #4c1d95 !important; /* Teks bertukar ungu pekat */
-        font-weight: 600 !important;
+        color: #ffffff !important; 
+        font-weight: 700 !important;
     }}
 
-    /* PAGE TITLE DESIGN */
+    /* ======================================================
+       GOLD GRADIENT LOGOUT BUTTON (TERMINATED ACCESS)
+       ====================================================== */
+    .logout-container-box {{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }}
+    .logout-container-box button {{
+        background: linear-gradient(135deg, #fcd34d 0%, #d97706 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3) !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        padding: 10px 20px !important;
+        width: 80% !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }}
+    .logout-container-box button:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5) !important;
+    }}
+
+    /* ======================================================
+       MAIN CONTENT STYLING
+       ====================================================== */
     h1 {{
         color: #0f172a !important;
-        font-weight: 700 !important;
-        font-size: 28px !important;
+        font-weight: 800 !important;
+        font-size: 26px !important;
         letter-spacing: -0.5px;
         margin-bottom: 25px !important;
     }}
@@ -196,10 +209,8 @@ st.markdown(f"""
     h2, h3, h4 {{
         color: #1e293b !important;
         font-weight: 600 !important;
-        font-size: 18px !important;
     }}
 
-    /* KAD CONTAINER KANDUNGAN */
     .content-card {{
         background: #ffffff !important; 
         border-radius: 12px;
@@ -209,7 +220,9 @@ st.markdown(f"""
         margin-bottom: 25px;
     }}
 
-    /* METRIC PANELS GRID (ICON BOX PATTERN) */
+    /* ======================================================
+       SCORECARD METRIC GRID (SEBIJIK GAMBAR 2)
+       ====================================================== */
     .metric-grid {{ 
         display: flex; 
         gap: 20px; 
@@ -218,45 +231,37 @@ st.markdown(f"""
     .pro-metric {{
         flex: 1; 
         background: #ffffff; 
-        padding: 20px;
-        border-radius: 12px; 
+        padding: 22px 25px;
+        border-radius: 8px; 
         border: 1px solid #e2e8f0;
         box-shadow: 0 1px 3px rgba(0,0,0,0.02); 
         display: flex;
-        align-items: center;
-        gap: 16px;
-    }}
-    .metric-icon-box {{
-        width: 48px;
-        height: 48px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        font-weight: bold;
-    }}
-    .m-icon-1 {{ background: #f3e8ff; color: #7c3aed; }}
-    .m-icon-2 {{ background: #ecfdf5; color: #059669; }}
-    .m-icon-3 {{ background: #fff7ed; color: #ea580c; }}
-
-    .metric-text-area {{
-        display: flex;
         flex-direction: column;
+        justify-content: center;
     }}
+    /* Colored Left Borders */
+    .metric-purple {{ border-left: 4px solid #6b21a8; }} /* Purple */
+    .metric-teal {{ border-left: 4px solid #0f766e; }} /* Teal */
+    .metric-gold {{ border-left: 4px solid #d97706; }} /* Gold */
+
     .metric-title {{
-        font-size: 12px; 
+        font-size: 10px; 
         color: #64748b; 
-        font-weight: 500;
+        font-weight: 700;
         text-transform: uppercase; 
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
     }}
     .metric-value {{
-        font-size: 24px; 
-        font-weight: 700; 
+        font-size: 26px; 
+        font-weight: 800; 
         color: #0f172a;
+        line-height: 1;
     }}
 
-    /* SEGALANYA BUTTON UTAMA - UNGU HARMONI */
+    /* ======================================================
+       SEGALANYA BUTTON UTAMA - UNGU HARMONI (MAIN AREA)
+       ====================================================== */
     .stButton > button {{
         width: 100%; 
         border-radius: 8px; 
@@ -265,29 +270,12 @@ st.markdown(f"""
         font-weight: 600; 
         font-size: 14px; 
         color: #ffffff !important; 
-        background: #7c3aed !important; /* Premium Purple Button */
+        background: #7c3aed !important; 
         transition: all 0.2s ease;
     }}
     .stButton > button:hover {{
         background: #6d28d9 !important;
         transform: translateY(-1px);
-    }}
-
-    /* CLEAN TEXT-ONLY LOGOUT BUTTON (KUNING GOLD MINIMALIS) */
-    .logout-container-box button {{
-        background: transparent !important;
-        color: #fbbf24 !important; /* Yellow Gold */
-        border: none !important;
-        box-shadow: none !important;
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        text-align: left !important;
-        padding: 6px 12px !important;
-        justify-content: flex-start !important;
-    }}
-    .logout-container-box button:hover {{
-        color: #f59e0b !important;
-        background: rgba(255, 255, 255, 0.08) !important;
     }}
 
     /* BACK BUTTON MINIMALIST */
@@ -426,18 +414,26 @@ if not st.session_state.logged_in:
 # ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
 else:
-    # Sidebar Header & Profile Block
+    # ------------------------------------------------------
+    # SIDEBAR DESIGN (BERDASARKAN GAMBAR)
+    # ------------------------------------------------------
     st.sidebar.markdown(f"""
-        <div class="logo-container">
-            <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo">
-        </div>
-        <div style="padding: 0 5px 15px 5px; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 15px;">
-            <div style="font-size:15px; font-weight:700; color:#ffffff;">MoU/MoA System</div>
-            <div style="color:#d8b4fe; font-size:11px; margin-top:2px; text-transform:uppercase; font-weight:500;">Kampus Permatang Pauh</div>
+        <div style="text-align: center; padding-top: 10px; margin-bottom: 5px;">
+            <img src="{UITM_LOGO_SRC}" style="width: 100px; display: inline-block; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3));" alt="UiTM Logo">
+            <h3 style="color: #facc15; font-size: 15px; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.3;">
+                UiTM MoU/MoA Collaboration<br>Record Management
+            </h3>
+            <p style="color: #cbd5e1; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
+                Kampus Permatang Pauh
+            </p>
+            <div style="display: inline-block; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 4px 12px; margin-top: 12px;">
+                <span style="color: #facc15; font-size: 10px; margin-right: 4px;">●</span>
+                <span style="color: #f8fafc; font-size: 11px; font-weight: 600;">{st.session_state.username}</span>
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System 
+    # Sidebar Navigation System (CSS Uppercase handled above)
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
     current_index = 0
@@ -455,21 +451,13 @@ else:
         st.session_state.current_page = selected_menu
         st.rerun()
 
-    # User Identity Display at Bottom Sidebar (Translucent White Card Effect)
-    st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-    st.sidebar.markdown(f"""
-    <div style="padding: 12px; background: rgba(255, 255, 255, 0.08); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 10px;">
-        <div style="font-size: 11px; color: #d8b4fe; text-transform: uppercase; font-weight:600; letter-spacing:0.5px;">Active Session</div>
-        <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-top: 2px;">👤 {st.session_state.username}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Beautiful Text-Only Logout Button (Kuning Gold)
+    # Beautiful Gold Gradient Logout Button
     st.sidebar.markdown('<div class="logout-container-box">', unsafe_allow_html=True)
-    if st.sidebar.button("🚪 Terminated Access", key="logout_btn"):
+    if st.sidebar.button("Terminated Access", key="logout_btn"):
         st.session_state.logged_in = False
         st.rerun()
     st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
 
     # Read Core Table Stream
     cursor.execute("SELECT * FROM collaboration_data ORDER BY id ASC")
@@ -486,29 +474,20 @@ else:
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
 
-        # Beautiful Icon Box Grid Design
+        # Beautiful Scorecard Grid Design (SEBIJIK GAMBAR 2)
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="pro-metric">
-                <div class="metric-icon-box m-icon-1">📄</div>
-                <div class="metric-text-area">
-                    <div class="metric-title">Total Active Agreements</div>
-                    <div class="metric-value">{total_records}</div>
-                </div>
+            <div class="pro-metric metric-purple">
+                <div class="metric-title">Total Active Agreements</div>
+                <div class="metric-value">{total_records}</div>
             </div>
-            <div class="pro-metric">
-                <div class="metric-icon-box m-icon-2">🌐</div>
-                <div class="metric-text-area">
-                    <div class="metric-title">Partner Countries</div>
-                    <div class="metric-value">{total_country}</div>
-                </div>
+            <div class="pro-metric metric-teal">
+                <div class="metric-title">Partner Countries</div>
+                <div class="metric-value">{total_country}</div>
             </div>
-            <div class="pro-metric">
-                <div class="metric-icon-box m-icon-3">🤝</div>
-                <div class="metric-text-area">
-                    <div class="metric-title">Unique Categories</div>
-                    <div class="metric-value">{total_category}</div>
-                </div>
+            <div class="pro-metric metric-gold">
+                <div class="metric-title">Unique Categories</div>
+                <div class="metric-value">{total_category}</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -519,7 +498,7 @@ else:
         if total_records > 0:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
-            modern_colors = ["#7c3aed", "#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"]
+            modern_colors = ["#7c3aed", "#0d9488", "#d97706", "#ec4899", "#3b82f6", "#8b5cf6"]
 
             fig = px.bar(
                 country_chart,
