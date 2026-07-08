@@ -138,27 +138,38 @@ st.markdown(f"""
        BUANG BULATAN RADIO SECARA TOTAL (STREAMLIT TERBARU)
        ====================================================== */
        
-    /* Sembunyikan bekas bulatan di lapisan dalam */
-    div[role="radiogroup"] label > div > div:first-child,
-    div[role="radiogroup"] label [data-baseweb="radio"] {{
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }}
+   /* 1. Sembunyikan bulatan radio sahaja secara tepat (bukan bekas teks) */
+div[role="radiogroup"] label [data-baseweb="radio"] > div {{
+    display: none !important;
+}}
 
-    /* Pastikan kotak tulisan memenuhi ruang supaya boleh di-klik */
-    div[role="radiogroup"] label > div {{
-        display: flex !important;
-        width: 100% !important;
-        align-items: center !important;
-    }}
-    
-    /* Rapatkan tulisan menu ke sebelah kiri selepas bulatan ghaib */
-    div[role="radiogroup"] label p {{
-        margin-left: 0px !important; 
-    }}
+div[role="radiogroup"] label [data-baseweb="radio"] {{
+    border: none !important;
+    background: transparent !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}}
+
+/* 2. Pastikan bekas teks memenuhi ruang penuh untuk fungsi klik */
+div[role="radiogroup"] label {{
+    width: 100% !important;
+    display: flex !important;
+}}
+
+div[role="radiogroup"] label > div {{
+   display: flex !important;
+    width: 100% !important;
+    align-items: center !important;
+}}
+
+/* 3. Hapuskan jarak kosong di sebelah kiri supaya teks rapat ke tepi */
+div[role="radiogroup"] label p {{
+    margin-left: 0px !important;
+    padding-left: 0px !important;
+}}
+
 
     div[role="radiogroup"] {{
         display: flex;
