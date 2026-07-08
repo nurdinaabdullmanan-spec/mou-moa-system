@@ -134,15 +134,19 @@ st.markdown(f"""
        LUXURY & PRO SIDEBAR NAVIGATION
        ====================================================== */
     
-    /* SEMBUNYIKAN BULATAN RADIO BUTTON (MERAH & PUTIH) */
-    div[role="radiogroup"] label > div:first-child,
-    div[role="radiogroup"] label [data-baseweb="radio"] > div:first-child,
-    .stRadio div[role="radiogroup"] label > div:first-of-type {{
+    /* SEMBUNYIKAN BULATAN RADIO BUTTON DENGAN SELAMAT */
+    div[role="radiogroup"] label [data-baseweb="radio"],
+    .stRadio div[role="radiogroup"] label > div:first-child:not(:has(p)) {{
         display: none !important;
         width: 0 !important;
         height: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
+    }}
+    
+    /* Pastikan teks menu (p) kekal terpapar */
+    div[role="radiogroup"] label > div:has(p) {{
+        display: flex !important;
     }}
 
     div[role="radiogroup"] {{
