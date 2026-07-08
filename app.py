@@ -60,7 +60,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (PREMIUM LIGHT THEME & SAAS SIDEBAR)
+# CUSTOM UI CSS (PURPLE SIDEBAR & GOLD ACCENTS)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -94,36 +94,38 @@ st.markdown(f"""
         color: #334155 !important;
         font-weight: 600 !important;
         font-size: 14px !important;
-        text-shadow: none !important;
     }}
 
-    /* LOGO BLENDING EFFECT (WHITE BACKGROUND COMPATIBLE) */
+    /* LOGO CONTAINER (WHITE COMPATIBLE CARD INSIDE SIDEBAR) */
     .logo-container {{
-        text-align: left;
-        padding: 10px 5px;
-        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }}
     .uitm-logo {{
-        width: 140px;
+        width: 130px;
         display: block;
-        mix-blend-mode: multiply;
     }}
 
-    /* SIDEBAR PUTIH MODEN (SAAS STYLE) */
+    /* SIDEBAR UNGU PREMIUM */
     section[data-testid="stSidebar"] {{
-        background: #ffffff !important; 
-        border-right: 1px solid #e2e8f0 !important;
-        box-shadow: 1px 0 10px rgba(0,0,0,0.02) !important;
+        background: #4c1d95 !important; /* Deep Rich Purple */
+        border-right: 1px solid #4c1d95 !important;
+        box-shadow: 2px 0 15px rgba(0,0,0,0.05) !important;
     }}
     
     section[data-testid="stSidebar"] .stMarkdown, 
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] label {{
-        color: #334155 !important;
+        color: #f3e8ff !important;
     }}
 
     /* ======================================================
-       LUXURY LIGHT SIDEBAR NAVIGATION
+       LUXURY SIDEBAR NAVIGATION (FOR PURPLE THEME)
        ====================================================== */
     div[data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] {{
         padding-left: 0px !important;
@@ -141,10 +143,6 @@ st.markdown(f"""
         display: flex !important;
         align-items: center !important;
         padding-left: 14px !important; 
-    }}
-
-    div[role="radiogroup"] label p {{
-        margin-left: 0px !important;
     }}
 
     div[role="radiogroup"] {{
@@ -166,25 +164,23 @@ st.markdown(f"""
 
     /* HOVER EFFECT MENU */
     div[role="radiogroup"] label:hover {{
-        background: #f1f5f9 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
     }}
 
     /* TIPOGRAFI NAVIGASI MENU */
     div[role="radiogroup"] label p {{
-        color: #64748b !important; 
+        color: #d8b4fe !important; /* Soft lavender */
         font-size: 14px !important;
         font-weight: 500 !important;
-        text-transform: none !important;
-        letter-spacing: normal !important;
     }}
 
-    /* ACTIVE MENU ITEM - INDIGO/PURPLE PIL STYLE */
+    /* ACTIVE MENU ITEM - KONTRAST PUTIH BERSIH ATAS SIDEBAR UNGU */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: #6366f1 !important;
+        background: #ffffff !important;
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #ffffff !important; 
+        color: #4c1d95 !important; /* Teks bertukar ungu pekat */
         font-weight: 600 !important;
     }}
 
@@ -201,7 +197,6 @@ st.markdown(f"""
         color: #1e293b !important;
         font-weight: 600 !important;
         font-size: 18px !important;
-        margin-bottom: 15px !important;
     }}
 
     /* KAD CONTAINER KANDUNGAN */
@@ -241,7 +236,7 @@ st.markdown(f"""
         font-size: 20px;
         font-weight: bold;
     }}
-    .m-icon-1 {{ background: #eef2ff; color: #4f46e5; }}
+    .m-icon-1 {{ background: #f3e8ff; color: #7c3aed; }}
     .m-icon-2 {{ background: #ecfdf5; color: #059669; }}
     .m-icon-3 {{ background: #fff7ed; color: #ea580c; }}
 
@@ -254,16 +249,14 @@ st.markdown(f"""
         color: #64748b; 
         font-weight: 500;
         text-transform: uppercase; 
-        letter-spacing: 0.5px;
     }}
     .metric-value {{
         font-size: 24px; 
         font-weight: 700; 
         color: #0f172a;
-        margin-top: 2px;
     }}
 
-    /* BUTTONS STYLE UTAMA */
+    /* SEGALANYA BUTTON UTAMA - UNGU HARMONI */
     .stButton > button {{
         width: 100%; 
         border-radius: 8px; 
@@ -272,29 +265,29 @@ st.markdown(f"""
         font-weight: 600; 
         font-size: 14px; 
         color: #ffffff !important; 
-        background: #6366f1 !important;
+        background: #7c3aed !important; /* Premium Purple Button */
         transition: all 0.2s ease;
     }}
     .stButton > button:hover {{
-        background: #4f46e5 !important;
+        background: #6d28d9 !important;
         transform: translateY(-1px);
     }}
 
-    /* CLEAN TEXT-ONLY LOGOUT BUTTON (TIADA KOTAK BURUK) */
+    /* CLEAN TEXT-ONLY LOGOUT BUTTON (KUNING GOLD MINIMALIS) */
     .logout-container-box button {{
         background: transparent !important;
-        color: #94a3b8 !important;
+        color: #fbbf24 !important; /* Yellow Gold */
         border: none !important;
         box-shadow: none !important;
         font-size: 13px !important;
-        font-weight: 500 !important;
+        font-weight: 600 !important;
         text-align: left !important;
         padding: 6px 12px !important;
         justify-content: flex-start !important;
     }}
     .logout-container-box button:hover {{
-        color: #ef4444 !important;
-        background: #fef2f2 !important;
+        color: #f59e0b !important;
+        background: rgba(255, 255, 255, 0.08) !important;
     }}
 
     /* BACK BUTTON MINIMALIST */
@@ -303,7 +296,6 @@ st.markdown(f"""
         background: transparent !important; 
         color: #64748b !important;
         border: 1px solid #e2e8f0 !important; 
-        padding: 6px 16px !important;
     }}
     .back-btn-container .stButton > button:hover {{ 
         background: #f8fafc !important; 
@@ -316,7 +308,6 @@ st.markdown(f"""
         border: 1px solid #cbd5e1 !important;
         background-color: #ffffff !important; 
         color: #0f172a !important; 
-        padding: 8px 12px !important;
     }}
     
     /* MODEN REPOSITORY TABLE WITH STATUS BADGES */
@@ -325,12 +316,10 @@ st.markdown(f"""
         overflow-x: auto; 
         border-radius: 8px;
         border: 1px solid #e2e8f0; 
-        margin-top: 10px;
     }}
     .styled-table {{
         width: 100%; 
         border-collapse: collapse; 
-        margin: 0;
         font-size: 13px; 
         background-color: #ffffff;
     }}
@@ -349,9 +338,6 @@ st.markdown(f"""
         border-bottom: 1px solid #f1f5f9; 
         color: #334155;
     }}
-    .styled-table tbody tr:hover {{ 
-        background-color: #f8fafc; 
-    }}
     
     /* PILL BADGES DESIGN FOR CATEGORIES */
     .badge {{
@@ -361,7 +347,7 @@ st.markdown(f"""
         font-weight: 600;
         display: inline-block;
     }}
-    .badge-mou {{ background-color: #eef2ff; color: #4f46e5; }}
+    .badge-mou {{ background-color: #f3e8ff; color: #7c3aed; }}
     .badge-moa {{ background-color: #fff7ed; color: #ea580c; }}
     .badge-generic {{ background-color: #f1f5f9; color: #475569; }}
 </style>
@@ -387,8 +373,10 @@ if not st.session_state.logged_in:
     with col_l2:
         st.markdown(f"""
         <div style="text-align:center; margin-top:60px; margin-bottom:20px;">
-            <img src="{UITM_LOGO_SRC}" style="width:160px; margin-bottom:15px;" alt="UiTM Logo">
-            <h2 style="font-size:22px; font-weight:700; color:#0f172a; margin:0;">Record Management System</h2>
+            <div style="background: white; display: inline-block; padding: 12px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <img src="{UITM_LOGO_SRC}" style="width:150px;" alt="UiTM Logo">
+            </div>
+            <h2 style="font-size:22px; font-weight:700; color:#0f172a; margin-top:15px; margin-bottom:0;">Record Management System</h2>
             <p style="color:#64748b; font-size:14px; margin-top:5px;">UiTM Kampus Permatang Pauh</p>
         </div>
         """, unsafe_allow_html=True)
@@ -443,9 +431,9 @@ else:
         <div class="logo-container">
             <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo">
         </div>
-        <div style="padding: 0 5px 15px 5px; border-bottom: 1px solid #f1f5f9; margin-bottom: 15px;">
-            <div style="font-size:15px; font-weight:700; color:#0f172a;">MoU/MoA System</div>
-            <div style="color:#64748b; font-size:11px; margin-top:2px; text-transform:uppercase; font-weight:500;">Kampus Permatang Pauh</div>
+        <div style="padding: 0 5px 15px 5px; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 15px;">
+            <div style="font-size:15px; font-weight:700; color:#ffffff;">MoU/MoA System</div>
+            <div style="color:#d8b4fe; font-size:11px; margin-top:2px; text-transform:uppercase; font-weight:500;">Kampus Permatang Pauh</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -467,16 +455,16 @@ else:
         st.session_state.current_page = selected_menu
         st.rerun()
 
-    # User Identity Display at Bottom Sidebar
+    # User Identity Display at Bottom Sidebar (Translucent White Card Effect)
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
     st.sidebar.markdown(f"""
-    <div style="padding: 10px 5px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 10px;">
-        <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight:600;">Active Session</div>
-        <div style="font-size: 14px; font-weight: 700; color: #1e293b; margin-top: 2px;">👤 {st.session_state.username}</div>
+    <div style="padding: 12px; background: rgba(255, 255, 255, 0.08); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 10px;">
+        <div style="font-size: 11px; color: #d8b4fe; text-transform: uppercase; font-weight:600; letter-spacing:0.5px;">Active Session</div>
+        <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-top: 2px;">👤 {st.session_state.username}</div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Beautiful Text-Only Logout Button Inside Clean Container
+    # Beautiful Text-Only Logout Button (Kuning Gold)
     st.sidebar.markdown('<div class="logout-container-box">', unsafe_allow_html=True)
     if st.sidebar.button("🚪 Terminated Access", key="logout_btn"):
         st.session_state.logged_in = False
@@ -531,7 +519,7 @@ else:
         if total_records > 0:
             country_chart = df["Country"].value_counts().reset_index()
             country_chart.columns = ["Country", "Total"]
-            modern_colors = ["#6366f1", "#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"]
+            modern_colors = ["#7c3aed", "#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"]
 
             fig = px.bar(
                 country_chart,
@@ -680,7 +668,7 @@ else:
         st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_update"):
             switch_page("Dashboard")
-        st.sidebar.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
