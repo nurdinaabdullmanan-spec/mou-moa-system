@@ -134,24 +134,30 @@ st.markdown(f"""
        LUXURY & PRO SIDEBAR NAVIGATION
        ====================================================== */
     
-    /* SEMBUNYIKAN BULATAN RADIO BUTTON DENGAN SELAMAT */
-    div[role="radiogroup"] label [data-baseweb="radio"],
-    .stRadio div[role="radiogroup"] label > div:first-child:not(:has(p)) {{
+   /* ======================================================
+       BUANG BULATAN RADIO SECARA TOTAL (STREAMLIT TERBARU)
+       ====================================================== */
+       
+    /* Sembunyikan bekas bulatan di lapisan dalam */
+    div[role="radiogroup"] label > div > div:first-child,
+    div[role="radiogroup"] label [data-baseweb="radio"] {{
         display: none !important;
         width: 0 !important;
         height: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
     }}
-    
-    /* Pastikan teks menu (p) kekal terpapar */
-    div[role="radiogroup"] label > div:has(p) {{
-        display: flex !important;
-    }}
 
-    /* Adjust margin teks supaya tak rapat sangat ke kiri lepas buang bulatan */
+    /* Pastikan kotak tulisan memenuhi ruang supaya boleh di-klik */
+    div[role="radiogroup"] label > div {{
+        display: flex !important;
+        width: 100% !important;
+        align-items: center !important;
+    }}
+    
+    /* Rapatkan tulisan menu ke sebelah kiri selepas bulatan ghaib */
     div[role="radiogroup"] label p {{
-        margin-left: 0px !important;
+        margin-left: 0px !important; 
     }}
 
     div[role="radiogroup"] {{
