@@ -149,6 +149,11 @@ st.markdown(f"""
         display: flex !important;
     }}
 
+    /* Adjust margin teks supaya tak rapat sangat ke kiri lepas buang bulatan */
+    div[role="radiogroup"] label p {{
+        margin-left: 0px !important;
+    }}
+
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
