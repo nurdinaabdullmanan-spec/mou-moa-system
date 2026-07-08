@@ -420,7 +420,7 @@ else:
     st.sidebar.markdown(f"""
         <div style="text-align: center; padding-top: 10px; margin-bottom: 5px;">
             <img src="{UITM_LOGO_SRC}" style="width: 100px; display: inline-block; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3));" alt="UiTM Logo">
-            <h3 style="color: #facc15; font-size: 15px; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.3;">
+            <h3 style="color: #FFFFFF; font-size: 15px; font-weight: 800; margin-top: 15px; margin-bottom: 5px; line-height: 1.3;">
                 UiTM MoU/MoA Collaboration<br>Record Management
             </h3>
             <p style="color: #cbd5e1; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
