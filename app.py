@@ -359,10 +359,10 @@ else:
     st.sidebar.markdown(f"""
         <div style="text-align: center; padding-top: 15px; margin-bottom: 5px;">
             <img src="{UITM_LOGO_SRC}" style="width: 100px; display: inline-block; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3));" alt="UiTM Logo">
-            <h3 style="color: #cbd5e1 !important; font-size: 15px; font-weight: 800; margin-top: 18px; margin-bottom: 5px; line-height: 1.4; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+            <h3 style="color: #ffffff !important; font-size: 15px; font-weight: 800; margin-top: 18px; margin-bottom: 5px; line-height: 1.4; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
                 UiTM MoU/MoA Collaboration<br>Record Management
             </h3>
-            <p style="color: #cbd5e1 !important; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px;">
+            <p style="color: #ffffff !important; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px;">
                 Kampus Permatang Pauh
             </p>
             <div style="display: inline-block; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 4px 14px; margin-top: 12px;">
@@ -371,7 +371,7 @@ else:
             </div>
         </div>
         """, unsafe_allow_html=True)
-
+    
     # Sidebar Navigation System (Bulatan Dibuang melalui CSS stSelectionControlBase)
     menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
