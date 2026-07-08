@@ -356,7 +356,7 @@ else:
     # ------------------------------------------------------
     # SIDEBAR DESIGN 
     # ------------------------------------------------------
-   st.sidebar.markdown(f"""
+    st.sidebar.markdown(f"""
         <div style="text-align: center; padding-top: 15px; margin-bottom: 5px;">
             <img src="{UITM_LOGO_SRC}" style="width: 100px; display: inline-block; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3));" alt="UiTM Logo">
             
