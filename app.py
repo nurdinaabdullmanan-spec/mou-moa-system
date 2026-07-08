@@ -131,15 +131,34 @@ st.markdown(f"""
     }}
 
     /* ======================================================
-       LUXURY & PRO SIDEBAR NAVIGATION (FIXED)
+       LUXURY & PRO SIDEBAR NAVIGATION
        ====================================================== */
     
-    /* 1. Sembunyikan bulatan radio button dengan selamat */
-    div[data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child {{
+   /* SEMBUNYIKAN BULATAN RADIO BUTTON - EFEKTIF */
+    div[data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] {{
+        padding-left: 0px !important;
+    }}
+
+    div[role="radiogroup"] label input[type="radio"] {{
         display: none !important;
     }}
 
-    /* 2. Susunan menu */
+    div[role="radiogroup"] label > div:first-child {{
+        display: none !important;
+    }}
+
+    /* Memastikan teks menu kekal terpapar */
+    div[role="radiogroup"] label {{
+        display: flex !important;
+        align-items: center !important;
+        padding-left: 18px !important; /* Jarak teks dari kiri setelah bulatan dibuang */
+    }}
+
+    /* Adjust margin teks supaya tak rapat sangat ke kiri lepas buang bulatan */
+    div[role="radiogroup"] label p {{
+        margin-left: 0px !important;
+    }}
+
     div[role="radiogroup"] {{
         display: flex;
         flex-direction: column;
@@ -147,8 +166,7 @@ st.markdown(f"""
         padding-top: 15px;
     }}
 
-    /* 3. Gaya kotak menu (transparent by default) */
-    div[role="radiogroup"] > label {{
+    div[role="radiogroup"] label {{
         background: transparent !important;
         border-radius: 4px 8px 8px 4px !important;
         padding: 14px 18px !important;
@@ -158,50 +176,44 @@ st.markdown(f"""
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
         margin: 0 !important;
         cursor: pointer;
-        width: 100%;
-        display: block !important;
     }}
 
-    /* 4. Teks menu (Tipografi) */
-    div[role="radiogroup"] > label p {{
-        color: #94a3b8 !important; 
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        letter-spacing: 1.5px !important;
-        text-transform: uppercase !important;
-        margin: 0 !important; 
-    }}
-
-    /* 5. Hover Effect */
-    div[role="radiogroup"] > label:hover {{
+    /* HOVER EFFECT MEWAH */
+    div[role="radiogroup"] label:hover {{
         background: rgba(255, 255, 255, 0.03) !important;
         border-left: 3px solid rgba(250, 191, 44, 0.4) !important;
         transform: translateX(4px);
     }}
 
-    /* 6. Active Menu Item - Gaya Korporat Eksklusif */
-    div[role="radiogroup"] > label[data-selected="true"],
-    div[role="radiogroup"] > label[aria-checked="true"] {{
+    /* TIPOGRAFI PRO UNTUK MENU */
+    div[role="radiogroup"] label p {{
+        color: #94a3b8 !important; 
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        margin-left: 5px !important; /* Jarak sikit dari tepi selepas buang bullet */
+    }}
+
+    /* ACTIVE MENU ITEM - GAYA KORPORAT EKSKLUSIF */
+    div[role="radiogroup"] label[data-selected="true"] {{
         background: linear-gradient(90deg, rgba(75, 46, 131, 0.5) 0%, rgba(20, 15, 30, 0) 100%) !important;
         border-left: 3px solid #fabf2c !important; 
     }}
 
-    div[role="radiogroup"] > label[data-selected="true"] p,
-    div[role="radiogroup"] > label[aria-checked="true"] p {{
+    div[role="radiogroup"] label[data-selected="true"] p {{
         color: #fabf2c !important; 
         font-weight: 800 !important;
         letter-spacing: 1.5px !important;
     }}
 
-    /* ====================================================== */
-
-    h1 {{
-        color: #1e293b !important;
-        font-weight: 700 !important;
-        letter-spacing: -0.5px;
-        border-bottom: none !important;
-        padding-bottom: 5px;
-        margin-bottom: 30px !important;
+   h1 {{
+    color: #1e293b !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    border-bottom: none !important;
+    padding-bottom: 5px;
+    margin-bottom: 30px !important;
     }}
 
     h2, h3 {{
@@ -221,7 +233,7 @@ st.markdown(f"""
         margin-bottom: 30px;
     }}
 
-    /* METRIC PANELS */
+    /* METRIC PANELS (SCORECARDS WARNA WARNI - DIKEKALKAN) */
     .metric-grid {{ display: flex; gap: 20px; margin-bottom: 30px; }}
     .pro-metric {{
         flex: 1; background: #ffffff; padding: 24px 20px;
@@ -241,7 +253,7 @@ st.markdown(f"""
         margin-top: 5px; font-family: 'Inter', sans-serif;
     }}
 
-    /* BUTTONS UMUM */
+    /* BUTTONS UMUM (PURPLE KEKAL) */
     .stButton > button {{
         width: 100%; border-radius: 12px; border: 1px solid rgba(75, 46, 131, 0.4);
         padding: 12px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
@@ -252,7 +264,7 @@ st.markdown(f"""
         transform: translateY(-2px); box-shadow: 0 8px 25px rgba(75, 46, 131, 0.3); border-color: #4b2e83;
     }}
 
-    /* BUTTON DI SIDEBAR (TERMINATED ACCESS) */
+    /* BUTTON DI SIDEBAR (TERMINATED ACCESS) - EMAS KEKAL */
     section[data-testid="stSidebar"] .stButton > button {{
         background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
         color: #0b091a !important; border: 1px solid rgba(250, 191, 44, 0.4) !important;
@@ -262,7 +274,7 @@ st.markdown(f"""
         box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4) !important; border-color: #fabf2c !important;
     }}
 
-    /* BACK SYSTEM BUTTON */
+    /* BACK SYSTEM BUTTON - KEKAL */
     .back-btn-container .stButton > button {{
         width: auto !important; background: transparent !important; color: #4b2e83 !important;
         border: 1px solid rgba(75, 46, 131, 0.3) !important; padding: 8px 20px !important; box-shadow: none !important;
@@ -378,7 +390,7 @@ if not st.session_state.logged_in:
 # ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
 else:
-    # Sidebar Logo dan Profil
+    # Sidebar Logo dan Profil (Tema Gelap Asal Dikekalkan)
     st.sidebar.markdown(f"""
         <div class="logo-container">
             <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
@@ -404,7 +416,7 @@ else:
         "SYSTEM MODULE",
         menu_options,
         index=current_index,
-        label_visibility="collapsed" 
+        label_visibility="collapsed" # Sembunyikan label asal supaya lebih kemas
     )
     
     if selected_menu != st.session_state.current_page:
@@ -493,6 +505,7 @@ else:
             data = cursor.fetchall()
             df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
+        # GENERATE BEAUTIFUL HTML TABLE (Dikekalkan)
         if len(df) > 0:
             html_table = df.to_html(index=False, classes="styled-table", escape=False)
             st.markdown(f'<div class="table-container">{html_table}</div>', unsafe_allow_html=True)
