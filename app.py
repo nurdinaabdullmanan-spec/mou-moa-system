@@ -1,255 +1,634 @@
-import streamlit as st
-import pandas as pd
-import sqlite3
 import plotly.express as px
-import plotly.graph_objects as go
-from datetime import datetime
-import hashlib
+import streamlit as st
+import sqlite3
+import pandas as pd
+import base64
+import os
 
 # ======================================================
-# 1. DATABASE & AUTH FUNCTIONS
+# PAGE CONFIG
 # ======================================================
-conn = sqlite3.connect("mou_moa_pro.db", check_same_thread=False)
+st.set_page_config(
+    page_title="MoU/MoA Collaboration Record Management System",
+    page_icon="🎓",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ======================================================
+# DATABASE CONNECTION
+# ======================================================
+conn = sqlite3.connect("mou_moa_db.db", check_same_thread=False)
 cursor = conn.cursor()
 
-# Create Tables
-cursor.execute("""CREATE TABLE IF NOT EXISTS users 
-               (username TEXT PRIMARY KEY, password TEXT, email TEXT)""")
-cursor.execute("""CREATE TABLE IF NOT EXISTS records 
-               (id INTEGER PRIMARY KEY, title TEXT, partner TEXT, country TEXT, 
-                category TEXT, duration TEXT, status TEXT)""")
+# CREATE TABLES
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    email TEXT,
+    password TEXT
+)
+""")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS collaboration_data (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    duration TEXT,
+    department TEXT,
+    partner TEXT,
+    country TEXT,
+    category TEXT
+)
+""")
 conn.commit()
 
-def make_hashes(password):
-    return hashlib.sha256(str.encode(password)).hexdigest()
-
-def check_hashes(password, hashed_text):
-    if make_hashes(password) == hashed_text:
-        return hashed_text
-    return False
 
 # ======================================================
-# 2. APP CONFIG & STYLING
+# FUNGSI MEMBACA FAIL LOKAL LOGO.PNG (BASE64)
 # ======================================================
-st.set_page_config(page_title="UiTM MoU/MoA System", layout="wide", page_icon="🎓")
+def get_local_logo_base64(file_path="Logo.png"):
+    if os.path.exists(file_path):
+        with open(file_path, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        return f"data:image/png;base64,{encoded_string}"
+    else:
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png"
 
-# Custom CSS for the Light SaaS Theme
-st.markdown("""
+UITM_LOGO_SRC = get_local_logo_base64()
+
+
+# ======================================================
+# REFINED UI CSS (LUXURY & PRO SIDEBAR MENU)
+# ======================================================
+st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    html, body, [class*="css"] { font-family: 'Inter', sans-serif; background-color: #F8FAFC !important; }
-
-    /* Sidebar Styling */
-    [data-testid="stSidebar"] { background-color: #FFFFFF !important; border-right: 1px solid #E2E8F0; }
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
     
-    /* Card Styling */
-    .metric-card {
-        background: white; padding: 20px; border-radius: 12px; border: 1px solid #E2E8F0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: left;
-    }
-    .metric-val { font-size: 24px; font-weight: 700; color: #1E293B; margin: 0; }
-    .metric-label { color: #64748B; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
-
-    /* Badges */
-    .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-    .badge-active { background: #DCFCE7; color: #166534; }
-    .badge-expired { background: #FEE2E2; color: #991B1B; }
-    .badge-mou { background: #E0E7FF; color: #3730A3; }
-    .badge-moa { background: #FFEDD5; color: #9A3412; }
-
-    /* Buttons */
-    .stButton>button { border-radius: 8px; font-weight: 500; }
+    /* PENGURUSAN FONT */
+    html, body, [class*="css"] {{
+        font-family: 'Inter', sans-serif;
+    }}
     
-    /* Remove default padding */
-    .block-container { padding-top: 2rem !important; }
+    h1, h2, h3, .uitm-title {{
+        font-family: 'Cinzel', serif !important;
+    }}
+
+    /* BACKGROUND UTAMA - WARNA ASAL KEKAL */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
+        background: #f8fafc !important; 
+        color: #1e293b !important;
+    }}
+    
+    .block-container {{
+        padding: 2.5rem 5rem !important;
+    }}
+
+    #MainMenu {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+
+    [data-testid="stWidgetLabel"] p, 
+    label[data-testid="stWidgetLabel"], 
+    .stTextInput label, 
+    .stNumberInput label, 
+    .stSelectbox label,
+    div[data-baseline="select"] label {{
+        color: #1e293b !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        text-shadow: none !important;
+    }}
+
+    /* LOGO BLENDING EFFECT */
+    .logo-container {{
+        text-align: center;
+        padding: 15px 0;
+    }}
+    .uitm-logo {{
+        width: 140px;
+        filter: drop-shadow(0px 0px 12px rgba(75, 46, 131, 0.2));
+        mix-blend-mode: normal;
+        display: block;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
+    }}
+    .uitm-logo:hover {{
+        transform: scale(1.05);
+    }}
+
+    /* SIDEBAR GELAP - DIKEKALKAN SEPERTI ASAL */
+    section[data-testid="stSidebar"] {{
+        background: linear-gradient(180deg, #36013F 0%, #0d0a14 100%) !important; 
+        border-right: 1px solid rgba(250, 191, 44, 0.2) !important;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+    }}
+    
+    section[data-testid="stSidebar"] .stMarkdown, 
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] label {{
+        color: #ffffff !important;
+    }}
+
+    /* ======================================================
+       LUXURY & PRO SIDEBAR NAVIGATION
+       ====================================================== */
+    
+   /* SEMBUNYIKAN BULATAN RADIO BUTTON - EFEKTIF */
+    div[data-testid="stRadio"] label div[data-testid="stMarkdownContainer"] {{
+        padding-left: 0px !important;
+    }}
+
+    div[role="radiogroup"] label input[type="radio"] {{
+        display: none !important;
+    }}
+
+    div[role="radiogroup"] label > div:first-child {{
+        display: none !important;
+    }}
+
+    /* Memastikan teks menu kekal terpapar */
+    div[role="radiogroup"] label {{
+        display: flex !important;
+        align-items: center !important;
+        padding-left: 18px !important; /* Jarak teks dari kiri setelah bulatan dibuang */
+    }}
+
+    /* Adjust margin teks supaya tak rapat sangat ke kiri lepas buang bulatan */
+    div[role="radiogroup"] label p {{
+        margin-left: 0px !important;
+    }}
+
+    div[role="radiogroup"] {{
+        display: flex;
+        flex-direction: column;
+        gap: 6px !important;
+        padding-top: 15px;
+    }}
+
+    div[role="radiogroup"] label {{
+        background: transparent !important;
+        border-radius: 4px 8px 8px 4px !important;
+        padding: 14px 18px !important;
+        border: none !important;
+        border-left: 3px solid transparent !important;
+        box-shadow: none !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        margin: 0 !important;
+        cursor: pointer;
+    }}
+
+    /* HOVER EFFECT MEWAH */
+    div[role="radiogroup"] label:hover {{
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-left: 3px solid rgba(250, 191, 44, 0.4) !important;
+        transform: translateX(4px);
+    }}
+
+    /* TIPOGRAFI PRO UNTUK MENU */
+    div[role="radiogroup"] label p {{
+        color: #94a3b8 !important; 
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        margin-left: 5px !important; /* Jarak sikit dari tepi selepas buang bullet */
+    }}
+
+    /* ACTIVE MENU ITEM - GAYA KORPORAT EKSKLUSIF */
+    div[role="radiogroup"] label[data-selected="true"] {{
+        background: linear-gradient(90deg, rgba(75, 46, 131, 0.5) 0%, rgba(20, 15, 30, 0) 100%) !important;
+        border-left: 3px solid #fabf2c !important; 
+    }}
+
+    div[role="radiogroup"] label[data-selected="true"] p {{
+        color: #fabf2c !important; 
+        font-weight: 800 !important;
+        letter-spacing: 1.5px !important;
+    }}
+
+   h1 {{
+    color: #1e293b !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    border-bottom: none !important;
+    padding-bottom: 5px;
+    margin-bottom: 30px !important;
+    }}
+
+    h2, h3 {{
+        color: #2e60a3 !important;
+        font-weight: 700 !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 18px !important;
+    }}
+
+    /* KAD GLASSMORPHISM / CONTAINER CERAH */
+    .content-card {{
+        background: #ffffff !important; 
+        border-radius: 16px;
+        padding: 30px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        margin-bottom: 30px;
+    }}
+
+    /* METRIC PANELS (SCORECARDS WARNA WARNI - DIKEKALKAN) */
+    .metric-grid {{ display: flex; gap: 20px; margin-bottom: 30px; }}
+    .pro-metric {{
+        flex: 1; background: #ffffff; padding: 24px 20px;
+        border-radius: 12px; border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;
+    }}
+    .metric-1 {{ border-left: 6px solid #5a3982 !important; }}
+    .metric-2 {{ border-left: 6px solid #1f6a8d !important; }}
+    .metric-3 {{ border-left: 6px solid #edb100 !important; }}
+
+    .metric-title {{
+        font-size: 10px; color: #64748b; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 1px;
+    }}
+    .metric-value {{
+        font-size: 32px; font-weight: 800; color: #1e293b;
+        margin-top: 5px; font-family: 'Inter', sans-serif;
+    }}
+
+    /* BUTTONS UMUM (PURPLE KEKAL) */
+    .stButton > button {{
+        width: 100%; border-radius: 12px; border: 1px solid rgba(75, 46, 131, 0.4);
+        padding: 12px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
+        color: #ffffff !important; background: linear-gradient(135deg, #6b21a8 0%, #4b2e83 100%) !important;
+        box-shadow: 0 4px 15px rgba(75, 46, 131, 0.2); transition: all 0.3s ease;
+    }}
+    .stButton > button:hover {{
+        transform: translateY(-2px); box-shadow: 0 8px 25px rgba(75, 46, 131, 0.3); border-color: #4b2e83;
+    }}
+
+    /* BUTTON DI SIDEBAR (TERMINATED ACCESS) - EMAS KEKAL */
+    section[data-testid="stSidebar"] .stButton > button {{
+        background: linear-gradient(135deg, #fcd34d 0%, #fabf2c 50%, #b45309 100%) !important;
+        color: #0b091a !important; border: 1px solid rgba(250, 191, 44, 0.4) !important;
+        box-shadow: 0 6px 20px rgba(250, 191, 44, 0.2) !important;
+    }}
+    section[data-testid="stSidebar"] .stButton > button:hover {{
+        box-shadow: 0 12px 30px rgba(250, 191, 44, 0.4) !important; border-color: #fabf2c !important;
+    }}
+
+    /* BACK SYSTEM BUTTON - KEKAL */
+    .back-btn-container .stButton > button {{
+        width: auto !important; background: transparent !important; color: #4b2e83 !important;
+        border: 1px solid rgba(75, 46, 131, 0.3) !important; padding: 8px 20px !important; box-shadow: none !important;
+    }}
+    .back-btn-container .stButton > button:hover {{ background: rgba(75, 46, 131, 0.08) !important; }}
+
+    /* INPUT CONTROLS */
+    .stTextInput input, .stNumberInput input, textarea, .stSelectbox div[data-baseweb="select"] {{
+        border-radius: 8px !important; border: 1px solid #cbd5e1 !important;
+        background-color: #ffffff !important; color: #1e293b !important; padding: 10px 14px !important;
+    }}
+    .stTextInput input:focus, .stNumberInput input:focus {{
+        border-color: #4b2e83 !important; box-shadow: 0 0 0 2px rgba(75, 46, 131, 0.1) !important;
+    }}
+
+    /* ======================================================
+       BEAUTIFUL CUSTOM TABLE CSS
+       ====================================================== */
+    .table-container {{
+        width: 100%; overflow-x: auto; border-radius: 12px;
+        border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-top: 15px;
+    }}
+    .styled-table {{
+        width: 100%; border-collapse: collapse; margin: 0;
+        font-size: 14px; font-family: 'Inter', sans-serif; background-color: #ffffff;
+    }}
+    .styled-table thead tr {{
+        background-color: #f8fafc; color: #475569; text-align: left;
+    }}
+    .styled-table th {{
+        padding: 16px 20px; font-weight: 600; border-bottom: 2px solid #e2e8f0; white-space: nowrap;
+    }}
+    .styled-table td {{
+        padding: 16px 20px; border-bottom: 1px solid #f1f5f9; color: #334155;
+    }}
+    .styled-table tbody tr {{ transition: background-color 0.2s ease; }}
+    .styled-table tbody tr:hover {{ background-color: #f8fafc; }}
+    .styled-table tbody tr:last-of-type td {{ border-bottom: none; }}
 </style>
 """, unsafe_allow_html=True)
 
 # ======================================================
-# 3. AUTHENTICATION UI
+# SESSION STATE NAVIGATION CONTROLLER
 # ======================================================
-if 'logged_in' not in st.session_state:
+if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "Dashboard"
 
+def switch_page(page_name):
+    st.session_state.current_page = page_name
+    st.rerun()
+
+# ======================================================
+# GATEWAY LOGIN / REGISTER / RESET
+# ======================================================
 if not st.session_state.logged_in:
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png", width=120)
-        st.markdown("## Collaboration Record Management")
-        
-        tab1, tab2, tab3 = st.tabs(["🔐 Login", "📝 Register", "🔄 Reset"])
-        
-        with tab1:
-            user = st.text_input("Username", key="l_user")
-            pw = st.text_input("Password", type="password", key="l_pw")
-            if st.button("Access Dashboard", use_container_width=True):
-                cursor.execute("SELECT password FROM users WHERE username=?", (user,))
-                data = cursor.fetchone()
-                if data and check_hashes(pw, data[0]):
-                    st.session_state.logged_in = True
-                    st.session_state.user = user
-                    st.rerun()
-                else:
-                    st.error("Invalid credentials")
+    st.markdown(f"""
+    <div class="logo-container">
+        <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo">
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+<div style='text-align:center; width:100%'>
+    <h1 style='color:#1e293b !important; border:none; margin-bottom:0;'>
+        MoU/MoA Record Management
+    </h1>
+</div>
+""", unsafe_allow_html=True)
+    auth = st.sidebar.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
 
-        with tab2:
-            new_user = st.text_input("Choose Username")
-            new_email = st.text_input("Email Address")
-            new_pw = st.text_input("Choose Password", type="password")
-            if st.button("Create Account", use_container_width=True):
-                try:
-                    cursor.execute("INSERT INTO users VALUES (?,?,?)", (new_user, make_hashes(new_pw), new_email))
-                    conn.commit()
-                    st.success("Account Created! Please Login.")
-                except:
-                    st.error("Username already exists.")
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    if auth == "Login":
+        st.subheader("🔑 Corporate Sign In")
+        username = st.text_input("Corporate Username")
+        password = st.text_input("Account Password", type="password")
 
-        with tab3:
-            reset_user = st.text_input("Username", key="r_user")
-            reset_pw = st.text_input("New Password", type="password")
-            if st.button("Reset Password", use_container_width=True):
-                cursor.execute("UPDATE users SET password=? WHERE username=?", (make_hashes(reset_pw), reset_user))
-                conn.commit()
-                st.success("Password Updated!")
+        if st.button("Authenticate Session"):
+            cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
+            user = cursor.fetchone()
+            if user:
+                st.session_state.logged_in = True
+                st.session_state.username = username
+                st.success("Session secured.")
+                st.rerun()
+            else:
+                st.error("Invalid database authentication keys.")
 
-    st.stop()
+    elif auth == "Register":
+        st.subheader("📝 System Account Registration")
+        new_username = st.text_input("Desired Username")
+        new_email = st.text_input("Staff Email Address")
+        new_password = st.text_input("Secure Password", type="password")
+
+        if st.button("Deploy Account Meta"):
+            cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
+            conn.commit()
+            st.success("Account committed successfully to cluster database.")
+
+    elif auth == "Reset Password":
+        st.subheader("🔄 Credential Key Recovery")
+        email = st.text_input("Registered Email Profile")
+        new_password = st.text_input("Target New Password", type="password")
+
+        if st.button("Override Encryption Key"):
+            cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
+            conn.commit()
+            st.success("Password override processed successfully.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ======================================================
-# 4. MAIN SYSTEM UI (LOGGED IN)
+# ENTERPRISE CONSOLE APPLICATION WORKSPACE
 # ======================================================
-with st.sidebar:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/UiTM_Logo.png/640px-UiTM_Logo.png", width=100)
-    st.markdown("### MoU/MoA <br><span style='font-size:12px; color:gray;'>Record Management System</span>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
+else:
+    # Sidebar Logo dan Profil (Tema Gelap Asal Dikekalkan)
+    st.sidebar.markdown(f"""
+        <div class="logo-container">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:110px;" alt="UiTM Logo">
+        </div>
+        <div style="text-align:center; padding: 10px 0 25px 0;">
+            <div style="font-family:'Cinzel', serif; font-size:18px; font-weight:700; color:#fabf2c; letter-spacing:0.5px;">UiTM MoU/MoA Collaboration Record Management</div>
+            <div style="color:#94a3b8; font-size:10px; margin-top:4px; text-transform:uppercase; letter-spacing:1px;">KAMPUS PERMATANG PAUH</div>
+            <div style="margin-top:12px; background:rgba(254, 240, 138, 0.05); padding:6px 14px; border-radius:30px; display:inline-block; border: 1px solid rgba(250,191,44,0.15);">
+                <span style="color:#fabf2c; font-size:10px;">●</span> 
+                <span style="color:#e2e8f0; font-size:12px; font-weight:600;">{st.session_state.username}</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Sidebar Navigation System 
+    menu_options = ["Dashboard", "View Data", "Add Data", "Update Data", "Delete Data"]
     
-    # Navigation
-    menu = ["🏠 Dashboard", "📂 View All Records", "➕ Add New Record", "✏️ Update Record", "🗑️ Delete Record"]
-    choice = st.radio("MAIN MENU", menu, label_visibility="collapsed")
+    current_index = 0
+    if st.session_state.current_page in menu_options:
+        current_index = menu_options.index(st.session_state.current_page)
+            
+    selected_menu = st.sidebar.radio(
+        "SYSTEM MODULE",
+        menu_options,
+        index=current_index,
+        label_visibility="collapsed" # Sembunyikan label asal supaya lebih kemas
+    )
     
-    st.markdown("<br><hr>", unsafe_allow_html=True)
-    st.markdown(f"👤 **{st.session_state.user}**")
-    if st.button("Logout", use_container_width=True):
+    if selected_menu != st.session_state.current_page:
+        st.session_state.current_page = selected_menu
+        st.rerun()
+
+    st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
+    if st.sidebar.button("Terminated Access", key="logout_btn"):
         st.session_state.logged_in = False
         st.rerun()
 
-    # Sidebar Illustration
-    st.markdown("""
-    <div style="background: #F1F5F9; padding: 15px; border-radius: 12px; margin-top: 50px; text-align:center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3126/3126589.png" width="60">
-        <p style="font-weight:bold; font-size:13px; margin-top:10px;">Strategic Partnerships</p>
-        <p style="font-size:10px; color:gray;">Building global impact together.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    # Read Core Table Stream
+    cursor.execute("SELECT * FROM collaboration_data ORDER BY id ASC")
+    rows = cursor.fetchall()
+    df = pd.DataFrame(rows, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
 
-# Helper to load data
-def get_data():
-    return pd.read_sql("SELECT * FROM records", conn)
+    # ------------------------------------------------------
+    # MODULE: DASHBOARD
+    # ------------------------------------------------------
+    if st.session_state.current_page == "Dashboard":
+        st.title("📊 Record Analytics Dashboard")
 
-# ======================================================
-# 5. MODULES
-# ======================================================
+        total_records = len(df)
+        total_country = df["Country"].nunique() if total_records > 0 else 0
+        total_category = df["Category"].nunique() if total_records > 0 else 0
 
-# --- DASHBOARD ---
-if "Dashboard" in choice:
-    df = get_data()
-    
-    # Header
-    h1, h2 = st.columns([3, 1])
-    with h1:
-        st.markdown(f"## Good Afternoon, {st.session_state.user}! 👋")
-        st.markdown("<p style='color:gray;'>Welcome back to MoU/MoA Management Console</p>", unsafe_allow_html=True)
-    with h2:
-        st.markdown(f"<div style='text-align:right; padding:10px; background:white; border-radius:10px; border:1px solid #EEE;'><b>{datetime.now().strftime('%A')}</b><br><span style='color:gray;'>{datetime.now().strftime('%d %B %Y')}</span></div>", unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="metric-grid">
+            <div class="pro-metric metric-1">
+                <div class="metric-title">TOTAL ACTIVE AGREEMENTS</div>
+                <div class="metric-value">{total_records}</div>
+            </div>
+            <div class="pro-metric metric-2">
+                <div class="metric-title">PARTNER COUNTRIES</div>
+                <div class="metric-value">{total_country}</div>
+            </div>
+            <div class="pro-metric metric-3">
+                <div class="metric-title">UNIQUE CATEGORIES</div>
+                <div class="metric-value">{total_category}</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        st.subheader("🌐 Global Distribution Portfolio")
+        
+        if total_records > 0:
+            country_chart = df["Country"].value_counts().reset_index()
+            country_chart.columns = ["Country", "Total"]
+            bright_colors = ["#5a3982", "#1f6a8d", "#38a3a0", "#147f3b", "#70ad47", "#edb100", "#e84c22"]
 
-    # Metric Row
-    m1, m2, m3, m4 = st.columns(4)
-    with m1: st.markdown(f'<div class="metric-card"><p class="metric-label">Total Agreements</p><p class="metric-val">{len(df)}</p></div>', unsafe_allow_html=True)
-    with m2: st.markdown(f'<div class="metric-card"><p class="metric-label">Countries</p><p class="metric-val">{df["country"].nunique() if not df.empty else 0}</p></div>', unsafe_allow_html=True)
-    with m3: st.markdown(f'<div class="metric-card"><p class="metric-label">Categories</p><p class="metric-val">2</p></div>', unsafe_allow_html=True)
-    with m4: st.markdown(f'<div class="metric-card"><p class="metric-label">Active</p><p class="metric-val">{len(df[df["status"]=="Active"]) if not df.empty else 0}</p></div>', unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    # Chart Row
-    c1, c2 = st.columns([3, 2])
-    if not df.empty:
-        with c1:
-            st.markdown("#### Agreements by Country")
-            fig = px.bar(df['country'].value_counts().reset_index(), x='country', y='count', color='country', color_discrete_sequence=px.colors.qualitative.Vivid)
-            fig.update_layout(height=300, margin=dict(t=0,b=0,l=0,r=0), showlegend=False, plot_bgcolor='rgba(0,0,0,0)')
+            fig = px.bar(
+                country_chart,
+                x="Country",
+                y="Total",
+                color="Country",  
+                color_discrete_sequence=bright_colors, 
+                text_auto=True
+            )
+            fig.update_layout(
+                plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="rgba(0,0,0,0)",
+                font_color="#1e293b",
+                xaxis=dict(showgrid=False, title_font=dict(size=12, color="#64748b")),
+                yaxis=dict(showgrid=True, gridcolor="#f1f5f9", title_font=dict(size=12, color="#64748b")),
+                margin=dict(t=15, b=15, l=10, r=10),
+                showlegend=False
+            )
             st.plotly_chart(fig, use_container_width=True)
-        with c2:
-            st.markdown("#### Category Split")
-            fig2 = go.Figure(data=[go.Pie(labels=df['category'].unique(), values=df['category'].value_counts(), hole=.6, marker=dict(colors=['#8B5CF6', '#F59E0B']))])
-            fig2.update_layout(height=300, margin=dict(t=0,b=0,l=0,r=0))
-            st.plotly_chart(fig2, use_container_width=True)
-    
-    # Table
-    st.markdown("#### Recent Records")
-    if not df.empty:
-        # Converting to HTML for badges
-        html = "<table style='width:100%; border-collapse: collapse;'> <tr style='color:gray; border-bottom:1px solid #EEE;'><th>ID</th><th>Title</th><th>Partner</th><th>Category</th><th>Status</th></tr>"
-        for _, r in df.head(5).iterrows():
-            st_cls = "badge-active" if r['status'] == "Active" else "badge-expired"
-            ct_cls = "badge-mou" if r['category'] == "MoU" else "badge-moa"
-            html += f"<tr style='border-bottom:1px solid #F8FAFC;'><td>{r['id']}</td><td><b>{r['title']}</b></td><td>{r['partner']}</td><td><span class='badge {ct_cls}'>{r['category']}</span></td><td><span class='badge {st_cls}'>{r['status']}</span></td></tr>"
-        st.markdown(html + "</table>", unsafe_allow_html=True)
-    else:
-        st.info("No records found. Use the 'Add' menu to insert data.")
+        else:
+            st.info("No records available to generate charts. Insert records via 'Add Data' module panel.")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# --- VIEW RECORDS ---
-elif "View" in choice:
-    st.title("📂 Repository View")
-    df = get_data()
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    # ------------------------------------------------------
+    # MODULE: VIEW DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "View Data":
+        st.title("🗂️ Repository View")
 
-# --- ADD RECORD ---
-elif "Add" in choice:
-    st.title("➕ Add New Entry")
-    with st.form("add_form"):
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        search = st.text_input("🔍 Filter Stream Matrix (Enter Title, Partner or Country)")
+
+        if search:
+            sql = "SELECT * FROM collaboration_data WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?"
+            cursor.execute(sql, (f"%{search}%", f"%{search}%", f"%{search}%"))
+            data = cursor.fetchall()
+            df = pd.DataFrame(data, columns=["ID", "Agreement Title", "Duration", "Department", "Partner", "Country", "Category"])
+
+        # GENERATE BEAUTIFUL HTML TABLE (Dikekalkan)
+        if len(df) > 0:
+            html_table = df.to_html(index=False, classes="styled-table", escape=False)
+            st.markdown(f'<div class="table-container">{html_table}</div>', unsafe_allow_html=True)
+        else:
+            st.info("No data found in the repository.")
+        
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Back to Dashboard", key="back_view"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------------------------------------------------------
+    # MODULE: ADD DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Add Data":
+        st.title("➕ Deploy New Record Entry")
+
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            rid = st.number_input("Record ID", step=1)
-            rtitle = st.text_input("Agreement Title")
-            rpartner = st.text_input("Partner Institution")
+            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            title = st.text_input("Agreement Title")
+            duration = st.text_input("Duration (e.g. 3 Years)")
+            department = st.text_input("Executing Department / Faculty")
         with col2:
-            rcountry = st.text_input("Country")
-            rcat = st.selectbox("Category", ["MoU", "MoA"])
-            rdur = st.text_input("Duration (e.g. 2024-2027)")
-        rstatus = st.selectbox("Status", ["Active", "Expired"])
-        
-        if st.form_submit_button("Save Record"):
-            try:
-                cursor.execute("INSERT INTO records VALUES (?,?,?,?,?,?,?)", (rid, rtitle, rpartner, rcountry, rcat, rdur, rstatus))
-                conn.commit()
-                st.success("Record Saved!")
-            except:
-                st.error("ID already exists.")
+            partner = st.text_input("External Partner Institution")
+            country = st.text_input("Country")
+            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
-# --- UPDATE RECORD ---
-elif "Update" in choice:
-    st.title("✏️ Update Entry")
-    search_id = st.number_input("Enter Record ID to Modify", step=1)
-    cursor.execute("SELECT * FROM records WHERE id=?", (search_id,))
-    row = cursor.fetchone()
-    
-    if row:
-        with st.form("up_form"):
-            new_title = st.text_input("Title", value=row[1])
-            new_partner = st.text_input("Partner", value=row[2])
-            new_status = st.selectbox("Status", ["Active", "Expired"], index=0 if row[6]=="Active" else 1)
-            if st.form_submit_button("Commit Changes"):
-                cursor.execute("UPDATE records SET title=?, partner=?, status=? WHERE id=?", (new_title, new_partner, new_status, search_id))
-                conn.commit()
-                st.success("Updated!")
-    else:
-        st.warning("ID not found.")
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Commit Data Stream to Database"):
+            cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
+                           (int(id_in), title, duration, department, partner, country, category))
+            conn.commit()
+            st.success("New legal record successfully mapped into SQL table cluster.")
+            switch_page("View Data")
+            
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_add"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# --- DELETE RECORD ---
-elif "Delete" in choice:
-    st.title("🗑️ Delete Entry")
-    del_id = st.number_input("Enter Record ID to Delete", step=1)
-    if st.button("Delete Permanently", type="primary"):
-        cursor.execute("DELETE FROM records WHERE id=?", (del_id,))
-        conn.commit()
-        st.success("Record removed.")
+    # ------------------------------------------------------
+    # MODULE: UPDATE DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Update Data":
+        st.title("📝 Edit Existing Records Mapping")
+
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        uid = st.number_input("Target Record ID Vector Lookup", min_value=1, step=1, format="%d")
+        cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
+        result = cursor.fetchone()
+
+        if result:
+            st.markdown("<hr style='border: 1px dashed rgba(0,0,0,0.1); margin:20px 0;'>", unsafe_allow_html=True)
+            col1, col2 = st.columns(2)
+            with col1:
+                title = st.text_input("Agreement Title Statement", result[1])
+                duration = st.text_input("Active Lifespan Duration", result[2])
+                department = st.text_input("Executing Department", result[3])
+            with col2:
+                partner = st.text_input("External Partner Institution", result[4])
+                country = st.text_input("Country Location", result[5])
+                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Update Changes"):
+                cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
+                               (title, duration, department, partner, country, category, int(uid)))
+                conn.commit()
+                st.success("Mutation vector completely updated inside system core table.")
+                switch_page("View Data")
+        else:
+            st.warning("Target configuration ID vector does not exist in cluster indexing.")
+            
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_update"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ------------------------------------------------------
+    # MODULE: DELETE DATA
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Delete Data":
+        st.title("🗑️ Purge Legal Log Entry")
+
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        del_id = st.number_input("Target Discard Record ID", min_value=1, step=1, format="%d")
+        st.error("💣 Critical: Purging actions cannot be rolled back or undone from the database nodes.")
+
+        @st.dialog("⚠️ Confirm Permanent Deletion")
+        def confirm_delete_dialog(record_id):
+            st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
+            st.write("This action will immediately wipe the metadata cluster from the core database nodes.")
+            
+            col_yes, col_cancel = st.columns([1, 1])
+            with col_yes:
+                if st.button("Yes, Delete Record", use_container_width=True):
+                    cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
+                    if cursor.fetchone():
+                        cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
+                        conn.commit()
+                        st.success(f"Record ID {record_id} cleared safely.")
+                        switch_page("View Data")
+                    else:
+                        st.error("Deletion lifecycle terminated: Targeted ID index is unmapped.")
+            
+            with col_cancel:
+                if st.button("Cancel", use_container_width=True):
+                    st.rerun()
+
+        if st.button("Confirm Delete"):
+            confirm_delete_dialog(del_id)
+                
+        st.markdown("<br><hr style='border:0.5px solid rgba(0,0,0,0.1);'><br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_delete"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
