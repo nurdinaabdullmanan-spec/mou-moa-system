@@ -146,34 +146,26 @@ st.markdown(f"""
     }}
 
     /* ======================================================
-       BUTTON FIX (SELARI & RAPI)
+       BUTTON FIX (SELARI, RAPI & SEMUA PURPLE SOLID)
        ====================================================== */
-    .stButton > button {{
+    .stButton > button, 
+    button[kind="primary"], 
+    button[kind="secondary"] {{
         border-radius: 8px !important;
         font-weight: 600 !important;
         padding: 10px 24px !important;
         transition: all 0.3s ease;
-    }}
-
-    /* Butang Aksi (Save/Update/Delete) - Warna Purple */
-    button[kind="primary"] {{
-        background-color: #7c3aed !important;
-        color: #ffffff !important;
+        background-color: #7c3aed !important; /* Warna Purple */
+        color: #ffffff !important;           /* Teks Putih */
         border: none !important;
     }}
-    button[kind="primary"]:hover {{
-        background-color: #6d28d9 !important;
-    }}
 
-    /* Butang Batal (Cancel & Back) - Warna Putih/Garis Purple */
-    button[kind="secondary"] {{
-        background-color: transparent !important;
-        color: #7c3aed !important;
-        border: 1px solid #cbd5e1 !important;
-    }}
+    .stButton > button:hover, 
+    button[kind="primary"]:hover, 
     button[kind="secondary"]:hover {{
-        background-color: #f8fafc !important;
-        border-color: #7c3aed !important;
+        background-color: #6d28d9 !important; /* Purple gelap sikit bila hover */
+        border: none !important;
+        color: #ffffff !important;
     }}
 
     /* INPUT CONTROLS */
@@ -244,7 +236,7 @@ if not st.session_state.logged_in:
             password = st.text_input("Account Password", type="password")
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Authenticate Session", type="primary", use_container_width=True):
+            if st.button("Authenticate Session", use_container_width=True):
                 cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
                 user = cursor.fetchone()
                 if user:
@@ -262,7 +254,7 @@ if not st.session_state.logged_in:
             new_password = st.text_input("Secure Password", type="password")
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Deploy Account Meta", type="primary", use_container_width=True):
+            if st.button("Deploy Account Meta", use_container_width=True):
                 cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
                 conn.commit()
                 st.success("Account committed successfully to cluster database.")
@@ -273,7 +265,7 @@ if not st.session_state.logged_in:
             new_password = st.text_input("Target New Password", type="password")
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Override Encryption Key", type="primary", use_container_width=True):
+            if st.button("Override Encryption Key", use_container_width=True):
                 cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
                 conn.commit()
                 st.success("Password override processed successfully.")
@@ -328,7 +320,7 @@ else:
     st.sidebar.markdown("<p style='font-size:10px; color:#94a3b8; font-weight:600; text-transform:uppercase;'>USER MENU</p>", unsafe_allow_html=True)
     st.sidebar.markdown(f"<p style='color:#475569; font-size:14px;'>👤 <b>{st.session_state.username}</b></p>", unsafe_allow_html=True)
     
-    if st.sidebar.button("🚪 Logout", key="logout_btn", type="secondary", use_container_width=True):
+    if st.sidebar.button("🚪 Logout", key="logout_btn", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -467,13 +459,13 @@ else:
         # Susunan butang ke kanan
         col_spacer, col_btn_cancel = st.columns([8, 2])
         with col_btn_cancel:
-            if st.button("← Back to Dashboard", key="back_view", type="secondary", use_container_width=True):
+            if st.button("← Back to Dashboard", key="back_view", use_container_width=True):
                 switch_page("Dashboard")
             
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: ADD DATA (BUTTONS FIXED)
+    # MODULE: ADD DATA (BUTTONS FIXED - PURPLE)
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
         st.title("➕ Add New Record")
@@ -501,11 +493,11 @@ else:
 
         st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
 
-        # BUTTON LAYOUT BARU: Kiri & Kanan Berjauhan
+        # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
         col_btn_save, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
         
         with col_btn_save:
-            if st.button("Save Record", type="primary", use_container_width=True):
+            if st.button("Save Record", use_container_width=True):
                 cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
                                (int(id_in), title, duration, department, partner, country, category))
                 conn.commit()
@@ -513,13 +505,13 @@ else:
                 switch_page("View All Records")
                 
         with col_btn_cancel:
-            if st.button("Cancel & Back", key="back_add", type="secondary", use_container_width=True):
+            if st.button("Cancel & Back", key="back_add", use_container_width=True):
                 switch_page("Dashboard")
         
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: UPDATE DATA (BUTTONS FIXED)
+    # MODULE: UPDATE DATA (BUTTONS FIXED - PURPLE)
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Record":
         st.title("📝 Update Record")
@@ -543,11 +535,11 @@ else:
 
             st.markdown("<br>", unsafe_allow_html=True)
             
-            # BUTTON LAYOUT BARU: Kiri & Kanan Berjauhan
+            # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
             col_btn_update, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
             
             with col_btn_update:
-                if st.button("Update Changes", type="primary", use_container_width=True):
+                if st.button("Update Changes", use_container_width=True):
                     cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
                                    (title, duration, department, partner, country, category, int(uid)))
                     conn.commit()
@@ -555,7 +547,7 @@ else:
                     switch_page("View All Records")
                     
             with col_btn_cancel:
-                if st.button("Cancel & Back", key="back_update", type="secondary", use_container_width=True):
+                if st.button("Cancel & Back", key="back_update", use_container_width=True):
                     switch_page("Dashboard")
                 
         else:
@@ -563,13 +555,13 @@ else:
             st.markdown("<br>", unsafe_allow_html=True)
             col_spacer, col_btn_cancel = st.columns([8, 2])
             with col_btn_cancel:
-                if st.button("Cancel & Back", key="back_update_fail", type="secondary", use_container_width=True):
+                if st.button("Cancel & Back", key="back_update_fail", use_container_width=True):
                     switch_page("Dashboard")
             
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: DELETE DATA (BUTTONS FIXED)
+    # MODULE: DELETE DATA (BUTTONS FIXED - PURPLE)
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Record":
         st.title("🗑️ Delete Record")
@@ -587,7 +579,7 @@ else:
             col_yes, col_spacer_dialog, col_cancel = st.columns([3, 4, 3])
             
             with col_yes:
-                if st.button("Yes, Delete Record", type="primary", use_container_width=True):
+                if st.button("Yes, Delete Record", use_container_width=True):
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
@@ -598,20 +590,20 @@ else:
                         st.error("Deletion failed: Target ID is not found.")
             
             with col_cancel:
-                if st.button("Cancel", key="dialog_cancel", type="secondary", use_container_width=True):
+                if st.button("Cancel", key="dialog_cancel", use_container_width=True):
                     st.rerun()
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # BUTTON LAYOUT BARU: Kiri & Kanan Berjauhan
+        # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
         col_btn_del, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
         
         with col_btn_del:
-            if st.button("Confirm Delete", type="primary", use_container_width=True):
+            if st.button("Confirm Delete", use_container_width=True):
                 confirm_delete_dialog(del_id)
                 
         with col_btn_cancel:
-            if st.button("Cancel & Back", key="back_delete", type="secondary", use_container_width=True):
+            if st.button("Cancel & Back", key="back_delete", use_container_width=True):
                 switch_page("Dashboard")
             
         st.markdown('</div>', unsafe_allow_html=True)
