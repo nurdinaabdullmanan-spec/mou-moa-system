@@ -494,52 +494,70 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ------------------------------------------------------
+# ------------------------------------------------------
     # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
         st.title("➕ Add New Record")
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        
+        # Seksyen 1: Maklumat Dokumen
+        st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>📄 Document Details</p>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+        with col2:
             title = st.text_input("Agreement Title")
             duration = st.text_input("Duration (e.g. 3 Years)")
+
+        st.markdown("<hr style='border: 1px dashed #e2e8f0; margin:20px 0;'>", unsafe_allow_html=True)
+
+        # Seksyen 2: Maklumat Rakan Kolaborasi
+        st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>🤝 Partner Information</p>", unsafe_allow_html=True)
+        col3, col4 = st.columns(2)
+        with col3:
             department = st.text_input("Executing Department / Faculty")
-        with col2:
-            partner = st.text_input("External Partner Institution")
             country = st.text_input("Country")
-            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+        with col4:
+            partner = st.text_input("External Partner Institution")
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Save Record to Database"):
-            cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
-                           (int(id_in), title, duration, department, partner, country, category))
-            conn.commit()
-            st.success("New legal record successfully mapped into SQL table cluster.")
-            switch_page("View All Records")
-            
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Cancel & Back", key="back_add"):
-            switch_page("Dashboard")
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
+
+        # Form Actions (Susun butang ke kanan)
+        spacer, col_btn_cancel, col_btn_save = st.columns([5, 1.5, 2])
+        with col_btn_cancel:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("Cancel", key="back_add", use_container_width=True):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+        
+        with col_btn_save:
+            if st.button("Save Record", use_container_width=True):
+                cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
+                               (int(id_in), title, duration, department, partner, country, category))
+                conn.commit()
+                st.success("New legal record successfully mapped into SQL table cluster.")
+                switch_page("View All Records")
+        
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ------------------------------------------------------
+# ------------------------------------------------------
     # MODULE: UPDATE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Record":
         st.title("📝 Update Record")
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        uid = st.number_input("Target Record ID to Update", min_value=1, step=1, format="%d")
+        uid = st.number_input("🔍 Target Record ID to Update", min_value=1, step=1, format="%d")
         cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
         result = cursor.fetchone()
 
         if result:
             st.markdown("<hr style='border: 1px dashed #e2e8f0; margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>✏️ Edit Information</p>", unsafe_allow_html=True)
+            
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -548,23 +566,33 @@ else:
             with col2:
                 partner = st.text_input("External Partner Institution", result[4])
                 country = st.text_input("Country Location", result[5])
-                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"], index=0 if result[6] == "Memorandum of Understanding (MoU)" else 1)
 
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Update Changes"):
-                cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
-                               (title, duration, department, partner, country, category, int(uid)))
-                conn.commit()
-                st.success("Record has been successfully updated.")
-                switch_page("View All Records")
-        else:
-            st.warning("Target ID does not exist in the database.")
+            st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
             
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Cancel & Back", key="back_update"):
-            switch_page("Dashboard")
-        st.markdown('</div>', unsafe_allow_html=True)
+            # Form Actions (Susun butang ke kanan)
+            spacer, col_btn_cancel, col_btn_update = st.columns([5, 1.5, 2])
+            with col_btn_cancel:
+                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+                if st.button("Cancel", key="back_update", use_container_width=True):
+                    switch_page("Dashboard")
+                st.markdown('</div>', unsafe_allow_html=True)
+            
+            with col_btn_update:
+                if st.button("Update Changes", use_container_width=True):
+                    cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
+                                   (title, duration, department, partner, country, category, int(uid)))
+                    conn.commit()
+                    st.success("Record has been successfully updated.")
+                    switch_page("View All Records")
+        else:
+            st.warning("Target ID does not exist in the database. Please enter a valid ID.")
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("← Back to Dashboard", key="back_update_empty"):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+            
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
@@ -574,8 +602,16 @@ else:
         st.title("🗑️ Delete Record")
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        
+        # Danger Zone Alert Style
+        st.markdown("""
+        <div style="background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 15px 20px; border-radius: 8px; margin-bottom: 25px;">
+            <h4 style="color: #991b1b; margin-top: 0; margin-bottom: 5px; font-size: 16px;">⚠️ Danger Zone</h4>
+            <p style="color: #b91c1c; font-size: 14px; margin: 0;">Critical: Purging actions cannot be rolled back or undone. Ensure you have the correct Record ID before proceeding.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
         del_id = st.number_input("Target Record ID to Delete", min_value=1, step=1, format="%d")
-        st.error("💣 Critical: Purging actions cannot be rolled back or undone.")
 
         @st.dialog("⚠️ Confirm Permanent Deletion")
         def confirm_delete_dialog(record_id):
@@ -598,12 +634,20 @@ else:
                 if st.button("Cancel", use_container_width=True):
                     st.rerun()
 
-        if st.button("Confirm Delete"):
-            confirm_delete_dialog(del_id)
-                
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Cancel & Back", key="back_delete"):
-            switch_page("Dashboard")
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
+        
+        # Form Actions (Susun butang ke kanan)
+        spacer, col_btn_cancel, col_btn_delete = st.columns([5, 1.5, 2])
+        with col_btn_cancel:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("Cancel", key="back_delete", use_container_width=True):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+        
+        with col_btn_delete:
+            # Guna warna butang standard Streamlit, tapi disebabkan custom CSS awak, 
+            # ia akan tetap ikut tema purple melainkan di-override.
+            if st.button("Confirm Delete", use_container_width=True):
+                confirm_delete_dialog(del_id)
+
         st.markdown('</div>', unsafe_allow_html=True)
