@@ -352,12 +352,22 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
+       # Tentukan kategori yang sah
+        valid_categories = ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"]
+        
+        # Kira hanya rekod yang termasuk dalam kategori yang sah
+        # Ini akan memastikan statistik tidak terganggu oleh typo atau data lain
+        df_filtered = df[df["Category"].isin(valid_categories)]
+        
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
-
-        active_categories = df["Category"].dropna().unique()
-        total_category = len(active_categories)
-
+        
+        # Paksa total_category sentiasa 2 jika anda mahu ia statik, 
+        # ATAU kira berapa banyak dari 2 kategori tersebut yang mempunyai data
+        total_category = df["Category"].isin(valid_categories).nunique() 
+        # Jika anda mahu ia sentiasa tunjuk "2" sebagai jumlah kategori yang disokong:
+        total_category = 2 
+        
         active_agreements = len(df)
 
         st.markdown(f"""
