@@ -384,7 +384,7 @@ else:
     # SIDEBAR UTAMA - FROSTED GLASS & PURPLE ELEGANCE
     st.sidebar.markdown(f"""
     <div style="text-align:center; margin-bottom: 30px; padding-top: 15px;">
-        <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:145px; margin-bottom:15px;" alt="UiTM Logo">
+        <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:160px; margin-bottom:15px;" alt="UiTM Logo">
         <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; color:#1e1b4b; font-size:18px; font-weight:800; margin:0; letter-spacing:-0.5px;">
             UiTM Permatang Pauh
         </h3>
