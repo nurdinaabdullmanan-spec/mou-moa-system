@@ -184,8 +184,8 @@ st.markdown(f"""
 
     /* BACK SYSTEM BUTTON */
     .back-btn-container .stButton > button {{
-        width: auto !important; background: transparent !important; color: #7c3aed !important;
-        border: 1px solid #e2e8f0 !important; padding: 6px 16px !important; box-shadow: none !important;
+        width: 100% !important; background: transparent !important; color: #7c3aed !important;
+        border: 1px solid #e2e8f0 !important; padding: 10px !important; box-shadow: none !important;
     }}
     .back-btn-container .stButton > button:hover {{ background: #f8fafc !important; border-color: #cbd5e1 !important; }}
 
@@ -379,7 +379,7 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-# METRIC CARDS (Dengan warna berbeza & tulisan besar)
+        # METRIC CARDS (Dengan warna berbeza & tulisan besar)
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
@@ -451,7 +451,7 @@ else:
                 st.info("No data available.")
             st.markdown('</div>', unsafe_allow_html=True)
 
-    # RECENT RECORDS PREVIEW
+        # RECENT RECORDS PREVIEW
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Recent Records</p>", unsafe_allow_html=True)
         
@@ -488,13 +488,17 @@ else:
             st.info("No data found in the repository.")
         
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Back to Dashboard", key="back_view"):
-            switch_page("Dashboard")
-        st.markdown('</div>', unsafe_allow_html=True)
+        
+        spacer, col_btn_cancel = st.columns([8, 2])
+        with col_btn_cancel:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("← Back to Dashboard", key="back_view", use_container_width=True):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+            
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ------------------------------------------------------
+    # ------------------------------------------------------
     # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
@@ -525,13 +529,8 @@ else:
 
         st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
 
-        # Form Actions (Susun butang ke kanan)
-        spacer, col_btn_cancel, col_btn_save = st.columns([5, 1.5, 2])
-        with col_btn_cancel:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("Cancel", key="back_add", use_container_width=True):
-                switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
+        # Form Actions (Save kat Kiri, Cancel kat Kanan sebaris hujung)
+        spacer, col_btn_save, col_btn_cancel = st.columns([6, 2, 2])
         
         with col_btn_save:
             if st.button("Save Record", use_container_width=True):
@@ -540,6 +539,12 @@ else:
                 conn.commit()
                 st.success("New legal record successfully mapped into SQL table cluster.")
                 switch_page("View All Records")
+                
+        with col_btn_cancel:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("Cancel & Back", key="back_add", use_container_width=True):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -567,20 +572,34 @@ else:
                 category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Update Changes"):
-                cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
-                               (title, duration, department, partner, country, category, int(uid)))
-                conn.commit()
-                st.success("Record has been successfully updated.")
-                switch_page("View All Records")
+            
+            # Form Actions (Update kat Kiri, Cancel kat Kanan sebaris hujung)
+            spacer, col_btn_update, col_btn_cancel = st.columns([6, 2, 2])
+            
+            with col_btn_update:
+                if st.button("Update Changes", use_container_width=True):
+                    cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
+                                   (title, duration, department, partner, country, category, int(uid)))
+                    conn.commit()
+                    st.success("Record has been successfully updated.")
+                    switch_page("View All Records")
+                    
+            with col_btn_cancel:
+                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+                if st.button("Cancel & Back", key="back_update", use_container_width=True):
+                    switch_page("Dashboard")
+                st.markdown('</div>', unsafe_allow_html=True)
+                
         else:
             st.warning("Target ID does not exist in the database.")
+            st.markdown("<br>", unsafe_allow_html=True)
+            spacer, col_btn_cancel = st.columns([8, 2])
+            with col_btn_cancel:
+                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+                if st.button("Cancel & Back", key="back_update_fail", use_container_width=True):
+                    switch_page("Dashboard")
+                st.markdown('</div>', unsafe_allow_html=True)
             
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Cancel & Back", key="back_update"):
-            switch_page("Dashboard")
-        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
@@ -611,15 +630,24 @@ else:
                         st.error("Deletion failed: Target ID is not found.")
             
             with col_cancel:
-                if st.button("Cancel", use_container_width=True):
+                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+                if st.button("Cancel", key="dialog_cancel", use_container_width=True):
                     st.rerun()
+                st.markdown('</div>', unsafe_allow_html=True)
 
-        if st.button("Confirm Delete"):
-            confirm_delete_dialog(del_id)
-                
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-        if st.button("← Cancel & Back", key="back_delete"):
-            switch_page("Dashboard")
-        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Form Actions (Delete kat Kiri, Cancel kat Kanan sebaris hujung)
+        spacer, col_btn_del, col_btn_cancel = st.columns([6, 2, 2])
+        
+        with col_btn_del:
+            if st.button("Confirm Delete", use_container_width=True):
+                confirm_delete_dialog(del_id)
+                
+        with col_btn_cancel:
+            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+            if st.button("Cancel & Back", key="back_delete", use_container_width=True):
+                switch_page("Dashboard")
+            st.markdown('</div>', unsafe_allow_html=True)
+            
         st.markdown('</div>', unsafe_allow_html=True)
