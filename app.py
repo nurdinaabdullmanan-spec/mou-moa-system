@@ -218,7 +218,7 @@ if not st.session_state.logged_in:
         # Logo
         st.markdown(f"""
         <div style="text-align: center; padding: 15px 0;">
-            <img src="{UITM_LOGO_SRC}" alt="UiTM Logo" style="width: 200px;">
+            <img src="{UITM_LOGO_SRC}" alt="UiTM Logo" style="width: 300px;">
         </div>
         """, unsafe_allow_html=True)
         
