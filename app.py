@@ -219,7 +219,10 @@ if not st.session_state.logged_in:
         
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 25px;'>
-            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 600; font-size: 22px !important;'>
+            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; f font-weight: 700;
+    font-size: 28px !important;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    letter-spacing: 0.5px;'>
                 Record Management System
             </h2>
             <p style='color: #64748b; font-size: 13px; margin-top: 0; font-weight: 500;'>UiTM Kampus Permatang Pauh</p>
