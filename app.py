@@ -357,7 +357,7 @@ else:
     # PAPARAN MENU SISI (SIDEBAR UI)
     st.sidebar.markdown(f"""
         <div style="text-align:center; margin-bottom: 30px; padding-top: 10px;">
-            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:140px; margin-bottom:15px;" alt="UiTM Logo">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:150px; margin-bottom:15px;" alt="UiTM Logo">
             <h3 style="color:#0f172a; font-size:18px; font-weight:800; margin:0;">UiTM Permatang Pauh</h3>
             <p style="color:#64748b; font-size:12px; margin-top:4px; font-weight:700; line-height:1.4;">Sistem Pengurusan Rekod<br>Kolaborasi MoU/MoA</p>
         </div>
@@ -595,7 +595,7 @@ else:
                 switch_page("Lihat Semua Rekod")
                 
         with col_btn_cancel:
-            if st.button("❌ Batal & Kembali", key="back_add", use_container_width=True):
+            if st.button("Batal & Kembali", key="back_add", use_container_width=True):
                 switch_page("Papan Pemuka")
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -637,7 +637,7 @@ else:
                     switch_page("Lihat Semua Rekod")
                     
             with col_btn_cancel:
-                if st.button("❌ Batal & Kembali", key="back_update", use_container_width=True):
+                if st.button("Batal & Kembali", key="back_update", use_container_width=True):
                     switch_page("Papan Pemuka")
                 
         else:
@@ -697,7 +697,7 @@ else:
                 confirm_delete_dialog(del_id)
                 
         with col_btn_cancel:
-            if st.button("❌ Batal & Kembali", key="back_delete", use_container_width=True):
+            if st.button("Batal & Kembali", key="back_delete", use_container_width=True):
                 switch_page("Papan Pemuka")
             
         st.markdown('</div>', unsafe_allow_html=True)
