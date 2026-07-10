@@ -346,8 +346,8 @@ if not st.session_state.logged_in:
         # Tajuk Utama & Subtajuk
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 25px;'>
-            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 700; font-family: "Inter", sans-serif !important; font-size: 22px !important;'>
-                Record Management System
+            <h2 style='color:#131312 !important; border:none; margin-bottom: 5px; font-weight: 700; font-family: "Inter", sans-serif !important; font-size: 22px !important;'>
+                Collaboration Record Management System
             </h2>
             <p style='color: #64748b; font-size: 13px; margin-top: 0; font-weight: 500;'>UiTM Kampus Permatang Pauh</p>
         </div>
