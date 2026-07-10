@@ -309,7 +309,7 @@ if not st.session_state.logged_in:
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 35px;'>
             <h1 class='corp-text' style='margin-bottom: 5px; font-size: 32px !important;'>
-                SISTEM PENGURUSAN REKOD
+                SISTEM PENGURUSAN REKOD KOLABORASI 
             </h1>
             <p style='color:#6b7280; font-size: 15px; margin-top: 0; font-weight: 700; letter-spacing: 1.5px;'>UiTM KAMPUS PERMATANG PAUH</p>
         </div>
@@ -383,12 +383,16 @@ else:
 
     # SIDEBAR UTAMA - FROSTED GLASS & PURPLE ELEGANCE
     st.sidebar.markdown(f"""
-        <div style="text-align:center; margin-bottom: 30px; padding-top: 15px;">
-            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:145px; margin-bottom:15px;" alt="UiTM Logo">
-            <h3 style="color:#1e1b4b; font-size:16px; font-weight:800; margin:0; letter-spacing:-0.5px;">UiTM Permatang Pauh</h3>
-            <p style="color:#6b7280; font-size:11px; margin-top:5px; line-height:1.4; font-weight:700; text-transform: uppercase; letter-spacing: 0.5px;">Sistem Pengurusan Rekod<br>Kolaborasi MoU/MoA</p>
-        </div>
-        """, unsafe_allow_html=True)
+    <div style="text-align:center; margin-bottom: 30px; padding-top: 15px;">
+        <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:145px; margin-bottom:15px;" alt="UiTM Logo">
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; color:#1e1b4b; font-size:18px; font-weight:800; margin:0; letter-spacing:-0.5px;">
+            UiTM Permatang Pauh
+        </h3>
+        <p style="font-family: 'Inter', sans-serif; color:#52525b; font-size:11px; margin-top:7px; line-height:1.5; font-weight:700; text-transform: uppercase; letter-spacing: 1.2px;">
+            Sistem Pengurusan Rekod<br>Kolaborasi MoU/MoA
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     menu_options = [
         "🏠 Papan Pemuka", 
@@ -427,7 +431,7 @@ else:
     </div>
     """, unsafe_allow_html=True)
     
-    if st.sidebar.button("🚪 Tamatkan Sesi Selamat", key="logout_btn", use_container_width=True):
+    if st.sidebar.button("🚪 Log Keluar", key="logout_btn", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -636,7 +640,7 @@ else:
                     st.error("Ralat: ID Rekod Unik tersebut sudah wujud. Sila pilih ID lain.")
                 
         with col_btn_cancel:
-            if st.button("❌ Batal Operasi", key="back_add", use_container_width=True):
+            if st.button("Batal Operasi", key="back_add", use_container_width=True):
                 switch_page("Papan Pemuka")
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -678,7 +682,7 @@ else:
                     switch_page("Paparan Rekod Global")
                     
             with col_btn_cancel:
-                if st.button("❌ Batal & Kembali", key="back_update", use_container_width=True):
+                if st.button("Batal & Kembali", key="back_update", use_container_width=True):
                     switch_page("Papan Pemuka")
                 
         else:
@@ -738,7 +742,7 @@ else:
                 confirm_delete_dialog(del_id)
                 
         with col_btn_cancel:
-            if st.button("❌ Batal & Kembali", key="back_delete", use_container_width=True):
+            if st.button("Batal & Kembali", key="back_delete", use_container_width=True):
                 switch_page("Papan Pemuka")
             
         st.markdown('</div>', unsafe_allow_html=True)
