@@ -362,7 +362,7 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # METRIC CARDS
+# METRIC CARDS (Dengan warna berbeza & tulisan besar)
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
@@ -370,48 +370,50 @@ else:
 
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="metric-card">
-                <div class="metric-icon-box icon-purple">📄</div>
+            <div class="metric-card" style="border-left: 5px solid #8b5cf6;">
+                <div class="metric-icon-box" style="background:#ede9fe; color:#8b5cf6;">📄</div>
                 <div class="metric-info">
-                    <h3>{total_records}</h3>
-                    <p>Total Agreements</p>
+                    <h3 style="font-size: 28px;">{total_records}</h3>
+                    <p style="font-size: 14px; font-weight: 600; color: #6d28d9;">Total Agreements</p>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-icon-box icon-green">🌐</div>
+            <div class="metric-card" style="border-left: 5px solid #10b981;">
+                <div class="metric-icon-box" style="background:#d1fae5; color:#10b981;">🌐</div>
                 <div class="metric-info">
-                    <h3>{total_country}</h3>
-                    <p>Countries</p>
+                    <h3 style="font-size: 28px;">{total_country}</h3>
+                    <p style="font-size: 14px; font-weight: 600; color: #065f46;">Countries</p>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-icon-box icon-orange">🤝</div>
+            <div class="metric-card" style="border-left: 5px solid #f59e0b;">
+                <div class="metric-icon-box" style="background:#fef3c7; color:#f59e0b;">🤝</div>
                 <div class="metric-info">
-                    <h3>{total_category}</h3>
-                    <p>Categories</p>
+                    <h3 style="font-size: 28px;">{total_category}</h3>
+                    <p style="font-size: 14px; font-weight: 600; color: #92400e;">Categories</p>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-icon-box icon-blue">📂</div>
+            <div class="metric-card" style="border-left: 5px solid #ef4444;">
+                <div class="metric-icon-box" style="background:#fee2e2; color:#ef4444;">📂</div>
                 <div class="metric-info">
-                    <h3>{active_agreements}</h3>
-                    <p>Active Agreements</p>
+                    <h3 style="font-size: 28px;">{active_agreements}</h3>
+                    <p style="font-size: 14px; font-weight: 600; color: #991b1b;">Active Records</p>
                 </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        # CHARTS SECTION
+        # CHARTS SECTION (Warna-warni & Tulisan Jelas)
         col_chart1, col_chart2 = st.columns(2)
         
         with col_chart1:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<p style='font-weight:600; color:#1e293b; margin-bottom: 15px;'>Agreements by Country</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Agreements by Country</p>", unsafe_allow_html=True)
             if total_records > 0:
                 country_chart = df["Country"].value_counts().reset_index()
                 country_chart.columns = ["Country", "Total"]
-                fig1 = px.bar(country_chart, x="Country", y="Total", text_auto=True, color="Country")
-                fig1.update_layout(showlegend=False, margin=dict(t=10, b=10, l=0, r=0), height=300, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+                # Guna color_discrete_sequence untuk bagi warna pelbagai
+                fig1 = px.bar(country_chart, x="Country", y="Total", text_auto=True, 
+                              color="Country", color_discrete_sequence=px.colors.qualitative.Pastel)
+                fig1.update_layout(showlegend=False, margin=dict(t=10, b=10, l=0, r=0), height=350, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
                 st.plotly_chart(fig1, use_container_width=True)
             else:
                 st.info("No data available.")
@@ -419,25 +421,18 @@ else:
 
         with col_chart2:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<p style='font-weight:600; color:#1e293b; margin-bottom: 15px;'>Agreements by Category</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Agreements by Category</p>", unsafe_allow_html=True)
             if total_records > 0:
                 cat_chart = df["Category"].value_counts().reset_index()
                 cat_chart.columns = ["Category", "Total"]
-                fig2 = px.pie(cat_chart, values="Total", names="Category", hole=0.5)
-                fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=300)
+                # Guna color_discrete_sequence yang terang
+                fig2 = px.pie(cat_chart, values="Total", names="Category", hole=0.5, 
+                              color_discrete_sequence=px.colors.qualitative.Set2)
+                fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=350)
                 st.plotly_chart(fig2, use_container_width=True)
             else:
                 st.info("No data available.")
             st.markdown('</div>', unsafe_allow_html=True)
-
-        # RECENT RECORDS PREVIEW
-        st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        st.markdown("<p style='font-weight:600; color:#1e293b;'>Recent Records</p>", unsafe_allow_html=True)
-        if len(df) > 0:
-            st.dataframe(df.tail(5), use_container_width=True, hide_index=True)
-        else:
-            st.info("No records to display.")
-        st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: VIEW DATA
