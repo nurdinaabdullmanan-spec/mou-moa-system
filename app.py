@@ -127,6 +127,16 @@ st.markdown(f"""
         color: #ffffff !important; 
         font-weight: 600 !important;
     }}
+            
+    div[role="radiogroup"] [data-testid="stWidgetToggleElement"],
+div[role="radiogroup"] label > div:not(:last-child),
+div[role="radiogroup"] input[type="radio"] {{
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}}
 
     /* KAD METRIK & DASHBOARD */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
