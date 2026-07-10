@@ -332,59 +332,74 @@ def switch_page(page_name):
 # GATEWAY LOGIN / REGISTER / RESET
 # ======================================================
 if not st.session_state.logged_in:
-    st.markdown(f"""
-    <div class="logo-container">
-        <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo">
-    </div>
-    """, unsafe_allow_html=True)
+    # Gunakan kolum untuk memusatkan paparan borang (seperti dalam gambar)
+    spacer_left, center_col, spacer_right = st.columns([1, 1.5, 1])
     
-    st.markdown("""
-<div style='text-align:center; width:100%'>
-    <h1 style='color:#1e293b !important; border:none; margin-bottom:0;'>
-        MoU/MoA Record Management
-    </h1>
-</div>
-""", unsafe_allow_html=True)
-    auth = st.sidebar.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
+    with center_col:
+        # Logo
+        st.markdown(f"""
+        <div class="logo-container">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo" style="width: 120px;">
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Tajuk Utama & Subtajuk
+        st.markdown("""
+        <div style='text-align:center; width:100%; margin-bottom: 25px;'>
+            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 700; font-family: "Inter", sans-serif !important; font-size: 22px !important;'>
+                Record Management System
+            </h2>
+            <p style='color: #64748b; font-size: 13px; margin-top: 0; font-weight: 500;'>UiTM Kampus Permatang Pauh</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Dropdown dipindahkan ke paparan tengah
+        auth = st.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
 
-    st.markdown('<div class="content-card">', unsafe_allow_html=True)
-    if auth == "Login":
-        st.subheader("🔑 Corporate Sign In")
-        username = st.text_input("Corporate Username")
-        password = st.text_input("Account Password", type="password")
+        # Bekas kad (Card Container)
+        st.markdown('<div class="content-card" style="padding: 25px 30px; margin-top: 15px; border: none; box-shadow: none;">', unsafe_allow_html=True)
+        
+        if auth == "Login":
+            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #1e293b !important;'>🔑 Sign In</h3>", unsafe_allow_html=True)
+            username = st.text_input("Corporate Username")
+            password = st.text_input("Account Password", type="password")
 
-        if st.button("Authenticate Session"):
-            cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
-            user = cursor.fetchone()
-            if user:
-                st.session_state.logged_in = True
-                st.session_state.username = username
-                st.success("Session secured.")
-                st.rerun()
-            else:
-                st.error("Invalid database authentication keys.")
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Authenticate Session"):
+                cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
+                user = cursor.fetchone()
+                if user:
+                    st.session_state.logged_in = True
+                    st.session_state.username = username
+                    st.success("Session secured.")
+                    st.rerun()
+                else:
+                    st.error("Invalid database authentication keys.")
 
-    elif auth == "Register":
-        st.subheader("📝 System Account Registration")
-        new_username = st.text_input("Desired Username")
-        new_email = st.text_input("Staff Email Address")
-        new_password = st.text_input("Secure Password", type="password")
+        elif auth == "Register":
+            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #1e293b !important;'>📝 Register Account</h3>", unsafe_allow_html=True)
+            new_username = st.text_input("Desired Username")
+            new_email = st.text_input("Staff Email Address")
+            new_password = st.text_input("Secure Password", type="password")
 
-        if st.button("Deploy Account Meta"):
-            cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
-            conn.commit()
-            st.success("Account committed successfully to cluster database.")
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Deploy Account Meta"):
+                cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
+                conn.commit()
+                st.success("Account committed successfully to cluster database.")
 
-    elif auth == "Reset Password":
-        st.subheader("🔄 Credential Key Recovery")
-        email = st.text_input("Registered Email Profile")
-        new_password = st.text_input("Target New Password", type="password")
+        elif auth == "Reset Password":
+            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #1e293b !important;'>🔄 Reset Credentials</h3>", unsafe_allow_html=True)
+            email = st.text_input("Registered Email Profile")
+            new_password = st.text_input("Target New Password", type="password")
 
-        if st.button("Override Encryption Key"):
-            cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
-            conn.commit()
-            st.success("Password override processed successfully.")
-    st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Override Encryption Key"):
+                cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
+                conn.commit()
+                st.success("Password override processed successfully.")
+                
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ======================================================
 # ENTERPRISE CONSOLE APPLICATION WORKSPACE
