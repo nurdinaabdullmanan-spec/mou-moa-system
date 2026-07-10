@@ -498,30 +498,34 @@ else:
     # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
-        st.markdown("<h2 style='color:#1e293b;'>➕ Add New Record</h2>", unsafe_allow_html=True)
+        st.title("➕ Add New Record")
 
-        with st.container():
-            st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            col1, col2 = st.columns(2)
-            with col1:
-                id_in = st.number_input("Record ID", min_value=1, step=1)
-                title = st.text_input("Agreement Title")
-                duration = st.text_input("Duration")
-                department = st.text_input("Department")
-            with col2:
-                partner = st.text_input("Partner Institution")
-                country = st.text_input("Country")
-                category = st.selectbox("Category", ["MoU", "MoA"])
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
+            title = st.text_input("Agreement Title")
+            duration = st.text_input("Duration (e.g. 3 Years)")
+            department = st.text_input("Executing Department / Faculty")
+        with col2:
+            partner = st.text_input("External Partner Institution")
+            country = st.text_input("Country")
+            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
 
-            # Bahagian Butang ke Kanan
-            st.markdown('<div class="form-actions">', unsafe_allow_html=True)
-            if st.button("← Cancel", key="cancel_add"):
-                switch_page("Dashboard")
-            if st.button("Save Record", key="save_add"):
-                # Logic simpan...
-                switch_page("View All Records")
-            st.markdown('</div>', unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Save Record to Database"):
+            cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
+                           (int(id_in), title, duration, department, partner, country, category))
+            conn.commit()
+            st.success("New legal record successfully mapped into SQL table cluster.")
+            switch_page("View All Records")
+            
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
+        if st.button("← Cancel & Back", key="back_add"):
+            switch_page("Dashboard")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: UPDATE DATA
@@ -567,47 +571,39 @@ else:
     # MODULE: DELETE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Record":
-        st.markdown("<h2 style='color:#1e293b;'>🗑️ Delete Record</h2>", unsafe_allow_html=True)
+        st.title("🗑️ Delete Record")
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         del_id = st.number_input("Target Record ID to Delete", min_value=1, step=1, format="%d")
-        
-        # Kotak amaran yang lebih "pro" & clear
-        st.markdown("""
-        <div style="background:#fef2f2; border-left: 5px solid #ef4444; padding: 15px; margin: 20px 0; border-radius: 8px;">
-            <p style="color:#991b1b; margin:0; font-weight:600; font-size:15px;">⚠️ Critical Warning</p>
-            <p style="color:#b91c1c; margin:0; font-size:14px;">Purging actions cannot be rolled back. Ensure the ID is correct before proceeding.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.error("💣 Critical: Purging actions cannot be rolled back or undone.")
 
-        # @st.dialog untuk pengesahan
         @st.dialog("⚠️ Confirm Permanent Deletion")
         def confirm_delete_dialog(record_id):
-            st.write(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
+            st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the data from the database.")
             
-            # Menggunakan form-actions untuk susunan butang dialog
-            st.markdown('<div class="form-actions">', unsafe_allow_html=True)
-            if st.button("Cancel", key="diag_cancel"):
-                st.rerun()
-            if st.button("Yes, Delete Record", key="diag_confirm"):
-                cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
-                if cursor.fetchone():
-                    cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
-                    conn.commit()
-                    st.success(f"Record ID {record_id} cleared safely.")
-                    st.rerun() # Refresh untuk tutup dialog
-                    switch_page("View All Records")
-                else:
-                    st.error("Deletion failed: Target ID is not found.")
-            st.markdown('</div>', unsafe_allow_html=True)
+            col_yes, col_cancel = st.columns([1, 1])
+            with col_yes:
+                if st.button("Yes, Delete Record", use_container_width=True):
+                    cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
+                    if cursor.fetchone():
+                        cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
+                        conn.commit()
+                        st.success(f"Record ID {record_id} cleared safely.")
+                        switch_page("View All Records")
+                    else:
+                        st.error("Deletion failed: Target ID is not found.")
+            
+            with col_cancel:
+                if st.button("Cancel", use_container_width=True):
+                    st.rerun()
 
-        # Butang utama untuk trigger dialog & cancel back ke kanan
-        st.markdown('<div class="form-actions">', unsafe_allow_html=True)
+        if st.button("Confirm Delete"):
+            confirm_delete_dialog(del_id)
+                
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
         if st.button("← Cancel & Back", key="back_delete"):
             switch_page("Dashboard")
-        if st.button("Delete Record", key="del_trigger"):
-            confirm_delete_dialog(del_id)
         st.markdown('</div>', unsafe_allow_html=True)
-        
         st.markdown('</div>', unsafe_allow_html=True)
