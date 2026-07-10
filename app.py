@@ -434,6 +434,21 @@ else:
                 st.info("No data available.")
             st.markdown('</div>', unsafe_allow_html=True)
 
+    # RECENT RECORDS PREVIEW
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Recent Records</p>", unsafe_allow_html=True)
+        
+        if len(df) > 0:
+            # Kita guna CSS 'styled-table' yang kita set awal tadi supaya nampak cantik & clean
+            st.markdown(f"""
+            <div class="table-container">
+                {df.tail(5).to_html(index=False, classes="styled-table", escape=False)}
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.info("No records to display.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
     # ------------------------------------------------------
     # MODULE: VIEW DATA
     # ------------------------------------------------------
