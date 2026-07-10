@@ -81,21 +81,17 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* ======================================================
-       SIDEBAR MENU TERANG (WHITE)
-       ====================================================== */
+    /* SIDEBAR MENU */
     section[data-testid="stSidebar"] {{
         background-color: #ffffff !important; 
         border-right: 1px solid #e2e8f0 !important;
     }}
     
-    /* SEMBUNYIKAN BULATAN RADIO BUTTON */
     div[role="radiogroup"] label input[type="radio"],
     div[role="radiogroup"] label > div:first-child {{
         display: none !important;
     }}
 
-    /* GAYA MENU ITEM (INACTIVE) */
     div[role="radiogroup"] label {{
         display: flex !important;
         align-items: center !important;
@@ -119,7 +115,6 @@ st.markdown(f"""
         background: #f1f5f9 !important;
     }}
 
-    /* GAYA MENU ITEM (ACTIVE - WARNA PURPLE) */
     div[role="radiogroup"] label[data-selected="true"] {{
         background: #7c3aed !important; 
         box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2) !important;
@@ -130,26 +125,7 @@ st.markdown(f"""
         font-weight: 600 !important;
     }}
 
-    /* FORM ACTIONS CONTAINER - Untuk susun butang ke kanan */
-    .form-actions {{
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid #e2e8f0;
-    }}
-    
-    /* Perbetulkan saiz butang supaya nampak pro */
-    .stButton > button {{
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        padding: 10px 24px !important;
-    }}
-
-    /* ======================================================
-       KAD METRIK & DASHBOARD
-       ====================================================== */
+    /* KAD METRIK & DASHBOARD */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
     .metric-card {{
         background: #ffffff; padding: 20px; border-radius: 12px;
@@ -159,10 +135,6 @@ st.markdown(f"""
         width: 50px; height: 50px; border-radius: 10px;
         display: flex; justify-content: center; align-items: center; font-size: 24px;
     }}
-    .icon-purple {{ background: #f3e8ff; color: #9333ea; }}
-    .icon-green {{ background: #dcfce7; color: #16a34a; }}
-    .icon-orange {{ background: #ffedd5; color: #ea580c; }}
-    .icon-blue {{ background: #e0f2fe; color: #0284c7; }}
     
     .metric-info h3 {{ margin: 0; font-size: 24px; color: #1e293b; font-weight: 700; }}
     .metric-info p {{ margin: 0; font-size: 12px; color: #64748b; }}
@@ -173,21 +145,36 @@ st.markdown(f"""
         margin-bottom: 20px;
     }}
 
-    /* BUTTONS UMUM (PURPLE) */
+    /* ======================================================
+       BUTTON FIX (SELARI & RAPI)
+       ====================================================== */
     .stButton > button {{
-        width: 100%; border-radius: 8px; border: none;
-        padding: 10px; font-weight: 600; font-size: 14px;
-        color: #ffffff !important; background: #7c3aed !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        padding: 10px 24px !important;
         transition: all 0.3s ease;
     }}
-    .stButton > button:hover {{ background: #6d28d9 !important; }}
 
-    /* BACK SYSTEM BUTTON */
-    .back-btn-container .stButton > button {{
-        width: 100% !important; background: transparent !important; color: #7c3aed !important;
-        border: 1px solid #e2e8f0 !important; padding: 10px !important; box-shadow: none !important;
+    /* Butang Aksi (Save/Update/Delete) - Warna Purple */
+    button[kind="primary"] {{
+        background-color: #7c3aed !important;
+        color: #ffffff !important;
+        border: none !important;
     }}
-    .back-btn-container .stButton > button:hover {{ background: #f8fafc !important; border-color: #cbd5e1 !important; }}
+    button[kind="primary"]:hover {{
+        background-color: #6d28d9 !important;
+    }}
+
+    /* Butang Batal (Cancel & Back) - Warna Putih/Garis Purple */
+    button[kind="secondary"] {{
+        background-color: transparent !important;
+        color: #7c3aed !important;
+        border: 1px solid #cbd5e1 !important;
+    }}
+    button[kind="secondary"]:hover {{
+        background-color: #f8fafc !important;
+        border-color: #7c3aed !important;
+    }}
 
     /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
@@ -232,14 +219,12 @@ if not st.session_state.logged_in:
     spacer_left, center_col, spacer_right = st.columns([1, 1.5, 1])
     
     with center_col:
-        # Logo
         st.markdown(f"""
         <div style="text-align: center; padding: 16px 0;">
             <img src="{UITM_LOGO_SRC}" alt="UiTM Logo" style="width: 300px;">
         </div>
         """, unsafe_allow_html=True)
         
-        # Tajuk Utama & Subtajuk
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 25px;'>
             <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 600; font-size: 22px !important;'>
@@ -259,7 +244,7 @@ if not st.session_state.logged_in:
             password = st.text_input("Account Password", type="password")
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Authenticate Session"):
+            if st.button("Authenticate Session", type="primary", use_container_width=True):
                 cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
                 user = cursor.fetchone()
                 if user:
@@ -277,7 +262,7 @@ if not st.session_state.logged_in:
             new_password = st.text_input("Secure Password", type="password")
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Deploy Account Meta"):
+            if st.button("Deploy Account Meta", type="primary", use_container_width=True):
                 cursor.execute("INSERT INTO users (username, email, password) VALUES (?,?,?)", (new_username, new_email, new_password))
                 conn.commit()
                 st.success("Account committed successfully to cluster database.")
@@ -288,7 +273,7 @@ if not st.session_state.logged_in:
             new_password = st.text_input("Target New Password", type="password")
 
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Override Encryption Key"):
+            if st.button("Override Encryption Key", type="primary", use_container_width=True):
                 cursor.execute("UPDATE users SET password=? WHERE email=?", (new_password, email))
                 conn.commit()
                 st.success("Password override processed successfully.")
@@ -302,16 +287,15 @@ if not st.session_state.logged_in:
 else:
     current_date = datetime.now().strftime("%d %B %Y")
 
-    # SIDEBAR UI (Logo & Menu)
+    # SIDEBAR UI
     st.sidebar.markdown(f"""
         <div style="text-align:center; margin-bottom: 20px;">
             <img src="{UITM_LOGO_SRC}" style="width:150px; margin-bottom:10px;" alt="UiTM Logo">
             <h3 style="color:#1e293b; font-size:16px; font-weight:700; margin:0;">UiTM Permatang Pauh</h3>
-            <p style="color:#64748b; font-size:11px; margin:0; line-height:1.2;">MoU/MoACollaboration Record<br>Management System</p>
+            <p style="color:#64748b; font-size:11px; margin:0; line-height:1.2;">MoU/MoA Collaboration Record<br>Management System</p>
         </div>
         """, unsafe_allow_html=True)
 
-    # Sidebar Navigation System (Guna Emoji sebagai ikon)
     menu_options = [
         "🏠 Dashboard", 
         "📂 View All Records", 
@@ -340,12 +324,11 @@ else:
         st.session_state.current_page = selected_page_name
         st.rerun()
 
-    # User Menu & Logout
     st.sidebar.markdown("<hr style='margin: 20px 0; border: 0.5px solid #e2e8f0;'>", unsafe_allow_html=True)
     st.sidebar.markdown("<p style='font-size:10px; color:#94a3b8; font-weight:600; text-transform:uppercase;'>USER MENU</p>", unsafe_allow_html=True)
     st.sidebar.markdown(f"<p style='color:#475569; font-size:14px;'>👤 <b>{st.session_state.username}</b></p>", unsafe_allow_html=True)
     
-    if st.sidebar.button("🚪 Logout", key="logout_btn", use_container_width=True):
+    if st.sidebar.button("🚪 Logout", key="logout_btn", type="secondary", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -358,8 +341,6 @@ else:
     # MODULE: DASHBOARD
     # ------------------------------------------------------
     if st.session_state.current_page == "Dashboard":
-        
-        # HEADER GREETING
         col_greet, col_date = st.columns([3, 1])
         with col_greet:
             st.markdown(f"""
@@ -379,7 +360,6 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # METRIC CARDS (Dengan warna berbeza & tulisan besar)
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
         total_category = df["Category"].nunique() if total_records > 0 else 0
@@ -418,7 +398,6 @@ else:
         </div>
         """, unsafe_allow_html=True)
 
-        # CHARTS SECTION (Warna-warni & Tulisan Jelas)
         col_chart1, col_chart2 = st.columns(2)
         
         with col_chart1:
@@ -427,7 +406,6 @@ else:
             if total_records > 0:
                 country_chart = df["Country"].value_counts().reset_index()
                 country_chart.columns = ["Country", "Total"]
-                # Guna color_discrete_sequence untuk bagi warna pelbagai
                 fig1 = px.bar(country_chart, x="Country", y="Total", text_auto=True, 
                               color="Country", color_discrete_sequence=px.colors.qualitative.Pastel)
                 fig1.update_layout(showlegend=False, margin=dict(t=10, b=10, l=0, r=0), height=350, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
@@ -442,7 +420,6 @@ else:
             if total_records > 0:
                 cat_chart = df["Category"].value_counts().reset_index()
                 cat_chart.columns = ["Category", "Total"]
-                # Guna color_discrete_sequence yang terang
                 fig2 = px.pie(cat_chart, values="Total", names="Category", hole=0.5, 
                               color_discrete_sequence=px.colors.qualitative.Set2)
                 fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=350)
@@ -451,12 +428,10 @@ else:
                 st.info("No data available.")
             st.markdown('</div>', unsafe_allow_html=True)
 
-        # RECENT RECORDS PREVIEW
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Recent Records</p>", unsafe_allow_html=True)
         
         if len(df) > 0:
-            # Kita guna CSS 'styled-table' yang kita set awal tadi supaya nampak cantik & clean
             st.markdown(f"""
             <div class="table-container">
                 {df.tail(5).to_html(index=False, classes="styled-table", escape=False)}
@@ -489,24 +464,22 @@ else:
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        spacer, col_btn_cancel = st.columns([8, 2])
+        # Susunan butang ke kanan
+        col_spacer, col_btn_cancel = st.columns([8, 2])
         with col_btn_cancel:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("← Back to Dashboard", key="back_view", use_container_width=True):
+            if st.button("← Back to Dashboard", key="back_view", type="secondary", use_container_width=True):
                 switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
             
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: ADD DATA
+    # MODULE: ADD DATA (BUTTONS FIXED)
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
         st.title("➕ Add New Record")
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         
-        # Seksyen 1: Maklumat Dokumen
         st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>📄 Document Details</p>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
@@ -518,7 +491,6 @@ else:
 
         st.markdown("<hr style='border: 1px dashed #e2e8f0; margin:20px 0;'>", unsafe_allow_html=True)
 
-        # Seksyen 2: Maklumat Rakan Kolaborasi
         st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>🤝 Partner Information</p>", unsafe_allow_html=True)
         col3, col4 = st.columns(2)
         with col3:
@@ -529,11 +501,11 @@ else:
 
         st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
 
-        # Form Actions (Save kat Kiri, Cancel kat Kanan sebaris hujung)
-        spacer, col_btn_save, col_btn_cancel = st.columns([6, 2, 2])
+        # BUTTON LAYOUT BARU: Kiri & Kanan Berjauhan
+        col_btn_save, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
         
         with col_btn_save:
-            if st.button("Save Record", use_container_width=True):
+            if st.button("Save Record", type="primary", use_container_width=True):
                 cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
                                (int(id_in), title, duration, department, partner, country, category))
                 conn.commit()
@@ -541,15 +513,13 @@ else:
                 switch_page("View All Records")
                 
         with col_btn_cancel:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("Cancel & Back", key="back_add", use_container_width=True):
+            if st.button("Cancel & Back", key="back_add", type="secondary", use_container_width=True):
                 switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: UPDATE DATA
+    # MODULE: UPDATE DATA (BUTTONS FIXED)
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Record":
         st.title("📝 Update Record")
@@ -573,11 +543,11 @@ else:
 
             st.markdown("<br>", unsafe_allow_html=True)
             
-            # Form Actions (Update kat Kiri, Cancel kat Kanan sebaris hujung)
-            spacer, col_btn_update, col_btn_cancel = st.columns([6, 2, 2])
+            # BUTTON LAYOUT BARU: Kiri & Kanan Berjauhan
+            col_btn_update, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
             
             with col_btn_update:
-                if st.button("Update Changes", use_container_width=True):
+                if st.button("Update Changes", type="primary", use_container_width=True):
                     cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
                                    (title, duration, department, partner, country, category, int(uid)))
                     conn.commit()
@@ -585,25 +555,21 @@ else:
                     switch_page("View All Records")
                     
             with col_btn_cancel:
-                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-                if st.button("Cancel & Back", key="back_update", use_container_width=True):
+                if st.button("Cancel & Back", key="back_update", type="secondary", use_container_width=True):
                     switch_page("Dashboard")
-                st.markdown('</div>', unsafe_allow_html=True)
                 
         else:
             st.warning("Target ID does not exist in the database.")
             st.markdown("<br>", unsafe_allow_html=True)
-            spacer, col_btn_cancel = st.columns([8, 2])
+            col_spacer, col_btn_cancel = st.columns([8, 2])
             with col_btn_cancel:
-                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-                if st.button("Cancel & Back", key="back_update_fail", use_container_width=True):
+                if st.button("Cancel & Back", key="back_update_fail", type="secondary", use_container_width=True):
                     switch_page("Dashboard")
-                st.markdown('</div>', unsafe_allow_html=True)
             
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: DELETE DATA
+    # MODULE: DELETE DATA (BUTTONS FIXED)
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Record":
         st.title("🗑️ Delete Record")
@@ -617,9 +583,11 @@ else:
             st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the data from the database.")
             
-            col_yes, col_cancel = st.columns([1, 1])
+            # SUSUNAN DIALOG BOX: Kiri & Kanan Berjauhan
+            col_yes, col_spacer_dialog, col_cancel = st.columns([3, 4, 3])
+            
             with col_yes:
-                if st.button("Yes, Delete Record", use_container_width=True):
+                if st.button("Yes, Delete Record", type="primary", use_container_width=True):
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
@@ -630,24 +598,20 @@ else:
                         st.error("Deletion failed: Target ID is not found.")
             
             with col_cancel:
-                st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-                if st.button("Cancel", key="dialog_cancel", use_container_width=True):
+                if st.button("Cancel", key="dialog_cancel", type="secondary", use_container_width=True):
                     st.rerun()
-                st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Form Actions (Delete kat Kiri, Cancel kat Kanan sebaris hujung)
-        spacer, col_btn_del, col_btn_cancel = st.columns([6, 2, 2])
+        # BUTTON LAYOUT BARU: Kiri & Kanan Berjauhan
+        col_btn_del, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
         
         with col_btn_del:
-            if st.button("Confirm Delete", use_container_width=True):
+            if st.button("Confirm Delete", type="primary", use_container_width=True):
                 confirm_delete_dialog(del_id)
                 
         with col_btn_cancel:
-            st.markdown('<div class="back-btn-container">', unsafe_allow_html=True)
-            if st.button("Cancel & Back", key="back_delete", use_container_width=True):
+            if st.button("Cancel & Back", key="back_delete", type="secondary", use_container_width=True):
                 switch_page("Dashboard")
-            st.markdown('</div>', unsafe_allow_html=True)
             
         st.markdown('</div>', unsafe_allow_html=True)
