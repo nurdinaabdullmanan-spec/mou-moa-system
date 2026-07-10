@@ -61,7 +61,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (MODERN LIGHT THEME)
+# REFINED UI CSS (MODERN LIGHT THEME & CUSTOM SIDEBAR)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -81,25 +81,56 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* SIDEBAR MENU */
+    /* ======================================================
+       REKAAN SIDEBAR (CLEAN WHITE) MENGIKUT PERMINTAAN
+       ====================================================== */
     section[data-testid="stSidebar"] {{
         background-color: #ffffff !important; 
-        border-right: 1px solid #e2e8f0 !important;
+        border-right: none !important;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.06) !important;
     }}
     
+    /* User Card dalam Sidebar */
+    .user-card-custom {{
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }}
+    .user-card-name {{
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }}
+    .user-card-matrik {{
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 500;
+        margin-top: 4px;
+    }}
+    
+    /* Menu Divider */
+    .menu-divider-custom {{
+        height: 1px;
+        background-color: #e2e8f0;
+        margin: 15px 0;
+    }}
+
+    /* Styling Menu Item (Streamlit Radio Button) */
     div[role="radiogroup"] label input[type="radio"],
-    div[role="radiogroup"] label > div:first-child,
-    div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] ~ div,
-    div[role="radiogroup"] label [class*="Radio"],
-    div[role="radiogroup"] label span {{
+    div[role="radiogroup"] label > div:first-child {{
         display: none !important;
     }}
 
     div[role="radiogroup"] label {{
         display: flex !important;
         align-items: center !important;
-        padding: 12px 20px !important;
-        margin-bottom: 5px !important;
+        padding: 12px 15px !important;
+        margin-bottom: 8px !important;
         border-radius: 8px !important;
         background: transparent !important;
         transition: all 0.2s ease;
@@ -116,6 +147,7 @@ st.markdown(f"""
 
     div[role="radiogroup"] label:hover {{
         background: #f1f5f9 !important;
+        color: #1e293b !important;
     }}
 
     div[role="radiogroup"] label[data-selected="true"] {{
@@ -127,16 +159,6 @@ st.markdown(f"""
         color: #ffffff !important; 
         font-weight: 600 !important;
     }}
-            
-    div[role="radiogroup"] [data-testid="stWidgetToggleElement"],
-div[role="radiogroup"] label > div:not(:last-child),
-div[role="radiogroup"] input[type="radio"] {{
-    display: none !important;
-    width: 0px !important;
-    height: 0px !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-}}
 
     /* KAD METRIK & DASHBOARD */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
@@ -158,9 +180,7 @@ div[role="radiogroup"] input[type="radio"] {{
         margin-bottom: 20px;
     }}
 
-    /* ======================================================
-       BUTTON FIX (SELARI, RAPI & SEMUA PURPLE SOLID)
-       ====================================================== */
+    /* BUTTON FIX (PURPLE SOLID) */
     .stButton > button, 
     button[kind="primary"], 
     button[kind="secondary"] {{
@@ -168,17 +188,18 @@ div[role="radiogroup"] input[type="radio"] {{
         font-weight: 600 !important;
         padding: 10px 24px !important;
         transition: all 0.3s ease;
-        background-color: #7c3aed !important; /* Warna Purple */
-        color: #ffffff !important;           /* Teks Putih */
+        background-color: #7c3aed !important;
+        color: #ffffff !important; 
         border: none !important;
     }}
 
     .stButton > button:hover, 
     button[kind="primary"]:hover, 
     button[kind="secondary"]:hover {{
-        background-color: #6d28d9 !important; /* Purple gelap sikit bila hover */
+        background-color: #6d28d9 !important;
         border: none !important;
         color: #ffffff !important;
+        box-shadow: 0 4px 6px rgba(109, 40, 217, 0.2) !important;
     }}
 
     /* INPUT CONTROLS */
@@ -232,7 +253,7 @@ if not st.session_state.logged_in:
         
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 25px;'>
-            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; f font-weight: 700; font-size: 28px !important; font-family: "Poppins", "Segoe UI", sans-serif; letter-spacing: 0.5px;'>
+            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 700; font-size: 28px !important; font-family: "Poppins", "Segoe UI", sans-serif; letter-spacing: 0.5px;'>
                 Record Management System
             </h2>
             <p style='color: #64748b; font-size: 13px; margin-top: 0; font-weight: 500;'>UiTM Kampus Permatang Pauh</p>
@@ -292,21 +313,36 @@ if not st.session_state.logged_in:
 else:
     current_date = datetime.now().strftime("%d %B %Y")
 
-    # SIDEBAR UI
+    # ======================================================
+    # NEW SIDEBAR LAYOUT (Berdasarkan Rekaan HTML Diminta)
+    # ======================================================
+    
+    # 1. Sidebar Logo Area
     st.sidebar.markdown(f"""
-        <div style="text-align:center; margin-bottom: 20px;">
-            <img src="{UITM_LOGO_SRC}" style="width:150px; margin-bottom:10px;" alt="UiTM Logo">
-            <h3 style="color:#1e293b; font-size:16px; font-weight:700; margin:0;">UiTM Permatang Pauh</h3>
-            <p style="color:#64748b; font-size:11px; margin:0; line-height:1.2;">MoU/MoA Collaboration Record<br>Management System</p>
+    <div style="padding: 10px 0 20px 0; text-align: center; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px;">
+        <div style="width: 100px; height: 100px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center;">
+            <img src="{UITM_LOGO_SRC}" style="width: 100%; height: 100%; object-fit: contain;" alt="UiTM Logo">
         </div>
-        """, unsafe_allow_html=True)
+        <h3 style="font-size: 14px; font-weight: 700; color: #1e293b; line-height: 1.3; margin: 0;">UiTM Permatang Pauh<br>Sistem MoU / MoA</h3>
+    </div>
+    """, unsafe_allow_html=True)
 
+    # 2. User Card Area
+    st.sidebar.markdown(f"""
+    <div class="user-card-custom">
+        <div class="user-card-name">👤 {st.session_state.username}</div>
+        <div class="user-card-matrik">Pentadbir Sistem</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 3. Menu Navigation
     menu_options = [
         "🏠 Dashboard", 
         "📂 View All Records", 
         "➕ Add New Record", 
         "📝 Update Record", 
-        "🗑️ Delete Record"
+        "🗑️ Delete Record",
+        "📚 Bantuan & Panduan" # Ditambah dari contoh kod HTML
     ]
     
     clean_menu_options = [m.split(" ", 1)[1] for m in menu_options]
@@ -329,11 +365,10 @@ else:
         st.session_state.current_page = selected_page_name
         st.rerun()
 
-    st.sidebar.markdown("<hr style='margin: 20px 0; border: 0.5px solid #e2e8f0;'>", unsafe_allow_html=True)
-    st.sidebar.markdown("<p style='font-size:10px; color:#94a3b8; font-weight:600; text-transform:uppercase;'>USER MENU</p>", unsafe_allow_html=True)
-    st.sidebar.markdown(f"<p style='color:#475569; font-size:14px;'>👤 <b>{st.session_state.username}</b></p>", unsafe_allow_html=True)
+    # 4. Divider HTML & Logout Section
+    st.sidebar.markdown('<div class="menu-divider-custom"></div>', unsafe_allow_html=True)
     
-    if st.sidebar.button("🚪 Logout", key="logout_btn", use_container_width=True):
+    if st.sidebar.button("🚪 Log Keluar", key="logout_btn", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -365,18 +400,14 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-       # Tentukan kategori yang sah
+        # Tentukan kategori yang sah
         valid_categories = ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"]
         
         df_filtered = df[df["Category"].isin(valid_categories)]
         
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
-        
-        total_category = df["Category"].isin(valid_categories).nunique() 
-        # Jika anda mahu ia sentiasa tunjuk "2" sebagai jumlah kategori yang disokong:
-        total_category = 2 
-        
+        total_category = 2 # Kekalkan 2 sebagai jumlah kategori yang disokong
         active_agreements = len(df)
 
         st.markdown(f"""
@@ -433,7 +464,6 @@ else:
             st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Agreements by Category</p>", unsafe_allow_html=True)
             
             if total_records > 0:
-                # Memastikan data dipaksa kepada 2 kategori ini walaupun salah satu tiada dalam rekod
                 cat_data = df["Category"].value_counts().reindex(
                     ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"], 
                     fill_value=0
@@ -441,13 +471,14 @@ else:
                 cat_data.columns = ["Category", "Total"]
                 
                 fig2 = px.pie(cat_data, values="Total", names="Category", hole=0.5, 
-                              color_discrete_sequence=["#7c3aed", "#10b981"]) # Warna purple dan hijau
+                              color_discrete_sequence=["#7c3aed", "#10b981"])
                 
                 fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=350)
                 st.plotly_chart(fig2, use_container_width=True)
             else:
                 st.info("No data available.")
             st.markdown('</div>', unsafe_allow_html=True)
+            
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Recent Records</p>", unsafe_allow_html=True)
         
@@ -484,7 +515,6 @@ else:
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Susunan butang ke kanan
         col_spacer, col_btn_cancel = st.columns([8, 2])
         with col_btn_cancel:
             if st.button("← Back to Dashboard", key="back_view", use_container_width=True):
@@ -493,7 +523,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: ADD DATA (BUTTONS FIXED - PURPLE)
+    # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
         st.title("➕ Add New Record")
@@ -521,7 +551,6 @@ else:
 
         st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
 
-        # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
         col_btn_save, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
         
         with col_btn_save:
@@ -539,7 +568,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: UPDATE DATA (BUTTONS FIXED - PURPLE)
+    # MODULE: UPDATE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Record":
         st.title("📝 Update Record")
@@ -563,7 +592,6 @@ else:
 
             st.markdown("<br>", unsafe_allow_html=True)
             
-            # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
             col_btn_update, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
             
             with col_btn_update:
@@ -589,7 +617,7 @@ else:
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: DELETE DATA (BUTTONS FIXED - PURPLE)
+    # MODULE: DELETE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Record":
         st.title("🗑️ Delete Record")
@@ -603,7 +631,6 @@ else:
             st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the data from the database.")
             
-            # SUSUNAN DIALOG BOX: Kiri & Kanan Berjauhan
             col_yes, col_spacer_dialog, col_cancel = st.columns([3, 4, 3])
             
             with col_yes:
@@ -623,7 +650,6 @@ else:
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
         col_btn_del, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
         
         with col_btn_del:
@@ -634,4 +660,13 @@ else:
             if st.button("Cancel & Back", key="back_delete", use_container_width=True):
                 switch_page("Dashboard")
             
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # ------------------------------------------------------
+    # MODULE: BANTUAN & PANDUAN (TAMBAHAN BAHARU)
+    # ------------------------------------------------------
+    elif st.session_state.current_page == "Bantuan & Panduan":
+        st.title("📚 Bantuan & Panduan")
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
+        st.info("Halaman panduan dan rujukan untuk menggunakan sistem pengurusan MoU/MoA. Anda boleh menambah kandungan manual pengguna di sini.")
         st.markdown('</div>', unsafe_allow_html=True)
