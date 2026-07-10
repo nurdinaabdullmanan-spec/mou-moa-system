@@ -234,7 +234,7 @@ if not st.session_state.logged_in:
     with center_col:
         # Logo
         st.markdown(f"""
-        <div style="text-align: center; padding: 15px 0;">
+        <div style="text-align: center; padding: 16px 0;">
             <img src="{UITM_LOGO_SRC}" alt="UiTM Logo" style="width: 300px;">
         </div>
         """, unsafe_allow_html=True)
@@ -242,7 +242,7 @@ if not st.session_state.logged_in:
         # Tajuk Utama & Subtajuk
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 25px;'>
-            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 700; font-size: 22px !important;'>
+            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; font-weight: 600; font-size: 22px !important;'>
                 Record Management System
             </h2>
             <p style='color: #64748b; font-size: 13px; margin-top: 0; font-weight: 500;'>UiTM Kampus Permatang Pauh</p>
@@ -254,7 +254,7 @@ if not st.session_state.logged_in:
         st.markdown('<div class="content-card" style="padding: 25px 30px; margin-top: 15px; border: none; box-shadow: none;">', unsafe_allow_html=True)
         
         if auth == "Login":
-            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #1e293b !important;'>🔑 Sign In</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #0F52BA !important;'>🔑 Sign In</h3>", unsafe_allow_html=True)
             username = st.text_input("Corporate Username")
             password = st.text_input("Account Password", type="password")
 
@@ -271,7 +271,7 @@ if not st.session_state.logged_in:
                     st.error("Invalid database authentication keys.")
 
         elif auth == "Register":
-            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #1e293b !important;'>📝 Register Account</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #0F52BA !important;'>📝 Register Account</h3>", unsafe_allow_html=True)
             new_username = st.text_input("Desired Username")
             new_email = st.text_input("Staff Email Address")
             new_password = st.text_input("Secure Password", type="password")
@@ -283,7 +283,7 @@ if not st.session_state.logged_in:
                 st.success("Account committed successfully to cluster database.")
 
         elif auth == "Reset Password":
-            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #1e293b !important;'>🔄 Reset Credentials</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #0F52BA !important;'>🔄 Reset Credentials</h3>", unsafe_allow_html=True)
             email = st.text_input("Registered Email Profile")
             new_password = st.text_input("Target New Password", type="password")
 
