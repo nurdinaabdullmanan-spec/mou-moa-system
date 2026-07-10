@@ -382,14 +382,13 @@ else:
     current_date = datetime.now().strftime("%d %B %Y")
 
     # SIDEBAR UTAMA - FROSTED GLASS & PURPLE ELEGANCE
-    st.sidebar.markdown(f"""
-    <div style="text-align:center; margin-bottom: 30px; padding-top: 15px;">
-        <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:145px; margin-bottom:15px;" alt="UiTM Logo">
-        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; color:#1e1b4b; font-size:18px; font-weight:800; margin:0; letter-spacing:-0.5px;">
-            UiTM Permatang Pauh
-        </h3>
-        <p style="font-family: 'Inter', sans-serif; color:#131312; font-size:11px; margin-top:7px; line-height:1.5; font-weight:700; text-transform: uppercase; letter-spacing: 1.2px;">
-            Sistem Pengurusan Rekod<br>Kolaborasi MoU/MoA
+    st.markdown("""
+    <div style='text-align:center; width:100%; margin-bottom: 35px;'>
+        <h1 class='corp-text' style='font-size: 32px !important; margin-bottom: 5px; font-family: "Plus Jakarta Sans", sans-serif !important;'>
+            SISTEM PENGURUSAN REKOD KOLABORASI
+        </h1>
+        <p style='color:#6b7280; font-size: 15px; margin-top: 0; font-weight: 700; letter-spacing: 1.5px; font-family: "Inter", sans-serif !important;'>
+            UITM KAMPUS PERMATANG PAUH
         </p>
     </div>
     """, unsafe_allow_html=True)
