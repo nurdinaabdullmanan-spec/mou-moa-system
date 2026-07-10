@@ -306,8 +306,8 @@ else:
     st.sidebar.markdown(f"""
         <div style="text-align:center; margin-bottom: 20px;">
             <img src="{UITM_LOGO_SRC}" style="width:150px; margin-bottom:10px;" alt="UiTM Logo">
-            <h3 style="color:#1e293b; font-size:16px; font-weight:700; margin:0;">MoU/MoA</h3>
-            <p style="color:#64748b; font-size:11px; margin:0; line-height:1.2;">Collaboration Record<br>Management System</p>
+            <h3 style="color:#1e293b; font-size:16px; font-weight:700; margin:0;">UiTM Permatang Pauh</h3>
+            <p style="color:#64748b; font-size:11px; margin:0; line-height:1.2;">MoU/MoACollaboration Record<br>Management System</p>
         </div>
         """, unsafe_allow_html=True)
 
