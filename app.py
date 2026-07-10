@@ -388,7 +388,7 @@ else:
         <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; color:#1e1b4b; font-size:18px; font-weight:800; margin:0; letter-spacing:-0.5px;">
             UiTM Permatang Pauh
         </h3>
-        <p style="font-family: 'Inter', sans-serif; color:#52525b; font-size:11px; margin-top:7px; line-height:1.5; font-weight:700; text-transform: uppercase; letter-spacing: 1.2px;">
+        <p style="font-family: 'Inter', sans-serif; color:#131312; font-size:11px; margin-top:7px; line-height:1.5; font-weight:700; text-transform: uppercase; letter-spacing: 1.2px;">
             Sistem Pengurusan Rekod<br>Kolaborasi MoU/MoA
         </p>
     </div>
