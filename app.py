@@ -354,8 +354,11 @@ else:
 
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
-        total_category = df["Category"].nunique() if total_records > 0 else 0
-        active_agreements = len(df) 
+
+        active_categories = df["Category"].dropna().unique()
+        total_category = len(active_categories)
+
+        active_agreements = len(df)
 
         st.markdown(f"""
         <div class="metric-grid">
@@ -409,17 +412,23 @@ else:
         with col_chart2:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
             st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Agreements by Category</p>", unsafe_allow_html=True)
+            
             if total_records > 0:
-                cat_chart = df["Category"].value_counts().reset_index()
-                cat_chart.columns = ["Category", "Total"]
-                fig2 = px.pie(cat_chart, values="Total", names="Category", hole=0.5, 
-                              color_discrete_sequence=px.colors.qualitative.Set2)
+                # Memastikan data dipaksa kepada 2 kategori ini walaupun salah satu tiada dalam rekod
+                cat_data = df["Category"].value_counts().reindex(
+                    ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"], 
+                    fill_value=0
+                ).reset_index()
+                cat_data.columns = ["Category", "Total"]
+                
+                fig2 = px.pie(cat_data, values="Total", names="Category", hole=0.5, 
+                              color_discrete_sequence=["#7c3aed", "#10b981"]) # Warna purple dan hijau
+                
                 fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=350)
                 st.plotly_chart(fig2, use_container_width=True)
             else:
                 st.info("No data available.")
             st.markdown('</div>', unsafe_allow_html=True)
-
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Recent Records</p>", unsafe_allow_html=True)
         
