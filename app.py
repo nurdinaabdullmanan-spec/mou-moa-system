@@ -87,43 +87,49 @@ st.markdown(f"""
         border-right: 1px solid #e2e8f0 !important;
     }}
     
-    div[role="radiogroup"] label input[type="radio"],
-    div[role="radiogroup"] label > div:first-child {{
-        display: none !important;
-    }}
+    # Gantikan kod CSS lama anda dengan kod ini dalam skrip Python anda
+"""
+div[role="radiogroup"] label input[type="radio"],
+div[role="radiogroup"] label > div:first-child,
+div[role="radiogroup"] label span,
+div[role="radiogroup"] [class*="radio"] {{
+    display: none !important;
+}}
 
-    div[role="radiogroup"] label {{
-        display: flex !important;
-        align-items: center !important;
-        padding: 12px 20px !important;
-        margin-bottom: 5px !important;
-        border-radius: 8px !important;
-        background: transparent !important;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        border: none !important;
-    }}
+div[role="radiogroup"] label {{
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 20px !important;
+    margin-bottom: 5px !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none !important;
+}}
 
-    div[role="radiogroup"] label p {{
-        color: #64748b !important; 
-        font-size: 14px !important;
-        font-weight: 500 !important;
-        margin-left: 0px !important;
-    }}
+div[role="radiogroup"] label p {{
+    color: #64748b !important; 
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    margin-left: 0px !important;
+}}
 
-    div[role="radiogroup"] label:hover {{
-        background: #f1f5f9 !important;
-    }}
+div[role="radiogroup"] label:hover {{
+    background: #f1f5f9 !important;
+}}
 
-    div[role="radiogroup"] label[data-selected="true"] {{
-        background: #7c3aed !important; 
-        box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2) !important;
-    }}
+div[role="radiogroup"] label[data-selected="true"] {{
+    background: #7c3aed !important; 
+    box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2) !important;
+}}
 
-    div[role="radiogroup"] label[data-selected="true"] p {{
-        color: #ffffff !important; 
-        font-weight: 600 !important;
-    }}
+div[role="radiogroup"] label[data-selected="true"] p {{
+    color: #ffffff !important; 
+    font-weight: 600 !important;
+}}
+"""
+
 
     /* KAD METRIK & DASHBOARD */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
@@ -355,15 +361,11 @@ else:
        # Tentukan kategori yang sah
         valid_categories = ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"]
         
-        # Kira hanya rekod yang termasuk dalam kategori yang sah
-        # Ini akan memastikan statistik tidak terganggu oleh typo atau data lain
         df_filtered = df[df["Category"].isin(valid_categories)]
         
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
         
-        # Paksa total_category sentiasa 2 jika anda mahu ia statik, 
-        # ATAU kira berapa banyak dari 2 kategori tersebut yang mempunyai data
         total_category = df["Category"].isin(valid_categories).nunique() 
         # Jika anda mahu ia sentiasa tunjuk "2" sebagai jumlah kategori yang disokong:
         total_category = 2 
