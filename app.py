@@ -61,19 +61,29 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REFINED UI CSS (MODERN LIGHT THEME)
+# SUPERIOR UI CSS (GLASSMORPHISM & MESH GRADIENT)
 # ======================================================
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
     
     html, body, [class*="css"] {{
-        font-family: 'Inter', sans-serif;
+        font-family: 'Quicksand', sans-serif;
     }}
     
-    /* BACKGROUND UTAMA - KELABU CAIR */
+    h1, h2, h3, h4, h5, h6 {{
+        font-family: 'Poppins', sans-serif !important;
+        letter-spacing: -0.5px;
+    }}
+    
+    /* MESH GRADIENT BACKGROUND - WOW FACTOR */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: #f8fafc !important; 
+        background-color: #f4f0fa !important;
+        background-image: 
+            radial-gradient(at 88% 0%, hsla(273, 73%, 89%, 1) 0px, transparent 50%), 
+            radial-gradient(at 10% 28%, hsla(242, 100%, 93%, 1) 0px, transparent 50%), 
+            radial-gradient(at 59% 79%, hsla(284, 100%, 93%, 1) 0px, transparent 50%) !important;
+        background-attachment: fixed;
         color: #1e293b !important;
     }}
 
@@ -81,10 +91,12 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* SIDEBAR MENU */
+    /* SIDEBAR MENU - GLASSMORPHISM */
     section[data-testid="stSidebar"] {{
-        background-color: #ffffff !important; 
-        border-right: 1px solid #e2e8f0 !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-right: 1px solid rgba(255, 255, 255, 0.8) !important;
     }}
     
     div[role="radiogroup"] label input[type="radio"],
@@ -95,100 +107,154 @@ st.markdown(f"""
     div[role="radiogroup"] label {{
         display: flex !important;
         align-items: center !important;
-        padding: 12px 20px !important;
-        margin-bottom: 5px !important;
-        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        margin-bottom: 8px !important;
+        border-radius: 12px !important;
         background: transparent !important;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         cursor: pointer;
-        border: none !important;
+        border: 1px solid transparent !important;
     }}
 
     div[role="radiogroup"] label p {{
-        color: #64748b !important; 
-        font-size: 14px !important;
-        font-weight: 500 !important;
+        color: #475569 !important; 
+        font-size: 15px !important;
+        font-weight: 600 !important;
         margin-left: 0px !important;
+        font-family: 'Poppins', sans-serif !important;
     }}
 
     div[role="radiogroup"] label:hover {{
-        background: #f1f5f9 !important;
+        background: rgba(255, 255, 255, 0.9) !important;
+        transform: translateX(5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     }}
 
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: #7c3aed !important; 
-        box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2) !important;
+        background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%) !important; 
+        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
         color: #ffffff !important; 
-        font-weight: 600 !important;
+        font-weight: 700 !important;
     }}
 
-    /* KAD METRIK & DASHBOARD */
-    .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
+    /* KAD METRIK & DASHBOARD - FLOATING EFFECTS */
+    .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 35px; }}
     .metric-card {{
-        background: #ffffff; padding: 20px; border-radius: 12px;
-        border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;
+        background: rgba(255, 255, 255, 0.7); 
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 24px; 
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.8); 
+        display: flex; align-items: center; gap: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }}
+    .metric-card:hover {{
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(124, 58, 237, 0.12);
     }}
     .metric-icon-box {{
-        width: 50px; height: 50px; border-radius: 10px;
-        display: flex; justify-content: center; align-items: center; font-size: 24px;
+        width: 60px; height: 60px; border-radius: 14px;
+        display: flex; justify-content: center; align-items: center; font-size: 28px;
+        box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);
     }}
     
-    .metric-info h3 {{ margin: 0; font-size: 24px; color: #1e293b; font-weight: 700; }}
-    .metric-info p {{ margin: 0; font-size: 12px; color: #64748b; }}
+    .metric-info h3 {{ margin: 0; font-size: 28px; color: #0f172a; font-weight: 800; line-height: 1.2; }}
+    .metric-info p {{ margin: 0; font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }}
     
     .content-card {{
-        background: #ffffff !important; 
-        border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0;
-        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.65) !important; 
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-radius: 20px; padding: 30px; 
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 12px 35px rgba(31, 38, 135, 0.04);
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }}
+    .content-card:hover {{
+        box-shadow: 0 15px 45px rgba(31, 38, 135, 0.08);
     }}
 
-    /* ======================================================
-       BUTTON FIX (SELARI, RAPI & SEMUA PURPLE SOLID)
-       ====================================================== */
+    /* BUTTONS - GRADIENT & PILL SHAPE */
     .stButton > button, 
     button[kind="primary"], 
     button[kind="secondary"] {{
-        border-radius: 8px !important;
+        border-radius: 50px !important;
+        font-family: 'Poppins', sans-serif !important;
         font-weight: 600 !important;
-        padding: 10px 24px !important;
-        transition: all 0.3s ease;
-        background-color: #7c3aed !important; /* Warna Purple */
-        color: #ffffff !important;           /* Teks Putih */
+        letter-spacing: 0.5px;
+        padding: 12px 28px !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+        color: #ffffff !important;
         border: none !important;
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.25) !important;
     }}
 
     .stButton > button:hover, 
     button[kind="primary"]:hover, 
     button[kind="secondary"]:hover {{
-        background-color: #6d28d9 !important; /* Purple gelap sikit bila hover */
-        border: none !important;
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4) !important;
         color: #ffffff !important;
     }}
 
     /* INPUT CONTROLS */
     .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
-        border-radius: 8px !important; border: 1px solid #cbd5e1 !important;
-        background-color: #ffffff !important; color: #1e293b !important; padding: 10px 14px !important;
+        border-radius: 12px !important; 
+        border: 2px solid #e2e8f0 !important;
+        background-color: rgba(255, 255, 255, 0.9) !important; 
+        color: #1e293b !important; 
+        padding: 12px 16px !important;
+        font-family: 'Quicksand', sans-serif !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }}
+    .stTextInput input:focus, .stNumberInput input:focus {{
+        border-color: #7c3aed !important;
+        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1) !important;
     }}
     
-    /* TABLE STYLES */
+    /* TABLE STYLES - MODERNIZED */
     .table-container {{
-        width: 100%; overflow-x: auto; border-radius: 12px;
-        border: 1px solid #e2e8f0; margin-top: 15px;
+        width: 100%; overflow-x: auto; border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.8); margin-top: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }}
     .styled-table {{
         width: 100%; border-collapse: collapse; margin: 0;
-        font-size: 14px; font-family: 'Inter', sans-serif; background-color: #ffffff;
+        font-size: 14px; font-family: 'Quicksand', sans-serif; 
+        background-color: rgba(255,255,255,0.9);
     }}
     .styled-table thead tr {{
-        background-color: #f8fafc; color: #475569; text-align: left;
+        background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%); 
+        color: #334155; text-align: left;
     }}
-    .styled-table th {{ padding: 16px 20px; font-weight: 600; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }}
-    .styled-table td {{ padding: 16px 20px; border-bottom: 1px solid #f1f5f9; color: #334155; }}
-    .styled-table tbody tr:hover {{ background-color: #f8fafc; }}
+    .styled-table th {{ 
+        padding: 18px 24px; font-family: 'Poppins', sans-serif; 
+        font-weight: 600; border-bottom: 2px solid #cbd5e1; white-space: nowrap; 
+    }}
+    .styled-table td {{ 
+        padding: 16px 24px; border-bottom: 1px solid #f1f5f9; color: #475569; font-weight: 500; 
+    }}
+    .styled-table tbody tr {{ transition: background-color 0.2s ease; }}
+    .styled-table tbody tr:hover {{ background-color: #f8fafc; cursor: pointer; }}
+
+    /* LOGO BLENDING */
+    .uitm-logo {{
+        mix-blend-mode: multiply;
+        filter: drop-shadow(0px 8px 16px rgba(124, 58, 237, 0.15));
+        transition: transform 0.4s ease;
+    }}
+    .uitm-logo:hover {{
+        transform: scale(1.05);
+    }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -211,27 +277,28 @@ if not st.session_state.logged_in:
     spacer_left, center_col, spacer_right = st.columns([1, 1.5, 1])
     
     with center_col:
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown(f"""
         <div style="text-align: center; padding: 16px 0;">
-            <img src="{UITM_LOGO_SRC}" alt="UiTM Logo" style="width: 300px;">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" alt="UiTM Logo" style="width: 280px;">
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div style='text-align:center; width:100%; margin-bottom: 25px;'>
-            <h2 style='color:#1e293b !important; border:none; margin-bottom: 5px; f font-weight: 700; font-size: 28px !important; font-family: "Poppins", "Segoe UI", sans-serif; letter-spacing: 0.5px;'>
+        <div style='text-align:center; width:100%; margin-bottom: 30px;'>
+            <h2 style='color:#0f172a !important; margin-bottom: 5px; font-weight: 800; font-size: 32px !important;'>
                 Record Management System
             </h2>
-            <p style='color: #64748b; font-size: 13px; margin-top: 0; font-weight: 500;'>UiTM Kampus Permatang Pauh</p>
+            <p style='color: #64748b; font-size: 15px; margin-top: 0; font-weight: 600; letter-spacing: 1px;'>UiTM KAMPUS PERMATANG PAUH</p>
         </div>
         """, unsafe_allow_html=True)
         
         auth = st.selectbox("Secure Authentication Access", ["Login", "Register", "Reset Password"])
 
-        st.markdown('<div class="content-card" style="padding: 25px 30px; margin-top: 15px; border: none; box-shadow: none;">', unsafe_allow_html=True)
+        st.markdown('<div class="content-card">', unsafe_allow_html=True)
         
         if auth == "Login":
-            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #0F52BA !important;'>🔑 Sign In</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 22px !important; color: #5b21b6 !important;'>🔑 Sign In to Portal</h3>", unsafe_allow_html=True)
             username = st.text_input("Corporate Username")
             password = st.text_input("Account Password", type="password")
 
@@ -242,13 +309,13 @@ if not st.session_state.logged_in:
                 if user:
                     st.session_state.logged_in = True
                     st.session_state.username = username
-                    st.success("Session secured.")
+                    st.success("Session secured. Redirecting...")
                     st.rerun()
                 else:
                     st.error("Invalid database authentication keys.")
 
         elif auth == "Register":
-            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #0F52BA !important;'>📝 Register Account</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 22px !important; color: #5b21b6 !important;'>📝 Register Account</h3>", unsafe_allow_html=True)
             new_username = st.text_input("Desired Username")
             new_email = st.text_input("Staff Email Address")
             new_password = st.text_input("Secure Password", type="password")
@@ -260,7 +327,7 @@ if not st.session_state.logged_in:
                 st.success("Account committed successfully to cluster database.")
 
         elif auth == "Reset Password":
-            st.markdown("<h3 style='margin-bottom: 20px; font-size: 20px !important; color: #0F52BA !important;'>🔄 Reset Credentials</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 22px !important; color: #5b21b6 !important;'>🔄 Reset Credentials</h3>", unsafe_allow_html=True)
             email = st.text_input("Registered Email Profile")
             new_password = st.text_input("Target New Password", type="password")
 
@@ -281,10 +348,10 @@ else:
 
     # SIDEBAR UI
     st.sidebar.markdown(f"""
-        <div style="text-align:center; margin-bottom: 20px;">
-            <img src="{UITM_LOGO_SRC}" style="width:150px; margin-bottom:10px;" alt="UiTM Logo">
-            <h3 style="color:#1e293b; font-size:16px; font-weight:700; margin:0;">UiTM Permatang Pauh</h3>
-            <p style="color:#64748b; font-size:11px; margin:0; line-height:1.2;">MoU/MoA Collaboration Record<br>Management System</p>
+        <div style="text-align:center; margin-bottom: 30px; padding-top: 10px;">
+            <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:140px; margin-bottom:15px;" alt="UiTM Logo">
+            <h3 style="color:#0f172a; font-size:18px; font-weight:800; margin:0;">UiTM Permatang Pauh</h3>
+            <p style="color:#64748b; font-size:12px; margin-top:4px; font-weight:600; line-height:1.4;">MoU/MoA Collaboration Record<br>Management System</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -316,11 +383,15 @@ else:
         st.session_state.current_page = selected_page_name
         st.rerun()
 
-    st.sidebar.markdown("<hr style='margin: 20px 0; border: 0.5px solid #e2e8f0;'>", unsafe_allow_html=True)
-    st.sidebar.markdown("<p style='font-size:10px; color:#94a3b8; font-weight:600; text-transform:uppercase;'>USER MENU</p>", unsafe_allow_html=True)
-    st.sidebar.markdown(f"<p style='color:#475569; font-size:14px;'>👤 <b>{st.session_state.username}</b></p>", unsafe_allow_html=True)
+    st.sidebar.markdown("<hr style='margin: 30px 0 20px 0; border: none; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);'>", unsafe_allow_html=True)
+    st.sidebar.markdown("<p style='font-size:11px; color:#94a3b8; font-weight:700; text-transform:uppercase; letter-spacing: 1px;'>Active Session</p>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"""
+    <div style='background: rgba(124, 58, 237, 0.05); padding: 12px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(124, 58, 237, 0.1);'>
+        <p style='color:#334155; font-size:15px; margin:0; font-family: "Poppins", sans-serif;'>👤 <b>{st.session_state.username}</b></p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    if st.sidebar.button("🚪 Logout", key="logout_btn", use_container_width=True):
+    if st.sidebar.button("🚪 Logout Session", key="logout_btn", use_container_width=True):
         st.session_state.logged_in = False
         st.rerun()
 
@@ -336,64 +407,58 @@ else:
         col_greet, col_date = st.columns([3, 1])
         with col_greet:
             st.markdown(f"""
-            <h2 style='color:#1e293b; margin-bottom: 5px; font-weight:700;'>Good Afternoon, {st.session_state.username}! 👋</h2>
-            <p style='color:#64748b; font-size:14px; margin-top:0;'>Welcome back to MoU/MoA Collaboration Management System</p>
+            <h1 style='color:#0f172a; margin-bottom: 8px; font-weight:800; font-size: 34px;'>Good Afternoon, {st.session_state.username}! 👋</h1>
+            <p style='color:#64748b; font-size:16px; margin-top:0; font-weight:500;'>Here is the latest overview of the MoU/MoA Collaboration Data.</p>
             """, unsafe_allow_html=True)
         with col_date:
             st.markdown(f"""
-            <div style='background:#ffffff; padding:10px 15px; border-radius:8px; border:1px solid #e2e8f0; display:flex; align-items:center; gap:10px; float:right;'>
-                <span style='font-size:18px;'>📅</span>
+            <div style='background:rgba(255,255,255,0.8); backdrop-filter:blur(10px); padding:12px 20px; border-radius:16px; border:1px solid rgba(255,255,255,0.9); display:flex; align-items:center; gap:15px; float:right; box-shadow: 0 8px 20px rgba(0,0,0,0.03);'>
+                <div style='background: #f3e8ff; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size:20px;'>📅</div>
                 <div>
-                    <div style='font-size:10px; color:#64748b; text-transform:uppercase;'>Today</div>
-                    <div style='font-size:13px; font-weight:600; color:#1e293b;'>{current_date}</div>
+                    <div style='font-size:11px; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;'>Today's Date</div>
+                    <div style='font-size:14px; font-weight:700; color:#1e293b;'>{current_date}</div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-       # Tentukan kategori yang sah
         valid_categories = ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"]
-        
         df_filtered = df[df["Category"].isin(valid_categories)]
         
         total_records = len(df)
         total_country = df["Country"].nunique() if total_records > 0 else 0
-        
-        total_category = df["Category"].isin(valid_categories).nunique() 
-        # Jika anda mahu ia sentiasa tunjuk "2" sebagai jumlah kategori yang disokong:
         total_category = 2 
-        
         active_agreements = len(df)
 
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="metric-card" style="border-left: 5px solid #8b5cf6;">
-                <div class="metric-icon-box" style="background:#ede9fe; color:#8b5cf6;">📄</div>
+            <div class="metric-card" style="border-bottom: 4px solid #8b5cf6;">
+                <div class="metric-icon-box" style="background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); color:#8b5cf6;">📄</div>
                 <div class="metric-info">
-                    <h3 style="font-size: 28px;">{total_records}</h3>
-                    <p style="font-size: 14px; font-weight: 600; color: #6d28d9;">Total Agreements</p>
+                    <h3>{total_records}</h3>
+                    <p style="color: #6d28d9;">Total Agreements</p>
                 </div>
             </div>
-            <div class="metric-card" style="border-left: 5px solid #10b981;">
-                <div class="metric-icon-box" style="background:#d1fae5; color:#10b981;">🌐</div>
+            <div class="metric-card" style="border-bottom: 4px solid #10b981;">
+                <div class="metric-icon-box" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color:#10b981;">🌐</div>
                 <div class="metric-info">
-                    <h3 style="font-size: 28px;">{total_country}</h3>
-                    <p style="font-size: 14px; font-weight: 600; color: #065f46;">Countries</p>
+                    <h3>{total_country}</h3>
+                    <p style="color: #059669;">Countries Involved</p>
                 </div>
             </div>
-            <div class="metric-card" style="border-left: 5px solid #f59e0b;">
-                <div class="metric-icon-box" style="background:#fef3c7; color:#f59e0b;">🤝</div>
+            <div class="metric-card" style="border-bottom: 4px solid #f59e0b;">
+                <div class="metric-icon-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color:#f59e0b;">🤝</div>
                 <div class="metric-info">
-                    <h3 style="font-size: 28px;">{total_category}</h3>
-                    <p style="font-size: 14px; font-weight: 600; color: #92400e;">Categories</p>
+                    <h3>{total_category}</h3>
+                    <p style="color: #d97706;">Core Categories</p>
                 </div>
             </div>
-            <div class="metric-card" style="border-left: 5px solid #ef4444;">
-                <div class="metric-icon-box" style="background:#fee2e2; color:#ef4444;">📂</div>
+            <div class="metric-card" style="border-bottom: 4px solid #ef4444;">
+                <div class="metric-icon-box" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color:#ef4444;">📂</div>
                 <div class="metric-info">
-                    <h3 style="font-size: 28px;">{active_agreements}</h3>
-                    <p style="font-size: 14px; font-weight: 600; color: #991b1b;">Active Records</p>
+                    <h3>{active_agreements}</h3>
+                    <p style="color: #dc2626;">Active Records</p>
                 </div>
             </div>
         </div>
@@ -403,40 +468,44 @@ else:
         
         with col_chart1:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Agreements by Country</p>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 20px; color:#0f172a; margin-bottom: 20px;'>🌍 Agreements by Country</h3>", unsafe_allow_html=True)
             if total_records > 0:
                 country_chart = df["Country"].value_counts().reset_index()
                 country_chart.columns = ["Country", "Total"]
                 fig1 = px.bar(country_chart, x="Country", y="Total", text_auto=True, 
                               color="Country", color_discrete_sequence=px.colors.qualitative.Pastel)
-                fig1.update_layout(showlegend=False, margin=dict(t=10, b=10, l=0, r=0), height=350, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+                fig1.update_layout(showlegend=False, margin=dict(t=10, b=10, l=0, r=0), height=320, 
+                                   plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
+                                   font=dict(family="Quicksand"))
                 st.plotly_chart(fig1, use_container_width=True)
             else:
-                st.info("No data available.")
+                st.info("No mapping data available yet.")
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col_chart2:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Agreements by Category</p>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 20px; color:#0f172a; margin-bottom: 20px;'>📊 Agreements by Category</h3>", unsafe_allow_html=True)
             
             if total_records > 0:
-                # Memastikan data dipaksa kepada 2 kategori ini walaupun salah satu tiada dalam rekod
                 cat_data = df["Category"].value_counts().reindex(
                     ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"], 
                     fill_value=0
                 ).reset_index()
                 cat_data.columns = ["Category", "Total"]
                 
-                fig2 = px.pie(cat_data, values="Total", names="Category", hole=0.5, 
-                              color_discrete_sequence=["#7c3aed", "#10b981"]) # Warna purple dan hijau
+                fig2 = px.pie(cat_data, values="Total", names="Category", hole=0.6, 
+                              color_discrete_sequence=["#8b5cf6", "#10b981"]) 
                 
-                fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=350)
+                fig2.update_layout(margin=dict(t=10, b=10, l=0, r=0), height=320,
+                                   paper_bgcolor="rgba(0,0,0,0)", font=dict(family="Quicksand"),
+                                   legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5))
                 st.plotly_chart(fig2, use_container_width=True)
             else:
-                st.info("No data available.")
+                st.info("No distribution data available yet.")
             st.markdown('</div>', unsafe_allow_html=True)
+            
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        st.markdown("<p style='font-size: 18px; font-weight:700; color:#1e293b; margin-bottom: 20px;'>Recent Records</p>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size: 20px; color:#0f172a; margin-bottom: 20px;'>⚡ Recent Added Records</h3>", unsafe_allow_html=True)
         
         if len(df) > 0:
             st.markdown(f"""
@@ -445,17 +514,17 @@ else:
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.info("No records to display.")
+            st.info("No recent records to display.")
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
     # MODULE: VIEW DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "View All Records":
-        st.title("📂 View All Records")
+        st.markdown("<h1 style='color:#0f172a; margin-bottom: 20px;'>📂 Master Data Repository</h1>", unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        search = st.text_input("🔍 Filter Stream Matrix (Enter Title, Partner or Country)")
+        search = st.text_input("🔍 Search Matrix (Enter Title, Partner or Country)", placeholder="Type to filter records...")
 
         if search:
             sql = "SELECT * FROM collaboration_data WHERE title LIKE ? OR partner LIKE ? OR country LIKE ?"
@@ -467,52 +536,50 @@ else:
             html_table = df.to_html(index=False, classes="styled-table", escape=False)
             st.markdown(f'<div class="table-container">{html_table}</div>', unsafe_allow_html=True)
         else:
-            st.info("No data found in the repository.")
+            st.info("No data found in the repository matching your query.")
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Susunan butang ke kanan
         col_spacer, col_btn_cancel = st.columns([8, 2])
         with col_btn_cancel:
-            if st.button("← Back to Dashboard", key="back_view", use_container_width=True):
+            if st.button("← Return Dashboard", key="back_view", use_container_width=True):
                 switch_page("Dashboard")
             
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: ADD DATA (BUTTONS FIXED - PURPLE)
+    # MODULE: ADD DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Add New Record":
-        st.title("➕ Add New Record")
+        st.markdown("<h1 style='color:#0f172a; margin-bottom: 20px;'>➕ Create New Record</h1>", unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         
-        st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>📄 Document Details</p>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#5b21b6; margin-bottom: 15px;'>📄 Document Details</h4>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            id_in = st.number_input("Record ID", min_value=1, step=1, format="%d")
-            category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+            id_in = st.number_input("Assign Record ID", min_value=1, step=1, format="%d")
+            category = st.selectbox("Agreement Core Category", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
         with col2:
             title = st.text_input("Agreement Title")
-            duration = st.text_input("Duration (e.g. 3 Years)")
+            duration = st.text_input("Active Duration (e.g. 3 Years)")
 
-        st.markdown("<hr style='border: 1px dashed #e2e8f0; margin:20px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px dashed rgba(0,0,0,0.1); margin:25px 0;'>", unsafe_allow_html=True)
 
-        st.markdown("<p style='font-size: 16px; font-weight:600; color:#475569; margin-bottom: 10px;'>🤝 Partner Information</p>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#5b21b6; margin-bottom: 15px;'>🤝 Partnership Information</h4>", unsafe_allow_html=True)
         col3, col4 = st.columns(2)
         with col3:
             department = st.text_input("Executing Department / Faculty")
-            country = st.text_input("Country")
+            country = st.text_input("Country Location")
         with col4:
             partner = st.text_input("External Partner Institution")
 
-        st.markdown("<hr style='border: 1px solid #e2e8f0; margin:25px 0 15px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid rgba(0,0,0,0.05); margin:30px 0 20px 0;'>", unsafe_allow_html=True)
 
-        # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
-        col_btn_save, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
+        col_btn_save, col_spacer, col_btn_cancel = st.columns([2.5, 5, 2.5])
         
         with col_btn_save:
-            if st.button("Save Record", use_container_width=True):
+            if st.button("💾 Save Record Securely", use_container_width=True):
                 cursor.execute("INSERT INTO collaboration_data (id, title, duration, department, partner, country, category) VALUES (?,?,?,?,?,?,?)",
                                (int(id_in), title, duration, department, partner, country, category))
                 conn.commit()
@@ -520,24 +587,24 @@ else:
                 switch_page("View All Records")
                 
         with col_btn_cancel:
-            if st.button("Cancel & Back", key="back_add", use_container_width=True):
+            if st.button("❌ Cancel & Return", key="back_add", use_container_width=True):
                 switch_page("Dashboard")
         
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: UPDATE DATA (BUTTONS FIXED - PURPLE)
+    # MODULE: UPDATE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Update Record":
-        st.title("📝 Update Record")
+        st.markdown("<h1 style='color:#0f172a; margin-bottom: 20px;'>📝 Modify Existing Record</h1>", unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        uid = st.number_input("Target Record ID to Update", min_value=1, step=1, format="%d")
+        uid = st.number_input("Target Record ID to Modify", min_value=1, step=1, format="%d")
         cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(uid),))
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed #e2e8f0; margin:20px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 1px dashed rgba(0,0,0,0.1); margin:25px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Agreement Title Statement", result[1])
@@ -546,55 +613,60 @@ else:
             with col2:
                 partner = st.text_input("External Partner Institution", result[4])
                 country = st.text_input("Country Location", result[5])
-                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"])
+                category = st.selectbox("Agreement Core Category Designation", ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"], 
+                                        index=["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"].index(result[6]) if result[6] in ["Memorandum of Understanding (MoU)", "Agreement for MyRA Purpose"] else 0)
 
             st.markdown("<br>", unsafe_allow_html=True)
             
-            # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
-            col_btn_update, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
+            col_btn_update, col_spacer, col_btn_cancel = st.columns([2.5, 5, 2.5])
             
             with col_btn_update:
-                if st.button("Update Changes", use_container_width=True):
+                if st.button("🔄 Update Changes", use_container_width=True):
                     cursor.execute("UPDATE collaboration_data SET title=?, duration=?, department=?, partner=?, country=?, category=? WHERE id=?",
                                    (title, duration, department, partner, country, category, int(uid)))
                     conn.commit()
-                    st.success("Record has been successfully updated.")
+                    st.success("Record has been successfully synchronized.")
                     switch_page("View All Records")
                     
             with col_btn_cancel:
-                if st.button("Cancel & Back", key="back_update", use_container_width=True):
+                if st.button("❌ Cancel & Return", key="back_update", use_container_width=True):
                     switch_page("Dashboard")
                 
         else:
-            st.warning("Target ID does not exist in the database.")
+            st.warning("Target ID does not exist in the database system. Please verify the ID.")
             st.markdown("<br>", unsafe_allow_html=True)
             col_spacer, col_btn_cancel = st.columns([8, 2])
             with col_btn_cancel:
-                if st.button("Cancel & Back", key="back_update_fail", use_container_width=True):
+                if st.button("← Return", key="back_update_fail", use_container_width=True):
                     switch_page("Dashboard")
             
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ------------------------------------------------------
-    # MODULE: DELETE DATA (BUTTONS FIXED - PURPLE)
+    # MODULE: DELETE DATA
     # ------------------------------------------------------
     elif st.session_state.current_page == "Delete Record":
-        st.title("🗑️ Delete Record")
+        st.markdown("<h1 style='color:#0f172a; margin-bottom: 20px;'>🗑️ Purge Record Data</h1>", unsafe_allow_html=True)
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         del_id = st.number_input("Target Record ID to Delete", min_value=1, step=1, format="%d")
-        st.error("💣 Critical: Purging actions cannot be rolled back or undone.")
+        
+        st.markdown("""
+        <div style='background: #fef2f2; border-left: 4px solid #ef4444; padding: 15px; border-radius: 8px; margin-top: 15px;'>
+            <p style='color: #991b1b; margin: 0; font-weight: 600;'>💣 Critical Warning: Purging actions cannot be rolled back or undone.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
         @st.dialog("⚠️ Confirm Permanent Deletion")
         def confirm_delete_dialog(record_id):
             st.warning(f"Are you absolutely sure you want to permanently delete Record ID **{record_id}**?")
             st.write("This action will immediately wipe the data from the database.")
             
-            # SUSUNAN DIALOG BOX: Kiri & Kanan Berjauhan
-            col_yes, col_spacer_dialog, col_cancel = st.columns([3, 4, 3])
+            st.markdown("<br>", unsafe_allow_html=True)
+            col_yes, col_spacer_dialog, col_cancel = st.columns([4, 2, 4])
             
             with col_yes:
-                if st.button("Yes, Delete Record", use_container_width=True):
+                if st.button("Yes, Purge Now", use_container_width=True):
                     cursor.execute("SELECT * FROM collaboration_data WHERE id=?", (int(record_id),))
                     if cursor.fetchone():
                         cursor.execute("DELETE FROM collaboration_data WHERE id=?", (int(record_id),))
@@ -605,20 +677,19 @@ else:
                         st.error("Deletion failed: Target ID is not found.")
             
             with col_cancel:
-                if st.button("Cancel", key="dialog_cancel", use_container_width=True):
+                if st.button("Cancel Operation", key="dialog_cancel", use_container_width=True):
                     st.rerun()
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Kiri & Kanan Berjauhan (Semua warna purple sekarang)
-        col_btn_del, col_spacer, col_btn_cancel = st.columns([2, 6, 2])
+        col_btn_del, col_spacer, col_btn_cancel = st.columns([3, 4, 3])
         
         with col_btn_del:
-            if st.button("Confirm Delete", use_container_width=True):
+            if st.button("🚨 Authorize Deletion", use_container_width=True):
                 confirm_delete_dialog(del_id)
                 
         with col_btn_cancel:
-            if st.button("Cancel & Back", key="back_delete", use_container_width=True):
+            if st.button("❌ Cancel & Return", key="back_delete", use_container_width=True):
                 switch_page("Dashboard")
             
         st.markdown('</div>', unsafe_allow_html=True)
