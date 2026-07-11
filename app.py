@@ -283,7 +283,7 @@ if not st.session_state.logged_in:
         
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 35px;'>
-            <h1 class='corp-text' style='margin-bottom: 5px; font-size: 32px !important;'>
+            <h1 class='corp-text' style='margin-bottom: 5px; font-size: 20px !important;'>
                 SISTEM PENGURUSAN REKOD KOLABORASI 
             </h1>
             <p style='color:#6b7280; font-size: 15px; margin-top: 0; font-weight: 700; letter-spacing: 1.5px;'>UiTM KAMPUS PERMATANG PAUH</p>
