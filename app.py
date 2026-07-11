@@ -78,7 +78,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REKA BENTUK UI - BACKGROUND PUTIH, TAJUK HITAM, BUTANG PURPLE
+# REKA BENTUK UI
 # ======================================================
 st.markdown(f"""
 <style>
@@ -95,7 +95,7 @@ st.markdown(f"""
         background-image: none !important;
     }}
 
-    /* SEMUA TAJUK - WARNA HITAM & FONT LAWA (PLUS JAKARTA SANS) */
+    /* SEMUA TAJUK - WARNA HITAM & FONT LAWA */
     h1, h2, h3, h4, h5, h6, .corp-text {{
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         color: #000000 !important;
@@ -104,7 +104,6 @@ st.markdown(f"""
         font-weight: 800;
     }}
 
-    /* Sembunyikan elemen lalai Streamlit */
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
@@ -141,12 +140,12 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label:hover {{
-        background: #f3e8ff !important; /* Hover effect purple cair */
+        background: #f3e8ff !important; 
     }}
 
     /* MENU AKTIF WARNA PURPLE */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: #6d28d9 !important; /* Warna purple */
+        background: #6d28d9 !important; 
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
@@ -154,30 +153,31 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* KAD METRIK (SCORECARD) - KEKAL WARNA ASAL (PURPLE TONE) */
+    /* KAD METRIK (SCORECARD) - ASAS */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
+    
     .metric-card {{
-        background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); 
         padding: 24px; 
         border-radius: 12px;
-        border: 1px solid #d8b4fe; 
         display: flex; align-items: center; gap: 16px;
-        box-shadow: 0 4px 6px rgba(109, 40, 217, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }}
+    
     .metric-card:hover {{
         transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(109, 40, 217, 0.2);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     }}
+    
     .metric-icon-box {{
         width: 50px; height: 50px; border-radius: 10px;
         display: flex; justify-content: center; align-items: center; font-size: 24px;
-        background: rgba(255, 255, 255, 0.5); color: #4c1d95;
+        background: rgba(255, 255, 255, 0.5);
         border: 1px solid rgba(255, 255, 255, 0.8);
     }}
     
-    .metric-info h3 {{ margin: 0; font-size: 24px; color: #4c1d95 !important; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-text-fill-color: #4c1d95 !important; }}
-    .metric-info p {{ margin: 0; font-size: 12px; color: #6d28d9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
+    .metric-info h3 {{ margin: 0; font-size: 24px; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; }}
+    .metric-info p {{ margin: 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
 
     /* KAD KANDUNGAN UTAMA */
     .content-card {{
@@ -198,7 +198,7 @@ st.markdown(f"""
         letter-spacing: 0.5px;
         padding: 12px 28px !important;
         transition: all 0.3s ease;
-        background: #6d28d9 !important; /* Warna Purple */
+        background: #6d28d9 !important; 
         color: #ffffff !important;
         border: none !important;
     }}
@@ -206,11 +206,11 @@ st.markdown(f"""
     .stButton > button:hover, 
     button[kind="primary"]:hover, 
     button[kind="secondary"]:hover {{
-        background: #5b21b6 !important; /* Darker Purple */
+        background: #5b21b6 !important; 
         box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3) !important;
     }}
 
-    /* GAYA BORANG & RUANG MASUKKAN (INPUT CONTROLS) */
+    /* GAYA BORANG & RUANG MASUKKAN */
     .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
         border-radius: 8px !important; 
         border: 1px solid #d1d5db !important;
@@ -226,7 +226,7 @@ st.markdown(f"""
         box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.2) !important;
     }}
     
-    /* GAYA JADUAL MAKLUMAT (TABLE) */
+    /* GAYA JADUAL MAKLUMAT */
     .table-container {{
         width: 100%; overflow-x: auto; border-radius: 8px;
         border: 1px solid #e5e7eb; margin-top: 15px;
@@ -237,7 +237,7 @@ st.markdown(f"""
         background-color: #ffffff;
     }}
     .styled-table thead tr {{
-        background: #f3e8ff; /* Light purple header */
+        background: #f3e8ff; 
         color: #4c1d95; text-align: left;
         border-bottom: 2px solid #d8b4fe;
     }}
@@ -250,17 +250,13 @@ st.markdown(f"""
     }}
     .styled-table tbody tr:hover {{ background-color: #faf5ff; cursor: pointer; }}
 
-    .uitm-logo {{
-        transition: transform 0.3s ease;
-    }}
-    .uitm-logo:hover {{
-        transform: scale(1.03);
-    }}
+    .uitm-logo {{ transition: transform 0.3s ease; }}
+    .uitm-logo:hover {{ transform: scale(1.03); }}
 </style>
 """, unsafe_allow_html=True)
 
 # ======================================================
-# KONTROLLER NAVIGASI HALAMAN (SESSION STATE)
+# KONTROLLER NAVIGASI HALAMAN
 # ======================================================
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -272,7 +268,7 @@ def switch_page(page_name):
     st.rerun()
 
 # ======================================================
-# GERBANG AUTENTIKASI UTAMA (LOGIN / DAFTAR / RESET)
+# GERBANG AUTENTIKASI UTAMA
 # ======================================================
 if not st.session_state.logged_in:
     spacer_left, center_col, spacer_right = st.columns([1, 1.2, 1])
@@ -447,35 +443,39 @@ else:
         total_category = 2 
         active_agreements = len(df)
 
-        # METRIK GRID
+        # METRIK GRID WARNA-WARNI KINI DI APLIKASI DI SINI
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="metric-card">
-                <div class="metric-icon-box">📄</div>
+            <!-- Kad 1: Biru -->
+            <div class="metric-card" style="background: linear-gradient(135deg, #d0efff 0%, #a2dffd 100%); border: 1px solid #7bcbf7;">
+                <div class="metric-icon-box" style="color: #0369a1;">📄</div>
                 <div class="metric-info">
-                    <h3>{total_records}</h3>
-                    <p>Jumlah Dokumen</p>
+                    <h3 style="color: #0c4a6e !important; -webkit-text-fill-color: #0c4a6e !important;">{total_records}</h3>
+                    <p style="color: #0284c7;">Jumlah Dokumen</p>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-icon-box">🌐</div>
+            <!-- Kad 2: Hijau -->
+            <div class="metric-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 1px solid #86efac;">
+                <div class="metric-icon-box" style="color: #15803d;">🌐</div>
                 <div class="metric-info">
-                    <h3>{total_country}</h3>
-                    <p>Negara Rakan</p>
+                    <h3 style="color: #14532d !important; -webkit-text-fill-color: #14532d !important;">{total_country}</h3>
+                    <p style="color: #16a34a;">Negara Rakan</p>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-icon-box">🤝</div>
+            <!-- Kad 3: Oren / Kuning -->
+            <div class="metric-card" style="background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%); border: 1px solid #fdba74;">
+                <div class="metric-icon-box" style="color: #c2410c;">🤝</div>
                 <div class="metric-info">
-                    <h3>{total_category}</h3>
-                    <p>Kategori Utama</p>
+                    <h3 style="color: #7c2d12 !important; -webkit-text-fill-color: #7c2d12 !important;">{total_category}</h3>
+                    <p style="color: #ea580c;">Kategori Utama</p>
                 </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-icon-box">📂</div>
+            <!-- Kad 4: Merah Jambu / Purple -->
+            <div class="metric-card" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 1px solid #f9a8d4;">
+                <div class="metric-icon-box" style="color: #be185d;">📂</div>
                 <div class="metric-info">
-                    <h3>{active_agreements}</h3>
-                    <p>Rekod Aktif</p>
+                    <h3 style="color: #831843 !important; -webkit-text-fill-color: #831843 !important;">{active_agreements}</h3>
+                    <p style="color: #db2777;">Rekod Aktif</p>
                 </div>
             </div>
         </div>
@@ -489,8 +489,17 @@ else:
             if total_records > 0:
                 country_chart = df["Negara"].value_counts().reset_index()
                 country_chart.columns = ["Negara", "Jumlah"]
-                # Biarkan warna chart asal (warna-warni)
-                fig1 = px.bar(country_chart, x="Negara", y="Jumlah", text_auto=True, color="Negara")
+                
+                # BAR CHART WARNA-WARNI MENGGUNAKAN px.colors.qualitative.Pastel/Vivid
+                fig1 = px.bar(
+                    country_chart, 
+                    x="Negara", 
+                    y="Jumlah", 
+                    text_auto=True, 
+                    color="Negara",
+                    color_discrete_sequence=px.colors.qualitative.Pastel  # Menjamin warna terang dan berbeza
+                )
+                
                 fig1.update_layout(
                     showlegend=False, 
                     margin=dict(t=10, b=10, l=0, r=0), 
@@ -517,8 +526,13 @@ else:
                 ).reset_index()
                 cat_data.columns = ["Kategori", "Jumlah"]
                 
-                # Biarkan warna chart asal (warna-warni)
-                fig2 = px.pie(cat_data, values="Jumlah", names="Kategori", hole=0.5) 
+                fig2 = px.pie(
+                    cat_data, 
+                    values="Jumlah", 
+                    names="Kategori", 
+                    hole=0.5,
+                    color_discrete_sequence=px.colors.qualitative.Set2
+                ) 
                 
                 fig2.update_layout(
                     margin=dict(t=10, b=10, l=0, r=0), 
