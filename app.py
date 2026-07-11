@@ -78,7 +78,7 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REKA BENTUK UI ESTETIK "PURPLE GLASSMORPHISM"
+# REKA BENTUK UI KORPORAT BERSIH & MINIMALIS (TEMA PUTIH)
 # ======================================================
 st.markdown(f"""
 <style>
@@ -88,29 +88,29 @@ st.markdown(f"""
         font-family: 'Inter', sans-serif;
     }}
     
+    /* SEMUA TAJUK - WARNA HITAM & FONT LAWA */
     h1, h2, h3, h4, h5, h6 {{
         font-family: 'Plus Jakarta Sans', sans-serif !important;
+        color: #000000 !important;
         letter-spacing: -0.5px;
     }}
     
-    /* LATAR BELAKANG SOFT PASTEL MESH (ELEGAN) */
+    /* LATAR BELAKANG PUTIH BERSIH TANPA CORAK */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background: linear-gradient(135deg, #f5f3ff 0%, #e0e7ff 50%, #faf5ff 100%) !important;
-        background-attachment: fixed !important;
-        color: #1e293b !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
+        color: #111827 !important;
     }}
 
     /* Sembunyikan elemen lalai Streamlit */
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* MENU SISI (SIDEBAR) LUT SINAR / FROSTED GLASS */
+    /* MENU SISI (SIDEBAR) PUTIH BERSIH */
     section[data-testid="stSidebar"] {{
-        background: rgba(255, 255, 255, 0.6) !important;
-        backdrop-filter: blur(15px) !important;
-        -webkit-backdrop-filter: blur(15px) !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.8) !important;
-        box-shadow: 4px 0 20px rgba(139, 92, 246, 0.05);
+        background: #ffffff !important;
+        border-right: 1px solid #e5e7eb !important;
     }}
     
     div[role="radiogroup"] label input[type="radio"],
@@ -124,7 +124,7 @@ st.markdown(f"""
         align-items: center !important;
         padding: 12px 18px !important;
         margin-bottom: 8px !important;
-        border-radius: 12px !important;
+        border-radius: 8px !important;
         background: transparent !important;
         transition: all 0.25s ease;
         cursor: pointer;
@@ -132,7 +132,7 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label p {{
-        color: #64748b !important; 
+        color: #4b5563 !important; 
         font-size: 14px !important;
         font-weight: 600 !important;
         margin-left: 0px !important;
@@ -140,14 +140,12 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label:hover {{
-        background: rgba(255, 255, 255, 0.8) !important;
-        transform: translateX(5px);
+        background: #f3f4f6 !important;
     }}
 
-    /* MENU AKTIF WARNA PURPLE */
+    /* MENU AKTIF WARNA HITAM */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%) !important; 
-        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3) !important;
+        background: #000000 !important; 
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
@@ -155,91 +153,83 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* KAD METRIK (TERAPUNG & ESTETIK) */
+    /* KAD METRIK (BERSIH) */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
     .metric-card {{
-        background: rgba(255, 255, 255, 0.85); 
-        backdrop-filter: blur(10px);
+        background: #ffffff; 
         padding: 24px; 
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 1); 
+        border-radius: 12px;
+        border: 1px solid #e5e7eb; 
         display: flex; align-items: center; gap: 16px;
-        box-shadow: 0 8px 20px rgba(139, 92, 246, 0.04);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }}
     .metric-card:hover {{
-        transform: translateY(-5px);
-        box-shadow: 0 12px 25px rgba(139, 92, 246, 0.1);
-        border-color: #e9d5ff;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+        border-color: #d1d5db;
     }}
     .metric-icon-box {{
-        width: 55px; height: 55px; border-radius: 14px;
-        display: flex; justify-content: center; align-items: center; font-size: 26px;
+        width: 50px; height: 50px; border-radius: 10px;
+        display: flex; justify-content: center; align-items: center; font-size: 24px;
+        background: #f9fafb; color: #000000;
+        border: 1px solid #e5e7eb;
     }}
     
-    .metric-info h3 {{ margin: 0; font-size: 26px; color: #1e1b4b; font-weight: 800; line-height: 1.2; }}
-    .metric-info p {{ margin: 0; font-size: 12px; color: #6b7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
-    
-    /* KAD KANDUNGAN UTAMA (GLASS EFFECT) */
+    .metric-info h3 {{ margin: 0; font-size: 24px; color: #000000; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; }}
+    .metric-info p {{ margin: 0; font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }}
+
+    /* KAD KANDUNGAN UTAMA (PUTIH BERSAMA BORDER KELABU CAIR) */
     .content-card {{
-        background: rgba(255, 255, 255, 0.85) !important; 
-        backdrop-filter: blur(10px);
-        border-radius: 16px; padding: 30px; 
-        border: 1px solid rgba(255, 255, 255, 1);
-        box-shadow: 0 8px 20px rgba(139, 92, 246, 0.04);
+        background: #ffffff !important; 
+        border-radius: 12px; padding: 30px; 
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         margin-bottom: 24px;
-        transition: box-shadow 0.3s ease;
-    }}
-    .content-card:hover {{
-        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.08);
     }}
 
-    /* BUTANG KORPORAT / ESTETIK (WARNA PURPLE) */
+    /* BUTANG KORPORAT / ESTETIK (WARNA HITAM) */
     .stButton > button, 
     button[kind="primary"], 
     button[kind="secondary"] {{
-        border-radius: 10px !important;
+        border-radius: 8px !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 700 !important;
         letter-spacing: 0.5px;
         padding: 12px 28px !important;
         transition: all 0.3s ease;
-        background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%) !important;
+        background: #000000 !important;
         color: #ffffff !important;
         border: none !important;
-        box-shadow: 0 6px 15px rgba(168, 85, 247, 0.3) !important;
     }}
 
     .stButton > button:hover, 
     button[kind="primary"]:hover, 
     button[kind="secondary"]:hover {{
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(168, 85, 247, 0.45) !important;
+        background: #374151 !important;
         color: #ffffff !important;
     }}
 
     /* GAYA BORANG & RUANG MASUKKAN (INPUT CONTROLS) */
     .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
-        border-radius: 10px !important; 
-        border: 1.5px solid #ddd6fe !important;
-        background-color: rgba(255, 255, 255, 0.9) !important; 
-        color: #1e1b4b !important; 
+        border-radius: 8px !important; 
+        border: 1px solid #d1d5db !important;
+        background-color: #ffffff !important; 
+        color: #111827 !important; 
         padding: 12px 16px !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 500;
         transition: all 0.2s ease;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #a855f7 !important;
-        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15) !important;
-        background-color: #ffffff !important;
+        border-color: #000000 !important;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1) !important;
     }}
     
-    /* GAYA JADUAL MAKLUMAT (TABLE) */
+    /* GAYA JADUAL MAKLUMAT (TABLE) KEMAS & MINIMALIS */
     .table-container {{
-        width: 100%; overflow-x: auto; border-radius: 12px;
-        border: 1px solid #e9d5ff; margin-top: 15px;
-        box-shadow: 0 4px 6px rgba(139, 92, 246, 0.02);
+        width: 100%; overflow-x: auto; border-radius: 8px;
+        border: 1px solid #e5e7eb; margin-top: 15px;
     }}
     .styled-table {{
         width: 100%; border-collapse: collapse; margin: 0;
@@ -247,35 +237,34 @@ st.markdown(f"""
         background-color: #ffffff;
     }}
     .styled-table thead tr {{
-        background: #f3e8ff; 
-        color: #4c1d95; text-align: left;
-        border-bottom: 2px solid #ddd6fe;
+        background: #f9fafb; 
+        color: #000000; text-align: left;
+        border-bottom: 2px solid #e5e7eb;
     }}
     .styled-table th {{ 
         padding: 16px 24px; font-family: 'Plus Jakarta Sans', sans-serif; 
         font-weight: 700; white-space: nowrap; 
     }}
     .styled-table td {{ 
-        padding: 16px 24px; border-bottom: 1px solid #f5f3ff; color: #475569; font-weight: 500; 
+        padding: 16px 24px; border-bottom: 1px solid #f3f4f6; color: #374151; font-weight: 500; 
     }}
     .styled-table tbody tr {{ transition: background-color 0.2s ease; }}
-    .styled-table tbody tr:hover {{ background-color: #faf5ff; cursor: pointer; }}
+    .styled-table tbody tr:hover {{ background-color: #f9fafb; cursor: pointer; }}
 
     /* LOGO DAN ELEMEN GRAFIK */
     .uitm-logo {{
-        filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.06));
         transition: transform 0.3s ease;
     }}
     .uitm-logo:hover {{
         transform: scale(1.03);
     }}
 
-    /* GRADIENT TEXT UNTUK TAJUK (PURPLE THEME) */
+    /* TAJUK UTAMA "SISTEM PENGURUSAN REKOD KOLABORASI" */
     .corp-text {{
-        background: linear-gradient(135deg, #2e1065 0%, #7e22ce 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
         font-weight: 800;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -320,14 +309,14 @@ if not st.session_state.logged_in:
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         
         if auth == "Sesi Log Masuk Portal":
-            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #4c1d95 !important;'>🔑 Log Masuk Keselamatan</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #000000 !important;'>🔑 Log Masuk Keselamatan</h3>", unsafe_allow_html=True)
             username = st.text_input("Nama Pengguna Rasmi")
             password = st.text_input("Kata Laluan", type="password")
 
             # Paparan pembantu akaun demo eksklusif
             st.markdown("""
-            <div style="background: #faf5ff; border-left: 3px solid #a855f7; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; color: #4c1d95;">
-                💡 <b>Sesi Percubaan Segera:</b> Gunakan Username: <code style="color:#7e22ce; background:transparent;">admin</code> | Password: <code style="color:#7e22ce; background:transparent;">admin</code>
+            <div style="background: #f9fafb; border-left: 3px solid #000000; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; color: #374151; border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
+                💡 <b>Sesi Percubaan Segera:</b> Gunakan Username: <code style="color:#000000; background:transparent;">admin</code> | Password: <code style="color:#000000; background:transparent;">admin</code>
             </div>
             """, unsafe_allow_html=True)
 
@@ -344,7 +333,7 @@ if not st.session_state.logged_in:
                     st.error("Ralat: Kunci keselamatan atau nama pengguna tidak ditemui.")
 
         elif auth == "Daftar Akaun Kakitangan Baru":
-            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #4c1d95 !important;'>📝 Daftar Akaun Staf</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #000000 !important;'>📝 Daftar Akaun Staf</h3>", unsafe_allow_html=True)
             new_username = st.text_input("Nama Pengguna Dipilih")
             new_email = st.text_input("E-mel Rasmi UiTM (@uitm.edu.my)")
             new_password = st.text_input("Kata Laluan Selamat", type="password")
@@ -359,7 +348,7 @@ if not st.session_state.logged_in:
                     st.error("Ralat: Nama pengguna tersebut sudah berdaftar di dalam pangkalan data.")
 
         elif auth == "Tukar Kata Laluan Sedia Ada":
-            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #4c1d95 !important;'>🔄 Kemaskini Kata Laluan</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #000000 !important;'>🔄 Kemaskini Kata Laluan</h3>", unsafe_allow_html=True)
             email = st.text_input("Profil Alamat E-mel Berdaftar")
             new_password = st.text_input("Kata Laluan Baharu Pilihan", type="password")
 
@@ -381,14 +370,14 @@ if not st.session_state.logged_in:
 else:
     current_date = datetime.now().strftime("%d %B %Y")
 
-    # SIDEBAR UTAMA - FROSTED GLASS & PURPLE ELEGANCE
+    # SIDEBAR UTAMA - TEMA BERSIH
     st.sidebar.markdown(f"""
     <div style="text-align:center; margin-bottom: 30px; padding-top: 15px;">
         <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:160px; margin-bottom:15px;" alt="UiTM Logo">
-        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; color:#1e1b4b; font-size:18px; font-weight:800; margin:0; letter-spacing:-0.5px;">
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; color:#000000; font-size:18px; font-weight:800; margin:0; letter-spacing:-0.5px;">
             UiTM Permatang Pauh
         </h3>
-        <p style="font-family: 'Inter', sans-serif; color:#131312; font-size:11px; margin-top:7px; line-height:1.5; font-weight:700; text-transform: uppercase; letter-spacing: 1.2px;">
+        <p style="font-family: 'Inter', sans-serif; color:#6b7280; font-size:11px; margin-top:7px; line-height:1.5; font-weight:700; text-transform: uppercase; letter-spacing: 1px;">
             Sistem Pengurusan Rekod<br>Kolaborasi MoU/MoA
         </p>
     </div>
@@ -422,11 +411,11 @@ else:
         st.session_state.current_page = selected_page_name
         st.rerun()
 
-    st.sidebar.markdown("<hr style='margin: 25px 0; border: none; height: 1px; background: rgba(139, 92, 246, 0.2);'>", unsafe_allow_html=True)
-    st.sidebar.markdown("<p style='font-size:11px; color:#8b5cf6; font-weight:800; text-transform:uppercase; letter-spacing: 1px;'>PENGGUNA AKTIF</p>", unsafe_allow_html=True)
+    st.sidebar.markdown("<hr style='margin: 25px 0; border: none; height: 1px; background: #e5e7eb;'>", unsafe_allow_html=True)
+    st.sidebar.markdown("<p style='font-size:11px; color:#000000; font-weight:800; text-transform:uppercase; letter-spacing: 1px;'>PENGGUNA AKTIF</p>", unsafe_allow_html=True)
     st.sidebar.markdown(f"""
-    <div style='background: rgba(255, 255, 255, 0.6); padding: 14px; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(255, 255, 255, 0.9); text-align:center;'>
-        <p style='color:#1e1b4b; font-size:14px; margin:0; font-family: "Plus Jakarta Sans", sans-serif; font-weight:700;'>👤 {st.session_state.username}</p>
+    <div style='background: #f9fafb; padding: 14px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e5e7eb; text-align:center;'>
+        <p style='color:#000000; font-size:14px; margin:0; font-family: "Plus Jakarta Sans", sans-serif; font-weight:700;'>👤 {st.session_state.username}</p>
         <span style="font-size:10px; color:#10b981; font-weight:800; letter-spacing:1px; text-transform:uppercase;">● Atas Talian</span>
     </div>
     """, unsafe_allow_html=True)
@@ -452,11 +441,11 @@ else:
             """, unsafe_allow_html=True)
         with col_date:
             st.markdown(f"""
-            <div style='background: rgba(255, 255, 255, 0.85); padding:14px 22px; border-radius:16px; border:1px solid #ffffff; display:flex; align-items:center; gap:15px; float:right; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.05);'>
-                <div style='background: #f3e8ff; color:#7e22ce; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size:22px;'>📅</div>
+            <div style='background: #ffffff; padding:14px 22px; border-radius:12px; border:1px solid #e5e7eb; display:flex; align-items:center; gap:15px; float:right; box-shadow: 0 2px 4px rgba(0,0,0,0.02);'>
+                <div style='background: #f9fafb; border: 1px solid #e5e7eb; color:#000000; width: 45px; height: 45px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size:22px;'>📅</div>
                 <div>
-                    <div style='font-size:10px; color:#8b5cf6; font-weight:700; text-transform:uppercase; letter-spacing:1px;'>Tarikh Semasa</div>
-                    <div style='font-size:15px; font-weight:800; color:#1e1b4b;'>{current_date}</div>
+                    <div style='font-size:10px; color:#6b7280; font-weight:700; text-transform:uppercase; letter-spacing:1px;'>Tarikh Semasa</div>
+                    <div style='font-size:15px; font-weight:800; color:#000000;'>{current_date}</div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -469,32 +458,32 @@ else:
         total_category = 2 
         active_agreements = len(df)
 
-        # METRIK GRID (ESTETIK)
+        # METRIK GRID
         st.markdown(f"""
         <div class="metric-grid">
-            <div class="metric-card" style="border-bottom: 4px solid #8b5cf6;">
-                <div class="metric-icon-box" style="background: #f3e8ff; color:#7e22ce;">📄</div>
+            <div class="metric-card">
+                <div class="metric-icon-box">📄</div>
                 <div class="metric-info">
                     <h3>{total_records}</h3>
                     <p>Jumlah Dokumen</p>
                 </div>
             </div>
-            <div class="metric-card" style="border-bottom: 4px solid #10b981;">
-                <div class="metric-icon-box" style="background: #ecfdf5; color:#059669;">🌐</div>
+            <div class="metric-card">
+                <div class="metric-icon-box">🌐</div>
                 <div class="metric-info">
                     <h3>{total_country}</h3>
                     <p>Negara Rakan</p>
                 </div>
             </div>
-            <div class="metric-card" style="border-bottom: 4px solid #f59e0b;">
-                <div class="metric-icon-box" style="background: #fffbeb; color:#d97706;">🤝</div>
+            <div class="metric-card">
+                <div class="metric-icon-box">🤝</div>
                 <div class="metric-info">
                     <h3>{total_category}</h3>
                     <p>Kategori Utama</p>
                 </div>
             </div>
-            <div class="metric-card" style="border-bottom: 4px solid #f43f5e;">
-                <div class="metric-icon-box" style="background: #fff1f2; color:#e11d48;">📂</div>
+            <div class="metric-card">
+                <div class="metric-icon-box">📂</div>
                 <div class="metric-info">
                     <h3>{active_agreements}</h3>
                     <p>Rekod Aktif</p>
@@ -507,21 +496,21 @@ else:
         
         with col_chart1:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<h3 style='font-size: 20px; color:#1e1b4b; margin-bottom: 20px; font-weight:700;'>🌍 Pembahagian Mengikut Negara Rakan</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 20px; color:#000000; margin-bottom: 20px; font-weight:700;'>🌍 Pembahagian Mengikut Negara Rakan</h3>", unsafe_allow_html=True)
             if total_records > 0:
                 country_chart = df["Negara"].value_counts().reset_index()
                 country_chart.columns = ["Negara", "Jumlah"]
                 fig1 = px.bar(country_chart, x="Negara", y="Jumlah", text_auto=True, 
-                              color="Negara", color_discrete_sequence=px.colors.qualitative.Pastel)
+                              color_discrete_sequence=["#000000"])
                 fig1.update_layout(
                     showlegend=False, 
                     margin=dict(t=10, b=10, l=0, r=0), 
                     height=320, 
                     plot_bgcolor="rgba(0,0,0,0)", 
                     paper_bgcolor="rgba(0,0,0,0)",
-                    font=dict(family="Inter", color="#4c1d95"),
-                    xaxis=dict(gridcolor="rgba(139, 92, 246, 0.1)", title_font=dict(size=14), tickfont=dict(size=12)),
-                    yaxis=dict(gridcolor="rgba(139, 92, 246, 0.1)", title_font=dict(size=14), tickfont=dict(size=12))
+                    font=dict(family="Inter", color="#000000"),
+                    xaxis=dict(gridcolor="#e5e7eb", title_font=dict(size=14), tickfont=dict(size=12)),
+                    yaxis=dict(gridcolor="#e5e7eb", title_font=dict(size=14), tickfont=dict(size=12))
                 )
                 st.plotly_chart(fig1, use_container_width=True)
             else:
@@ -530,7 +519,7 @@ else:
 
         with col_chart2:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<h3 style='font-size: 20px; color:#1e1b4b; margin-bottom: 20px; font-weight:700;'>📊 Agihan Mengikut Kategori Perjanjian</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 20px; color:#000000; margin-bottom: 20px; font-weight:700;'>📊 Agihan Mengikut Kategori Perjanjian</h3>", unsafe_allow_html=True)
             
             if total_records > 0:
                 cat_data = df["Kategori"].value_counts().reindex(
@@ -540,13 +529,13 @@ else:
                 cat_data.columns = ["Kategori", "Jumlah"]
                 
                 fig2 = px.pie(cat_data, values="Jumlah", names="Kategori", hole=0.5, 
-                              color_discrete_sequence=["#8b5cf6", "#34d399"]) 
+                              color_discrete_sequence=["#000000", "#9ca3af"]) 
                 
                 fig2.update_layout(
                     margin=dict(t=10, b=10, l=0, r=0), 
                     height=320,
                     paper_bgcolor="rgba(0,0,0,0)", 
-                    font=dict(family="Inter", color="#4c1d95"),
+                    font=dict(family="Inter", color="#000000"),
                     legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5, font=dict(size=11))
                 )
                 st.plotly_chart(fig2, use_container_width=True)
@@ -555,7 +544,7 @@ else:
             st.markdown('</div>', unsafe_allow_html=True)
             
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        st.markdown("<h3 style='font-size: 20px; color:#1e1b4b; margin-bottom: 20px; font-weight:700;'>⚡ Log Aktiviti: 5 Rekod Pendaftaran Terkini</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size: 20px; color:#000000; margin-bottom: 20px; font-weight:700;'>⚡ Log Aktiviti: 5 Rekod Pendaftaran Terkini</h3>", unsafe_allow_html=True)
         
         if len(df) > 0:
             st.markdown(f"""
@@ -605,7 +594,7 @@ else:
 
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         
-        st.markdown("<h4 style='color:#4c1d95; margin-bottom: 15px; font-weight:700;'>📄 Butiran Dokumen Perundangan</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#000000; margin-bottom: 15px; font-weight:700;'>📄 Butiran Dokumen Perundangan</h4>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             id_in = st.number_input("Tentukan ID Rekod Unik", min_value=1, step=1, format="%d")
@@ -614,9 +603,9 @@ else:
             title = st.text_input("Tajuk Perjanjian Rasmi")
             duration = st.text_input("Tempoh Kuat Kuasa (Cth: 3 Tahun)")
 
-        st.markdown("<hr style='border: 1px dashed #e9d5ff; margin:25px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px dashed #e5e7eb; margin:25px 0;'>", unsafe_allow_html=True)
 
-        st.markdown("<h4 style='color:#4c1d95; margin-bottom: 15px; font-weight:700;'>🤝 Profil Rakan Kolaborasi</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#000000; margin-bottom: 15px; font-weight:700;'>🤝 Profil Rakan Kolaborasi</h4>", unsafe_allow_html=True)
         col3, col4 = st.columns(2)
         with col3:
             department = st.text_input("Bahagian / Fakulti Peneraju")
@@ -624,7 +613,7 @@ else:
         with col4:
             partner = st.text_input("Nama Entiti Rakan Kerjasama")
 
-        st.markdown("<hr style='border: 1px solid #e9d5ff; margin:30px 0 20px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #e5e7eb; margin:30px 0 20px 0;'>", unsafe_allow_html=True)
 
         col_btn_save, col_spacer, col_btn_cancel = st.columns([3, 4.5, 2.5])
         
@@ -657,7 +646,7 @@ else:
         result = cursor.fetchone()
 
         if result:
-            st.markdown("<hr style='border: 1px dashed #e9d5ff; margin:25px 0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='border: 1px dashed #e5e7eb; margin:25px 0;'>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 title = st.text_input("Tajuk Perjanjian Baharu", result[1])
@@ -705,14 +694,14 @@ else:
         del_id = st.number_input("Masukkan ID Rekod Sasaran Pemadaman", min_value=1, step=1, format="%d")
         
         st.markdown("""
-        <div style='background: #fff1f2; border-left: 4px solid #e11d48; padding: 18px; border-radius: 12px; margin-top: 20px; margin-bottom: 10px;'>
-            <p style='color: #be123c; margin: 0; font-weight: 700; font-size:15px;'>🚨 AMARAN KRITIKAL: Pemadaman adalah kekal dan tidak boleh dipulihkan semula.</p>
+        <div style='background: #fff1f2; border-left: 4px solid #e11d48; padding: 18px; border-radius: 8px; margin-top: 20px; margin-bottom: 10px; border: 1px solid #ffe4e6;'>
+            <p style='color: #be123c; margin: 0; font-weight: 700; font-size:15px; font-family: "Inter", sans-serif;'>🚨 AMARAN KRITIKAL: Pemadaman adalah kekal dan tidak boleh dipulihkan semula.</p>
         </div>
         """, unsafe_allow_html=True)
 
         @st.dialog("⚠️ Pengesahan Pemadaman Muktamad")
         def confirm_delete_dialog(record_id):
-            st.markdown(f"<h4 style='color:#be123c;'>Adakah anda pasti untuk melupuskan Rekod ID {record_id}?</h4>", unsafe_allow_html=True)
+            st.markdown(f"<h4 style='color:#000000; font-weight: 800;'>Adakah anda pasti untuk melupuskan Rekod ID {record_id}?</h4>", unsafe_allow_html=True)
             st.write("Semua fail maklumat kolaborasi ini akan disingkirkan secara kekal serta-merta.")
             
             st.markdown("<br>", unsafe_allow_html=True)
