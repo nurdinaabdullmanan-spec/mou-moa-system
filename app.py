@@ -78,21 +78,14 @@ UITM_LOGO_SRC = get_local_logo_base64()
 
 
 # ======================================================
-# REKA BENTUK UI KORPORAT BERSIH & MINIMALIS (TEMA PUTIH)
+# REKA BENTUK UI - BACKGROUND PUTIH, TAJUK HITAM, BUTANG PURPLE
 # ======================================================
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
     
     html, body, [class*="css"] {{
         font-family: 'Inter', sans-serif;
-    }}
-    
-    /* SEMUA TAJUK - WARNA HITAM & FONT LAWA */
-    h1, h2, h3, h4, h5, h6 {{
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
-        color: #000000 !important;
-        letter-spacing: -0.5px;
     }}
     
     /* LATAR BELAKANG PUTIH BERSIH TANPA CORAK */
@@ -100,14 +93,22 @@ st.markdown(f"""
         background: #ffffff !important;
         background-color: #ffffff !important;
         background-image: none !important;
-        color: #111827 !important;
+    }}
+
+    /* SEMUA TAJUK - WARNA HITAM & FONT LAWA (PLUS JAKARTA SANS) */
+    h1, h2, h3, h4, h5, h6, .corp-text {{
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+        letter-spacing: -0.5px;
+        font-weight: 800;
     }}
 
     /* Sembunyikan elemen lalai Streamlit */
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
 
-    /* MENU SISI (SIDEBAR) PUTIH BERSIH */
+    /* MENU SISI (SIDEBAR) PUTIH */
     section[data-testid="stSidebar"] {{
         background: #ffffff !important;
         border-right: 1px solid #e5e7eb !important;
@@ -140,12 +141,12 @@ st.markdown(f"""
     }}
 
     div[role="radiogroup"] label:hover {{
-        background: #f3f4f6 !important;
+        background: #f3e8ff !important; /* Hover effect purple cair */
     }}
 
-    /* MENU AKTIF WARNA HITAM */
+    /* MENU AKTIF WARNA PURPLE */
     div[role="radiogroup"] label[data-selected="true"] {{
-        background: #000000 !important; 
+        background: #6d28d9 !important; /* Warna purple */
     }}
 
     div[role="radiogroup"] label[data-selected="true"] p {{
@@ -153,42 +154,41 @@ st.markdown(f"""
         font-weight: 700 !important;
     }}
 
-    /* KAD METRIK (BERSIH) */
+    /* KAD METRIK (SCORECARD) - KEKAL WARNA ASAL (PURPLE TONE) */
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
     .metric-card {{
-        background: #ffffff; 
+        background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); 
         padding: 24px; 
         border-radius: 12px;
-        border: 1px solid #e5e7eb; 
+        border: 1px solid #d8b4fe; 
         display: flex; align-items: center; gap: 16px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        box-shadow: 0 4px 6px rgba(109, 40, 217, 0.1);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }}
     .metric-card:hover {{
         transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-        border-color: #d1d5db;
+        box-shadow: 0 6px 12px rgba(109, 40, 217, 0.2);
     }}
     .metric-icon-box {{
         width: 50px; height: 50px; border-radius: 10px;
         display: flex; justify-content: center; align-items: center; font-size: 24px;
-        background: #f9fafb; color: #000000;
-        border: 1px solid #e5e7eb;
+        background: rgba(255, 255, 255, 0.5); color: #4c1d95;
+        border: 1px solid rgba(255, 255, 255, 0.8);
     }}
     
-    .metric-info h3 {{ margin: 0; font-size: 24px; color: #000000; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; }}
-    .metric-info p {{ margin: 0; font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }}
+    .metric-info h3 {{ margin: 0; font-size: 24px; color: #4c1d95 !important; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-text-fill-color: #4c1d95 !important; }}
+    .metric-info p {{ margin: 0; font-size: 12px; color: #6d28d9; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
 
-    /* KAD KANDUNGAN UTAMA (PUTIH BERSAMA BORDER KELABU CAIR) */
+    /* KAD KANDUNGAN UTAMA */
     .content-card {{
         background: #ffffff !important; 
         border-radius: 12px; padding: 30px; 
         border: 1px solid #e5e7eb;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         margin-bottom: 24px;
     }}
 
-    /* BUTANG KORPORAT / ESTETIK (WARNA HITAM) */
+    /* BUTANG - KEKAL WARNA PURPLE ASAL */
     .stButton > button, 
     button[kind="primary"], 
     button[kind="secondary"] {{
@@ -198,7 +198,7 @@ st.markdown(f"""
         letter-spacing: 0.5px;
         padding: 12px 28px !important;
         transition: all 0.3s ease;
-        background: #000000 !important;
+        background: #6d28d9 !important; /* Warna Purple */
         color: #ffffff !important;
         border: none !important;
     }}
@@ -206,8 +206,8 @@ st.markdown(f"""
     .stButton > button:hover, 
     button[kind="primary"]:hover, 
     button[kind="secondary"]:hover {{
-        background: #374151 !important;
-        color: #ffffff !important;
+        background: #5b21b6 !important; /* Darker Purple */
+        box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3) !important;
     }}
 
     /* GAYA BORANG & RUANG MASUKKAN (INPUT CONTROLS) */
@@ -219,14 +219,14 @@ st.markdown(f"""
         padding: 12px 16px !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 500;
-        transition: all 0.2s ease;
+        transition: border-color 0.2s ease;
     }}
     .stTextInput input:focus, .stNumberInput input:focus {{
-        border-color: #000000 !important;
-        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1) !important;
+        border-color: #6d28d9 !important;
+        box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.2) !important;
     }}
     
-    /* GAYA JADUAL MAKLUMAT (TABLE) KEMAS & MINIMALIS */
+    /* GAYA JADUAL MAKLUMAT (TABLE) */
     .table-container {{
         width: 100%; overflow-x: auto; border-radius: 8px;
         border: 1px solid #e5e7eb; margin-top: 15px;
@@ -237,9 +237,9 @@ st.markdown(f"""
         background-color: #ffffff;
     }}
     .styled-table thead tr {{
-        background: #f9fafb; 
-        color: #000000; text-align: left;
-        border-bottom: 2px solid #e5e7eb;
+        background: #f3e8ff; /* Light purple header */
+        color: #4c1d95; text-align: left;
+        border-bottom: 2px solid #d8b4fe;
     }}
     .styled-table th {{ 
         padding: 16px 24px; font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -248,23 +248,13 @@ st.markdown(f"""
     .styled-table td {{ 
         padding: 16px 24px; border-bottom: 1px solid #f3f4f6; color: #374151; font-weight: 500; 
     }}
-    .styled-table tbody tr {{ transition: background-color 0.2s ease; }}
-    .styled-table tbody tr:hover {{ background-color: #f9fafb; cursor: pointer; }}
+    .styled-table tbody tr:hover {{ background-color: #faf5ff; cursor: pointer; }}
 
-    /* LOGO DAN ELEMEN GRAFIK */
     .uitm-logo {{
         transition: transform 0.3s ease;
     }}
     .uitm-logo:hover {{
         transform: scale(1.03);
-    }}
-
-    /* TAJUK UTAMA "SISTEM PENGURUSAN REKOD KOLABORASI" */
-    .corp-text {{
-        color: #000000 !important;
-        -webkit-text-fill-color: #000000 !important;
-        font-weight: 800;
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -309,14 +299,13 @@ if not st.session_state.logged_in:
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         
         if auth == "Sesi Log Masuk Portal":
-            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #000000 !important;'>🔑 Log Masuk Keselamatan</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important;'>🔑 Log Masuk Keselamatan</h3>", unsafe_allow_html=True)
             username = st.text_input("Nama Pengguna Rasmi")
             password = st.text_input("Kata Laluan", type="password")
 
-            # Paparan pembantu akaun demo eksklusif
             st.markdown("""
-            <div style="background: #f9fafb; border-left: 3px solid #000000; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; color: #374151; border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
-                💡 <b>Sesi Percubaan Segera:</b> Gunakan Username: <code style="color:#000000; background:transparent;">admin</code> | Password: <code style="color:#000000; background:transparent;">admin</code>
+            <div style="background: #f9fafb; border-left: 3px solid #6d28d9; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; color: #374151; border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
+                💡 <b>Sesi Percubaan Segera:</b> Gunakan Username: <code>admin</code> | Password: <code>admin</code>
             </div>
             """, unsafe_allow_html=True)
 
@@ -333,7 +322,7 @@ if not st.session_state.logged_in:
                     st.error("Ralat: Kunci keselamatan atau nama pengguna tidak ditemui.")
 
         elif auth == "Daftar Akaun Kakitangan Baru":
-            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #000000 !important;'>📝 Daftar Akaun Staf</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important;'>📝 Daftar Akaun Staf</h3>", unsafe_allow_html=True)
             new_username = st.text_input("Nama Pengguna Dipilih")
             new_email = st.text_input("E-mel Rasmi UiTM (@uitm.edu.my)")
             new_password = st.text_input("Kata Laluan Selamat", type="password")
@@ -348,7 +337,7 @@ if not st.session_state.logged_in:
                     st.error("Ralat: Nama pengguna tersebut sudah berdaftar di dalam pangkalan data.")
 
         elif auth == "Tukar Kata Laluan Sedia Ada":
-            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important; color: #000000 !important;'>🔄 Kemaskini Kata Laluan</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='margin-bottom: 25px; font-size: 20px !important;'>🔄 Kemaskini Kata Laluan</h3>", unsafe_allow_html=True)
             email = st.text_input("Profil Alamat E-mel Berdaftar")
             new_password = st.text_input("Kata Laluan Baharu Pilihan", type="password")
 
@@ -370,7 +359,7 @@ if not st.session_state.logged_in:
 else:
     current_date = datetime.now().strftime("%d %B %Y")
 
-    # SIDEBAR UTAMA - TEMA BERSIH
+    # SIDEBAR
     st.sidebar.markdown(f"""
     <div style="text-align:center; margin-bottom: 30px; padding-top: 15px;">
         <img src="{UITM_LOGO_SRC}" class="uitm-logo" style="width:160px; margin-bottom:15px;" alt="UiTM Logo">
@@ -442,7 +431,7 @@ else:
         with col_date:
             st.markdown(f"""
             <div style='background: #ffffff; padding:14px 22px; border-radius:12px; border:1px solid #e5e7eb; display:flex; align-items:center; gap:15px; float:right; box-shadow: 0 2px 4px rgba(0,0,0,0.02);'>
-                <div style='background: #f9fafb; border: 1px solid #e5e7eb; color:#000000; width: 45px; height: 45px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size:22px;'>📅</div>
+                <div style='background: #f3e8ff; color:#6d28d9; width: 45px; height: 45px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size:22px;'>📅</div>
                 <div>
                     <div style='font-size:10px; color:#6b7280; font-weight:700; text-transform:uppercase; letter-spacing:1px;'>Tarikh Semasa</div>
                     <div style='font-size:15px; font-weight:800; color:#000000;'>{current_date}</div>
@@ -496,21 +485,21 @@ else:
         
         with col_chart1:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<h3 style='font-size: 20px; color:#000000; margin-bottom: 20px; font-weight:700;'>🌍 Pembahagian Mengikut Negara Rakan</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 20px; margin-bottom: 20px;'>🌍 Pembahagian Mengikut Negara Rakan</h3>", unsafe_allow_html=True)
             if total_records > 0:
                 country_chart = df["Negara"].value_counts().reset_index()
                 country_chart.columns = ["Negara", "Jumlah"]
-                fig1 = px.bar(country_chart, x="Negara", y="Jumlah", text_auto=True, 
-                              color_discrete_sequence=["#000000"])
+                # Biarkan warna chart asal (warna-warni)
+                fig1 = px.bar(country_chart, x="Negara", y="Jumlah", text_auto=True, color="Negara")
                 fig1.update_layout(
                     showlegend=False, 
                     margin=dict(t=10, b=10, l=0, r=0), 
                     height=320, 
                     plot_bgcolor="rgba(0,0,0,0)", 
                     paper_bgcolor="rgba(0,0,0,0)",
-                    font=dict(family="Inter", color="#000000"),
-                    xaxis=dict(gridcolor="#e5e7eb", title_font=dict(size=14), tickfont=dict(size=12)),
-                    yaxis=dict(gridcolor="#e5e7eb", title_font=dict(size=14), tickfont=dict(size=12))
+                    font=dict(family="Inter"),
+                    xaxis=dict(gridcolor="#e5e7eb"),
+                    yaxis=dict(gridcolor="#e5e7eb")
                 )
                 st.plotly_chart(fig1, use_container_width=True)
             else:
@@ -519,7 +508,7 @@ else:
 
         with col_chart2:
             st.markdown('<div class="content-card">', unsafe_allow_html=True)
-            st.markdown("<h3 style='font-size: 20px; color:#000000; margin-bottom: 20px; font-weight:700;'>📊 Agihan Mengikut Kategori Perjanjian</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 20px; margin-bottom: 20px;'>📊 Agihan Mengikut Kategori Perjanjian</h3>", unsafe_allow_html=True)
             
             if total_records > 0:
                 cat_data = df["Kategori"].value_counts().reindex(
@@ -528,14 +517,14 @@ else:
                 ).reset_index()
                 cat_data.columns = ["Kategori", "Jumlah"]
                 
-                fig2 = px.pie(cat_data, values="Jumlah", names="Kategori", hole=0.5, 
-                              color_discrete_sequence=["#000000", "#9ca3af"]) 
+                # Biarkan warna chart asal (warna-warni)
+                fig2 = px.pie(cat_data, values="Jumlah", names="Kategori", hole=0.5) 
                 
                 fig2.update_layout(
                     margin=dict(t=10, b=10, l=0, r=0), 
                     height=320,
                     paper_bgcolor="rgba(0,0,0,0)", 
-                    font=dict(family="Inter", color="#000000"),
+                    font=dict(family="Inter"),
                     legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5, font=dict(size=11))
                 )
                 st.plotly_chart(fig2, use_container_width=True)
@@ -544,7 +533,7 @@ else:
             st.markdown('</div>', unsafe_allow_html=True)
             
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
-        st.markdown("<h3 style='font-size: 20px; color:#000000; margin-bottom: 20px; font-weight:700;'>⚡ Log Aktiviti: 5 Rekod Pendaftaran Terkini</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size: 20px; margin-bottom: 20px;'>⚡ Log Aktiviti: 5 Rekod Pendaftaran Terkini</h3>", unsafe_allow_html=True)
         
         if len(df) > 0:
             st.markdown(f"""
