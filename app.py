@@ -157,27 +157,26 @@ st.markdown(f"""
     .metric-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }}
     
     .metric-card {{
-        padding: 24px; 
-        border-radius: 12px;
+        padding: 20px 24px; 
+        border-radius: 10px;
+        background: #ffffff;
         display: flex; align-items: center; gap: 16px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }}
     
     .metric-card:hover {{
-        transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     }}
     
     .metric-icon-box {{
-        width: 50px; height: 50px; border-radius: 10px;
-        display: flex; justify-content: center; align-items: center; font-size: 24px;
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.8);
+        width: 48px; height: 48px; border-radius: 12px;
+        display: flex; justify-content: center; align-items: center; font-size: 22px;
     }}
     
-    .metric-info h3 {{ margin: 0; font-size: 24px; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; }}
-    .metric-info p {{ margin: 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }}
+    .metric-info h3 {{ margin: 0; font-size: 22px; font-weight: 800; line-height: 1.2; font-family: 'Plus Jakarta Sans', sans-serif; color: #111827 !important; -webkit-text-fill-color: #111827 !important;}}
+    .metric-info p {{ margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px;}}
 
     /* KAD KANDUNGAN UTAMA */
     .content-card {{
@@ -283,10 +282,10 @@ if not st.session_state.logged_in:
         
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 35px;'>
-            <h1 class='corp-text' style='margin-bottom: 5px; font-size: 20px !important;'>
+            <h1 style='font-family: "Plus Jakarta Sans", sans-serif; margin-bottom: 5px; font-size: 17px !important; color: #374151 !important; font-weight: 800; letter-spacing: 1px;'>
                 SISTEM PENGURUSAN REKOD KOLABORASI 
             </h1>
-            <p style='color:#6b7280; font-size: 15px; margin-top: 0; font-weight: 700; letter-spacing: 1.5px;'>UiTM KAMPUS PERMATANG PAUH</p>
+            <p style='color:#6b7280; font-size: 13px; margin-top: 0; font-weight: 600; letter-spacing: 1.5px;'>UiTM KAMPUS PERMATANG PAUH</p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -443,39 +442,39 @@ else:
         total_category = 2 
         active_agreements = len(df)
 
-        # METRIK GRID WARNA-WARNI KINI DI APLIKASI DI SINI
+        # METRIK GRID KAD MENGIKUT REKA BENTUK GAMBAR RUJUKAN
         st.markdown(f"""
         <div class="metric-grid">
-            <!-- Kad 1: Biru -->
-            <div class="metric-card" style="background: linear-gradient(135deg, #d0efff 0%, #a2dffd 100%); border: 1px solid #7bcbf7;">
-                <div class="metric-icon-box" style="color: #0369a1;">📄</div>
+            <!-- Kad 1: Ungu -->
+            <div class="metric-card" style="border: 1px solid #e5e7eb; border-left: 4px solid #8b5cf6;">
+                <div class="metric-icon-box" style="background: #f5f3ff; color: #8b5cf6;">📄</div>
                 <div class="metric-info">
-                    <h3 style="color: #0c4a6e !important; -webkit-text-fill-color: #0c4a6e !important;">{total_records}</h3>
-                    <p style="color: #0284c7;">Jumlah Dokumen</p>
+                    <h3>{total_records}</h3>
+                    <p style="color: #7c3aed;">Jumlah Dokumen</p>
                 </div>
             </div>
-            <!-- Kad 2: Hijau -->
-            <div class="metric-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 1px solid #86efac;">
-                <div class="metric-icon-box" style="color: #15803d;">🌐</div>
+            <!-- Kad 2: Hijau Teal -->
+            <div class="metric-card" style="border: 1px solid #e5e7eb; border-left: 4px solid #10b981;">
+                <div class="metric-icon-box" style="background: #ecfdf5; color: #10b981;">🌐</div>
                 <div class="metric-info">
-                    <h3 style="color: #14532d !important; -webkit-text-fill-color: #14532d !important;">{total_country}</h3>
-                    <p style="color: #16a34a;">Negara Rakan</p>
+                    <h3>{total_country}</h3>
+                    <p style="color: #059669;">Negara Rakan</p>
                 </div>
             </div>
-            <!-- Kad 3: Oren / Kuning -->
-            <div class="metric-card" style="background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%); border: 1px solid #fdba74;">
-                <div class="metric-icon-box" style="color: #c2410c;">🤝</div>
+            <!-- Kad 3: Kuning Oren -->
+            <div class="metric-card" style="border: 1px solid #e5e7eb; border-left: 4px solid #f59e0b;">
+                <div class="metric-icon-box" style="background: #fffbeb; color: #f59e0b;">🤝</div>
                 <div class="metric-info">
-                    <h3 style="color: #7c2d12 !important; -webkit-text-fill-color: #7c2d12 !important;">{total_category}</h3>
-                    <p style="color: #ea580c;">Kategori Utama</p>
+                    <h3>{total_category}</h3>
+                    <p style="color: #d97706;">Kategori Utama</p>
                 </div>
             </div>
-            <!-- Kad 4: Merah Jambu / Purple -->
-            <div class="metric-card" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 1px solid #f9a8d4;">
-                <div class="metric-icon-box" style="color: #be185d;">📂</div>
+            <!-- Kad 4: Merah -->
+            <div class="metric-card" style="border: 1px solid #e5e7eb; border-left: 4px solid #ef4444;">
+                <div class="metric-icon-box" style="background: #fef2f2; color: #ef4444;">📂</div>
                 <div class="metric-info">
-                    <h3 style="color: #831843 !important; -webkit-text-fill-color: #831843 !important;">{active_agreements}</h3>
-                    <p style="color: #db2777;">Rekod Aktif</p>
+                    <h3>{active_agreements}</h3>
+                    <p style="color: #dc2626;">Rekod Aktif</p>
                 </div>
             </div>
         </div>
