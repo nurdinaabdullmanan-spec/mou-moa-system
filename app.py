@@ -282,7 +282,7 @@ if not st.session_state.logged_in:
         
         st.markdown("""
         <div style='text-align:center; width:100%; margin-bottom: 35px;'>
-            <h1 style='font-family: "Plus Jakarta Sans", sans-serif; margin-bottom: 5px; font-size: 17px !important; color: #374151 !important; font-weight: 800; letter-spacing: 1px;'>
+            <h1 style='font-family: "Plus Jakarta Sans", sans-serif; margin-bottom: 5px; font-size: 14px !important; color: #374151 !important; font-weight: 800; letter-spacing: 1px;'>
                 SISTEM PENGURUSAN REKOD KOLABORASI 
             </h1>
             <p style='color:#6b7280; font-size: 13px; margin-top: 0; font-weight: 600; letter-spacing: 1.5px;'>UiTM KAMPUS PERMATANG PAUH</p>
