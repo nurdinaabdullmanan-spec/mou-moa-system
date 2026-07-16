@@ -300,7 +300,7 @@ if not st.session_state.logged_in:
 
             st.markdown("""
             <div style="background: #f9fafb; border-left: 3px solid #6d28d9; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; color: #374151; border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
-                💡 <b>Sesi Percubaan Segera:</b> Gunakan Username: <code>admin</code> | Password: <code>admin</code>
+                💡 <b>Sesi Percubaan Segera:</b> Gunakan Username: <code>admin</code> | Password: <code>admin01</code>
             </div>
             """, unsafe_allow_html=True)
 
@@ -496,7 +496,7 @@ else:
                     y="Jumlah", 
                     text_auto=True, 
                     color="Negara",
-                    color_discrete_sequence=px.colors.qualitative.Pastel  # Menjamin warna terang dan berbeza
+                    color_discrete_sequence=px.colors.qualitative.Pastel  
                 )
                 
                 fig1.update_layout(
